@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace TowerDefencePractice.Turrets
 {
@@ -14,6 +15,8 @@ namespace TowerDefencePractice.Turrets
 
         // タレットの名前
         public string turretName;
+        // タレットのアイコン
+        public Sprite turretIcon;
 
         //---------------------------------------------------------
         // 射撃間隔
