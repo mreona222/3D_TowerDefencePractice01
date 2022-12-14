@@ -3,71 +3,81 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-using TowerDefencePractice.Turrets;
+using TowerDefencePractice.Constructable;
+using TowerDefencePractice.Constructable.Turrets;
+using TowerDefencePractice.Grids;
 
 namespace TowerDefencePractice.UIs
 {
     public class BattleUIController : MonoBehaviour
     {
         [SerializeField]
-        GameObject purchaseTurretPanel;
+        GameObject purchaseConstructablePanel;
         [SerializeField]
-        GameObject upgradeTurretPanel;
+        GameObject upgradeConstructablePanel;
 
         [SerializeField]
-        TurretData[] turretData;
+        ConstructableBoss constructableBoss;
 
         [SerializeField]
-        Transform newTurretList;
+        Transform newConstructableList;
         [SerializeField]
-        GameObject newTurretIconButton;
+        GameObject newConstructableIconButton;
+
+        [HideInInspector]
+        public int purchaseConstructableNumber = 0;
 
         public RaycastHit currentGridCell;
 
         private void Start()
         {
-            PurchaseTurretPanelInitialize();
+            PurchaseConstructablePanelInitialize();
         }
 
+        // -----------------------------------------------------------
+        // 建造可能物購入
+        // -----------------------------------------------------------
+
         /// <summary>
-        /// タレット購入画面初期化
+        /// 建造可能物購入画面初期化
         /// </summary>
-        void PurchaseTurretPanelInitialize()
+        void PurchaseConstructablePanelInitialize()
         {
-            if(turretData.Length!= System.Enum.GetValues(typeof(Turret)).Length)
+            for (int i = 0; i < constructableBoss.constructableSctiptbaleObject.Length; i++)
             {
-                Debug.LogError("タレット情報の数に間違いがあります。（BattleUIController）");
-            }
-
-            for(int i = 0; i < System.Enum.GetValues(typeof(Turret)).Length; i++)
-            {
-                GameObject newTurretIconButtonInstance = Instantiate(newTurretIconButton, newTurretList);
-                newTurretIconButtonInstance.GetComponentInChildren<Image>().sprite = turretData[i].turretIcon;
-                newTurretIconButtonInstance.GetComponentInChildren<Text>().text = turretData[i].turretName;
+                GameObject newConstructableIconButtonInstance = Instantiate(newConstructableIconButton, newConstructableList);
+                newConstructableIconButtonInstance.GetComponentInChildren<Image>().sprite = constructableBoss.constructableSctiptbaleObject[i].constructableIcon;
+                newConstructableIconButtonInstance.GetComponentInChildren<Text>().text = constructableBoss.constructableSctiptbaleObject[i].constructableName;
             }
         }
 
         /// <summary>
-        /// タレット購入画面有効化
+        /// 建造可能物購入画面有効化
         /// </summary>
-        public void PurchaseTurretPanelActivate()
+        public void PurchaseConstructablePanelActivate()
         {
-            purchaseTurretPanel.SetActive(true);
+            purchaseConstructablePanel.SetActive(true);
 
         }
 
         /// <summary>
-        /// タレット購入ボタン
+        /// 建造可能物購入ボタン
         /// </summary>
         public void PurchaseButton()
         {
-
+            currentGridCell.collider.GetComponent<GridCellController>().InstantiateConstructable(purchaseConstructableNumber);
         }
 
+        // -----------------------------------------------------------
+        // 建造可能物アップグレード
+        // -----------------------------------------------------------
 
-        public void UpgradeTurretPanelActivate()
+        /// <summary>
+        /// アップグレード画面有効化
+        /// </summary>
+        public void UpgradeConstructablePanelActivate()
         {
-            upgradeTurretPanel.SetActive(true);
+            upgradeConstructablePanel.SetActive(true);
         }
     }
 }

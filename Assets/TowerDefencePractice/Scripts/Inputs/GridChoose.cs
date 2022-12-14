@@ -146,14 +146,14 @@ namespace TowerDefencePractice.Inputs
                         {
                             if (Mouse.current.leftButton.wasReleasedThisFrame)
                             {
-                                if (!GCCon.turretExist)
+                                if (!GCCon.constructableExist)
                                 {
-                                    machine.battleUICon.PurchaseTurretPanelActivate();
-
+                                    machine.battleUICon.PurchaseConstructablePanelActivate();
+                                    machine.battleUICon.currentGridCell = machine.gridHit;
                                 }
                                 else
                                 {
-                                    machine.battleUICon.UpgradeTurretPanelActivate();
+                                    machine.battleUICon.UpgradeConstructablePanelActivate();
                                     machine.battleUICon.currentGridCell = machine.gridHit;
                                 }
                             }

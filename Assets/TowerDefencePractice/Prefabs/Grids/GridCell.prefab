@@ -115,12 +115,8 @@ MonoBehaviour:
   interactable: 1
   interactableParticle: {fileID: 2273560401080715336}
   uninteractableParticle: {fileID: 8569866498014106040}
-  turretExist: 0
-  TurretObj:
-  - {fileID: 3113747565330630701, guid: f1e458a8ce0af6742ad8f4a8a792d50b, type: 3}
-  - {fileID: 3113747565330630701, guid: f1e458a8ce0af6742ad8f4a8a792d50b, type: 3}
-  - {fileID: 3113747565330630701, guid: f1e458a8ce0af6742ad8f4a8a792d50b, type: 3}
-  - {fileID: 3113747565330630701, guid: f1e458a8ce0af6742ad8f4a8a792d50b, type: 3}
+  constructableExist: 0
+  constructableBoss: {fileID: 11400000, guid: a7dcab0d2a2f8114495f9653d714d680, type: 2}
 --- !u!1001 &1308467137266781103
 PrefabInstance:
   m_ObjectHideFlags: 0

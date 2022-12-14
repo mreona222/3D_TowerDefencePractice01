@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-using TowerDefencePractice.Turrets;
+using TowerDefencePractice.Constructable;
+using TowerDefencePractice.Constructable.Turrets;
 
 namespace TowerDefencePractice.Grids
 {
@@ -16,17 +17,14 @@ namespace TowerDefencePractice.Grids
         [SerializeField]
         ParticleSystem interactableParticle, uninteractableParticle;
 
-        public bool turretExist;
+        public bool constructableExist;
 
         [SerializeField]
-        GameObject[] TurretObj;
-
-
+        ConstructableBoss constructableBoss;
 
         /// <summary>
         /// グリッドをハイライト
         /// </summary>
-        /// <param name="hit">GridのRaycastHit情報</param>
         public void GridBrighten()
         {
             // インタラクト可能なとき
@@ -57,12 +55,12 @@ namespace TowerDefencePractice.Grids
         }
 
         /// <summary>
-        /// タレットを生成する
+        /// 建造可能物を生成する
         /// </summary>
-        public void InstantiateTurret(Turret turret)
+        public void InstantiateConstructable(int constructable)
         {
-            GameObject TurretInstance = Instantiate(TurretObj[(int)turret], transform.position + new Vector3(0, transform.localScale.y / 2, 0), transform.rotation, transform);
-            turretExist = true;
+            constructableBoss.constructableSctiptbaleObject[constructable].constructablePrefab.GetComponent<IConstructable>().InstantiateConstructable(transform);
+            constructableExist = true;
         }
     }
 }
