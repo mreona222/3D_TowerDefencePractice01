@@ -16,7 +16,9 @@ namespace TowerDefencePractice.Constructable.Turrets
 
         void FireAnimation()
         {
-            Instantiate(fireEffect, firePointTransform[nextFirePoint % firePointTransform.Length].position, firePointTransform[nextFirePoint % firePointTransform.Length].rotation);
+            ParticleSystem fireEffectInstance =
+                Instantiate(fireEffect, firePointTransform[nextFirePoint % firePointTransform.Length].position, firePointTransform[nextFirePoint % firePointTransform.Length].rotation);
+            fireEffectInstance.transform.localScale = Vector3.Scale(fireEffectInstance.transform.localScale, transform.parent.localScale);
             nextFirePoint++;
         }
     }

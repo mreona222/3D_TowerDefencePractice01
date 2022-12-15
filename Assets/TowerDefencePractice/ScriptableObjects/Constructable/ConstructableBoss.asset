@@ -15,3 +15,4 @@ MonoBehaviour:
   constructableSctiptbaleObject:
   - {fileID: 11400000, guid: 71e224e9b00c2b5478dd9f4f7254ce10, type: 2}
   - {fileID: 11400000, guid: 2b1ed97779b803945835b85ded13370f, type: 2}
+  - {fileID: 11400000, guid: 1456e197ccdfe764baeb62b601b720d6, type: 2}

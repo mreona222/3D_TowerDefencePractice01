@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace States
+namespace Utilities.States
 {
 	public class StateBase<T> where T : StateMachineBase<T>
 	{

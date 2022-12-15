@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace States
+namespace Utilities.States
 {
 	public class StateMachineBase<T> : MonoBehaviour where T : StateMachineBase<T>
 	{
