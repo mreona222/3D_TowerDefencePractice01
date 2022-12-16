@@ -55,7 +55,10 @@ namespace TowerDefencePractice.Character.Enemies
             {
                 StartDieState();
             }
-            StartDamageState();
+            else
+            {
+                StartDamageState();
+            }
         }
     }
 }

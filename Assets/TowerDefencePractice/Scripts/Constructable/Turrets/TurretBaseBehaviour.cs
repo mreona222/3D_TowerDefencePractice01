@@ -26,7 +26,8 @@ namespace TowerDefencePractice.Constructable.Turrets
         // 現在の射撃間隔[s/times]
         public float fireRateCurrent;
         // 射撃可能
-        protected bool canShoot;
+        [HideInInspector]
+        public bool canShoot;
 
 
         // タレットのアニメーター
@@ -51,25 +52,74 @@ namespace TowerDefencePractice.Constructable.Turrets
 
             turretAnimator = GetComponent<Animator>();
 
-
             fireRateCurrentLevel = 1.0f;
             fireRateCurrent = turretData.fireRateBase;
             canShoot = true;
         }
+
+        protected virtual void Update()
+        {
+
+        }
+
+
+        // ---------------------------------------------------------------------------------
+        // タレット生成
+        // ---------------------------------------------------------------------------------
 
         GameObject IConstructable.InstantiateConstructable(Transform gridCell)
         {
             return Instantiate(turretData.constructablePrefab, gridCell.position + new Vector3(0, gridCell.localScale.y / 2, 0), gridCell.rotation, gridCell);
         }
 
-        
-        protected abstract void Fire();
 
+
+        // ---------------------------------------------------------------------------------
+        // 発射関係
+        // ---------------------------------------------------------------------------------
+
+        /// <summary>
+        /// 発射
+        /// </summary>
+        public void Fire()
+        {
+            // 射撃アニメーション
+            turretAnimator.SetTrigger("Shoot");
+
+            // 弾の生成
+            Transform fPTransform = firePointTransform[nextPoint % firePointTransform.Length];
+            nextPoint++;
+            GetComponent<TurretFireAnimation>().firePointTransform = fPTransform;
+
+            GameObject bulletInstance = Instantiate(bullet, fPTransform.position, fPTransform.rotation * bullet.transform.rotation);
+            bulletInstance.GetComponent<Bullets.BulletBehaviourBase>().parentTurret = transform;
+
+            // 連射禁止
+            StartCoroutine(FireStroke());
+        }
+
+        IEnumerator FireStroke()
+        {
+            // 連射禁止
+            canShoot = false;
+
+            yield return new WaitForSeconds(fireRateCurrent);
+            canShoot = true;
+        }
+
+
+
+        // ---------------------------------------------------------------------------------
+        // 回転
+        // ---------------------------------------------------------------------------------
 
         public void LookTarget(Vector3 position)
         {
             Vector3 targetPosition = new Vector3(position.x, transform.position.y, position.z);
             transform.rotation = Quaternion.LookRotation(targetPosition - transform.position, transform.up);
         }
+
+
+
     }
 }

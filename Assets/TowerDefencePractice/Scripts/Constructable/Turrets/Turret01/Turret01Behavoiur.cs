@@ -11,52 +11,9 @@ namespace TowerDefencePractice.Constructable.Turrets
             base.Start();
         }
 
-        private void Update()
+        protected override void Update()
         {
-            if (canShoot)
-            {
-                Fire();
-            }
-        }
-
-        // ---------------------------------------------------------------------------------
-        // 発射関係
-        // ---------------------------------------------------------------------------------
-
-        /// <summary>
-        /// 発射
-        /// </summary>
-        protected override void Fire()
-        {
-            // 射撃アニメーション
-            turretAnimator.SetTrigger("Shoot");
-
-            // 弾の生成
-            Transform fPTransform = firePointTransform[nextPoint % firePointTransform.Length];
-            nextPoint++;
-            GetComponent<TurretFireAnimation>().firePointTransform = fPTransform;
-            Instantiate(bullet, fPTransform.position, fPTransform.rotation * bullet.transform.rotation);
-
-            // 連射禁止
-            StartCoroutine(FireStroke());
-        }
-
-        IEnumerator FireStroke()
-        {
-            // 連射禁止
-            canShoot = false;
-
-            yield return new WaitForSeconds(fireRateCurrent);
-            canShoot = true;
-        }
-
-        // ---------------------------------------------------------------------------------
-        // ターゲット
-        // ---------------------------------------------------------------------------------
-
-        protected void ChangeTarget()
-        {
-
+            base.Update();
         }
     }
 }

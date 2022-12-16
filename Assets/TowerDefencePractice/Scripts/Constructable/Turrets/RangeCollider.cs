@@ -2,13 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+using TowerDefencePractice.Damages;
+
 namespace TowerDefencePractice.Constructable.Turrets
 {
     public class RangeCollider : MonoBehaviour
     {
         TurretBaseBehaviour turretBaseBehaviour;
 
-        // Start is called before the first frame update
         void Start()
         {
             turretBaseBehaviour = GetComponentInParent<TurretBaseBehaviour>();
@@ -20,12 +21,23 @@ namespace TowerDefencePractice.Constructable.Turrets
 
         }
 
+
+        // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        // 発射のスクリプトを書く
+        // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+
+
+
         private void OnTriggerStay(Collider other)
         {
-            if (other.GetComponent<TowerDefencePractice.Damages.IDamageApplicable>() != null)
+            if (turretBaseBehaviour.canShoot)
             {
-                turretBaseBehaviour.LookTarget(other.transform.position);
+                turretBaseBehaviour.Fire();
             }
+            turretBaseBehaviour.LookTarget(other.transform.position);
         }
     }
 }
