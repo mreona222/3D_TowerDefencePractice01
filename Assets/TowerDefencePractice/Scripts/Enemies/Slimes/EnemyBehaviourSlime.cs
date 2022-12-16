@@ -111,6 +111,7 @@ namespace TowerDefencePractice.Character.Enemies
                 machine.animator.SetInteger("SlimeState", (int)SlimeState.Damage);
 
                 machine.StartCoroutine(Stan());
+                Debug.Log("a");
             }
 
             IEnumerator Stan()

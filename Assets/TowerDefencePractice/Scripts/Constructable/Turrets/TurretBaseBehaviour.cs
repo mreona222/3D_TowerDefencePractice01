@@ -36,6 +36,15 @@ namespace TowerDefencePractice.Constructable.Turrets
         AnimationClip turretFireAnimationClip;
 
 
+        // 弾のプレハブ
+        [SerializeField]
+        protected GameObject bullet;
+        // 弾の発射位置
+        public Transform[] firePointTransform = null;
+        // 次の発射位置
+        protected int nextPoint = 0;
+
+
         protected virtual void Start()
         {
             turretID = System.Guid.NewGuid();
@@ -53,6 +62,14 @@ namespace TowerDefencePractice.Constructable.Turrets
             return Instantiate(turretData.constructablePrefab, gridCell.position + new Vector3(0, gridCell.localScale.y / 2, 0), gridCell.rotation, gridCell);
         }
 
+        
         protected abstract void Fire();
+
+
+        public void LookTarget(Vector3 position)
+        {
+            Vector3 targetPosition = new Vector3(position.x, transform.position.y, position.z);
+            transform.rotation = Quaternion.LookRotation(targetPosition - transform.position, transform.up);
+        }
     }
 }

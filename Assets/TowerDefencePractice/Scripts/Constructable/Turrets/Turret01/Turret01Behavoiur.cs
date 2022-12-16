@@ -32,7 +32,10 @@ namespace TowerDefencePractice.Constructable.Turrets
             turretAnimator.SetTrigger("Shoot");
 
             // íeÇÃê∂ê¨
-
+            Transform fPTransform = firePointTransform[nextPoint % firePointTransform.Length];
+            nextPoint++;
+            GetComponent<TurretFireAnimation>().firePointTransform = fPTransform;
+            Instantiate(bullet, fPTransform.position, fPTransform.rotation * bullet.transform.rotation);
 
             // òAéÀã÷é~
             StartCoroutine(FireStroke());
