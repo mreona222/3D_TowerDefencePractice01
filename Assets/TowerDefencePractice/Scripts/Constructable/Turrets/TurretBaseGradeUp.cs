@@ -47,7 +47,7 @@ namespace TowerDefencePractice.Constructable.Turrets
             // 発射間隔の計算
             turretBehaviour.fireRateCurrent = FireRateCalculate();
 
-            // コメントアウト予定
+            // ********************コメントアウト予定***************************
             // ---------------------------------------------------------------------------------------------
             Debug.Log($"タレットID[{ turretBehaviour.turretID }]の射撃間隔をレベルアップしました。\n" +
                 $"現在の発射間隔レベルは{ turretBehaviour.fireRateCurrentLevel }、射撃間隔は{ turretBehaviour.fireRateCurrent }[/s]です。");

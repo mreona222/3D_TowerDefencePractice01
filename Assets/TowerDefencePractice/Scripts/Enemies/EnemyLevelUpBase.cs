@@ -11,26 +11,34 @@ namespace TowerDefencePractice.Character.Enemies
         protected virtual void Start()
         {
             enemyBehaviour = GetComponent<EnemyBehaviourBase>();
-            EnemyHPLevelUp();
-            EnemySpeedLevelUp();
+            enemyBehaviour.currentHP = EnemyHPLevelUp();
+            enemyBehaviour.currentSpeed = EnemySpeedLevelUp();
             StartCoroutine(StartWalkCoroutine());
 
         }
         IEnumerator StartWalkCoroutine()
         {
             yield return null;
-            enemyBehaviour.StartWalk();
+            enemyBehaviour.StartWalkState();
         }
 
 
-        protected virtual void EnemyHPLevelUp()
+        protected virtual float EnemyHPLevelUp()
         {
-
+            return 0;
         }
 
-        protected virtual void EnemySpeedLevelUp()
+        protected virtual float EnemySpeedLevelUp()
         {
-
+            if (enemyBehaviour.currentLevel <= enemyBehaviour.enemyData.characterSpeedMaxLevel)
+            {
+                return enemyBehaviour.enemyData.characterSpeedBase +
+                    (enemyBehaviour.enemyData.characterSpeedMax - enemyBehaviour.enemyData.characterSpeedBase) * enemyBehaviour.currentLevel / enemyBehaviour.enemyData.characterSpeedMaxLevel;
+            }
+            else
+            {
+                return enemyBehaviour.enemyData.characterSpeedMax;
+            }
         }
     }
 }

@@ -13,5 +13,10 @@ MonoBehaviour:
   m_Name: Slime
   m_EditorClassIdentifier: 
   characterName: Slime
-  charcterHPBase: 100
-  charcterSpeedBase: 1
+  characterLevelMax: Infinity
+  characterHPBase: 100
+  characterHPMax: Infinity
+  characterHPMaxLevel: Infinity
+  characterSpeedBase: 1
+  characterSpeedMax: 3
+  characterSpeedMaxLevel: 100
