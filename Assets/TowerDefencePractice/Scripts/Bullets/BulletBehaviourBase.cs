@@ -14,36 +14,18 @@ namespace TowerDefencePractice.Bullets
         [HideInInspector]
         public Transform parentTurret;
 
+        [HideInInspector]
+        public Collider target;
+
         // Start is called before the first frame update
         void Start()
         {
             BaseMovement();
+            StartCoroutine(BulletDestroy());
         }
 
         public abstract void BaseMovement();
 
-        public void BulletDestroy()
-        {
-            Destroy(gameObject);
-        }
-
-
-        private void OnTriggerEnter(Collider other)
-        {
-            IDamageApplicable damageApp = other.GetComponent<IDamageApplicable>();
-            if (damageApp != null)
-            {
-                damageApp.DamageApplicate(1.0f, 1.0f);
-                BulletDestroy();
-            }
-        }
-
-        private void OnTriggerExit(Collider other)
-        {
-            if (other.transform.parent == parentTurret)
-            {
-                BulletDestroy();
-            }
-        }
+        public abstract IEnumerator BulletDestroy();
     }
 }

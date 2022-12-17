@@ -19,13 +19,14 @@ namespace TowerDefencePractice.Character.Enemies
         IEnumerator StartWalkCoroutine()
         {
             yield return null;
+            enemyBehaviour.EnemyInitialize();
             enemyBehaviour.StartWalkState();
         }
 
 
         protected virtual float EnemyHPLevelUp()
         {
-            return 0;
+            return 2;
         }
 
         protected virtual float EnemySpeedLevelUp()

@@ -27,22 +27,34 @@ namespace TowerDefencePractice.Character.Enemies
 
         public override void StartWalkState()
         {
-            ChangeState(new EnemyBehaviourSlime.Walk(this));
+            if (currentSlimeState != SlimeState.Die || currentSlimeState != SlimeState.Damage || currentSlimeState != SlimeState.ReachGoal)
+            {
+                ChangeState(new EnemyBehaviourSlime.Walk(this));
+            }
         }
 
         public override void StartDamageState()
         {
-            ChangeState(new EnemyBehaviourSlime.Damage(this));
+            if (currentSlimeState != SlimeState.Die || currentSlimeState != SlimeState.Damage)
+            {
+                ChangeState(new EnemyBehaviourSlime.Damage(this));
+            }
         }
 
         public override void StartDieState()
         {
-            ChangeState(new EnemyBehaviourSlime.Die(this));
+            if (currentSlimeState != SlimeState.Die)
+            {
+                ChangeState(new EnemyBehaviourSlime.Die(this));
+            }
         }
 
         public override void StartReachGoal()
         {
-            ChangeState(new EnemyBehaviourSlime.ReachGoal(this));
+            if (currentSlimeState != SlimeState.Die || currentSlimeState != SlimeState.ReachGoal)
+            {
+                ChangeState(new EnemyBehaviourSlime.ReachGoal(this));
+            }
         }
 
 
@@ -60,13 +72,16 @@ namespace TowerDefencePractice.Character.Enemies
             {
                 machine.GetComponent<EnemyBehaviourSlime>().currentSlimeState = SlimeState.Idle;
                 machine.animator.SetInteger("SlimeState", (int)SlimeState.Idle);
+                machine.animator.speed = 1.0f;
             }
 
             public override void OnUpdate()
             {
-
+                
             }
         }
+
+
 
 
 
@@ -86,11 +101,18 @@ namespace TowerDefencePractice.Character.Enemies
 
                 machine.navMeshAgent.isStopped = false;
                 machine.navMeshAgent.SetDestination(machine.goalPoint.transform.position);
+                machine.animator.speed *= machine.navMeshAgent.speed / 4.0f + 0.75f;
             }
 
             public override void OnUpdate()
             {
-                
+                Vector3 toword = machine.navMeshAgent.steeringTarget - machine.transform.position;
+                toword = new Vector3(toword.x, 0, toword.z);
+                if (toword.magnitude > 0.1f)
+                {
+                    machine.navMeshAgent.velocity = toword.normalized * machine.navMeshAgent.speed;
+                    machine.transform.rotation = Quaternion.Slerp(machine.transform.rotation, Quaternion.LookRotation(toword, machine.transform.up), 1.0f * Time.deltaTime);
+                }
             }
         }
 
@@ -105,18 +127,39 @@ namespace TowerDefencePractice.Character.Enemies
             {
             }
 
+
             public override void OnEnter()
             {
+                SlimeState prevState = ((EnemyBehaviourSlime)machine).currentSlimeState;
                 machine.GetComponent<EnemyBehaviourSlime>().currentSlimeState = SlimeState.Damage;
                 machine.animator.SetInteger("SlimeState", (int)SlimeState.Damage);
+                machine.animator.speed = 1.0f;
 
-                machine.StartCoroutine(Stan());
+                machine.StartCoroutine(Stan(prevState));
             }
 
-            IEnumerator Stan()
+            IEnumerator Stan(SlimeState _prevState)
             {
                 yield return new WaitForSeconds(machine.stanTime);
-                machine.ChangeState(new EnemyBehaviourSlime.Walk(machine));
+                // 元のステートに戻る
+                switch (_prevState)
+                {
+                    case SlimeState.Idle:
+                        machine.ChangeState(new EnemyBehaviourSlime.Idle(machine));
+                        break;
+                    case SlimeState.Walk:
+                        machine.ChangeState(new EnemyBehaviourSlime.Walk(machine));
+                        break;
+                    case SlimeState.Damage:
+                        machine.ChangeState(new EnemyBehaviourSlime.Damage(machine));
+                        break;
+                    case SlimeState.Die:
+                        machine.ChangeState(new EnemyBehaviourSlime.Die(machine));
+                        break;
+                    case SlimeState.ReachGoal:
+                        machine.ChangeState(new EnemyBehaviourSlime.ReachGoal(machine));
+                        break;
+                }
             }
         }
 
@@ -135,6 +178,7 @@ namespace TowerDefencePractice.Character.Enemies
             {
                 machine.GetComponent<EnemyBehaviourSlime>().currentSlimeState = SlimeState.Die;
                 machine.animator.SetInteger("SlimeState", (int)SlimeState.Die);
+                machine.animator.speed = 1.0f;
 
                 machine.navMeshAgent.isStopped = true;
                 machine.StartCoroutine(DieAnimation());
@@ -162,6 +206,7 @@ namespace TowerDefencePractice.Character.Enemies
             {
                 machine.GetComponent<EnemyBehaviourSlime>().currentSlimeState = SlimeState.ReachGoal;
                 machine.animator.SetInteger("SlimeState", (int)SlimeState.ReachGoal);
+                machine.animator.speed = 1.0f;
 
                 machine.navMeshAgent.isStopped = true;
                 machine.StartCoroutine(IntoGoal());

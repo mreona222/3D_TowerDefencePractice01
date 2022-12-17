@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+using TowerDefencePractice.Damages;
+using TowerDefencePractice.Bullets;
+
 namespace TowerDefencePractice.Constructable.Turrets
 {
     public enum Turret
@@ -28,6 +31,17 @@ namespace TowerDefencePractice.Constructable.Turrets
         // 射撃可能
         [HideInInspector]
         public bool canShoot;
+        // ロックオン完了
+        [HideInInspector]
+        public bool lockon;
+
+        // 現在の攻撃レベル
+        public float firePowerCurrentLevel;
+        // 現在の攻撃力
+        public float firePowerCurrent;
+        // スタン時間
+        public float stanTime;
+
 
 
         // タレットのアニメーター
@@ -81,7 +95,7 @@ namespace TowerDefencePractice.Constructable.Turrets
         /// <summary>
         /// 発射
         /// </summary>
-        public void Fire()
+        public void Fire(Collider target)
         {
             // 射撃アニメーション
             turretAnimator.SetTrigger("Shoot");
@@ -92,7 +106,12 @@ namespace TowerDefencePractice.Constructable.Turrets
             GetComponent<TurretFireAnimation>().firePointTransform = fPTransform;
 
             GameObject bulletInstance = Instantiate(bullet, fPTransform.position, fPTransform.rotation * bullet.transform.rotation);
-            bulletInstance.GetComponent<Bullets.BulletBehaviourBase>().parentTurret = transform;
+            bulletInstance.transform.localScale = Vector3.Scale(bulletInstance.transform.localScale, transform.parent.localScale);
+            bulletInstance.GetComponent<BulletBehaviourBase>().parentTurret = transform;
+            bulletInstance.GetComponent<BulletBehaviourBase>().target = target;
+
+            //// ダメージを与える
+            target.GetComponent<IDamageApplicable>().DamageApplicate(firePowerCurrent, stanTime);
 
             // 連射禁止
             StartCoroutine(FireStroke());
@@ -108,7 +127,6 @@ namespace TowerDefencePractice.Constructable.Turrets
         }
 
 
-
         // ---------------------------------------------------------------------------------
         // 回転
         // ---------------------------------------------------------------------------------
@@ -116,7 +134,8 @@ namespace TowerDefencePractice.Constructable.Turrets
         public void LookTarget(Vector3 position)
         {
             Vector3 targetPosition = new Vector3(position.x, transform.position.y, position.z);
-            transform.rotation = Quaternion.LookRotation(targetPosition - transform.position, transform.up);
+            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(targetPosition - transform.position, transform.up), 10.0f * Time.deltaTime);
+            lockon = Vector3.Angle(transform.forward, targetPosition - transform.position) < 10.0f;
         }
 
 

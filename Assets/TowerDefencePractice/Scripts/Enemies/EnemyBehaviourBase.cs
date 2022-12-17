@@ -17,6 +17,7 @@ namespace TowerDefencePractice.Character.Enemies
 
         }
 
+
         public CharacterData enemyData;
 
         public float currentSpeed;
@@ -37,6 +38,11 @@ namespace TowerDefencePractice.Character.Enemies
 
         }
 
+        public void EnemyInitialize()
+        {
+            navMeshAgent.speed = currentSpeed;
+        }
+
         public abstract void StartWalkState();
 
         public abstract void StartDamageState();
@@ -51,7 +57,7 @@ namespace TowerDefencePractice.Character.Enemies
             currentHP -= _damage;
             stanTime = _stanTime;
 
-            if (currentHP < 0)
+            if (currentHP <= 0)
             {
                 StartDieState();
             }

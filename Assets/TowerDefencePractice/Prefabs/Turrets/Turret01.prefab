@@ -288,6 +288,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f01c7149e6ddb9e4ca698344cba327d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  targetList: []
 --- !u!1 &3113620565534089614
 GameObject:
   m_ObjectHideFlags: 0
@@ -612,6 +613,9 @@ MonoBehaviour:
   fireRateCurrentLevel: 0
   fireRateCurrent: 0
   canShoot: 0
+  firePowerCurrentLevel: 0
+  firePowerCurrent: 1
+  stanTime: 0.1
   turretFireAnimationClip: {fileID: 7400000, guid: 45934da02ac2fc744a6ebec1af320bec, type: 2}
   bullet: {fileID: 3204632571562781302, guid: 523ee0a8eb543c64496682eae6f0d221, type: 3}
   firePointTransform:
