@@ -95,7 +95,8 @@ namespace TowerDefencePractice.Character.Enemies
 
                 machine.navMeshAgent.isStopped = false;
                 machine.navMeshAgent.SetDestination(machine.goalPoint.transform.position);
-                machine.animator.speed *= machine.navMeshAgent.speed / 4.0f + 0.75f;
+                machine.animator.speed = 2 * machine.currentLevel / (machine.enemyData.characterSpeedMaxLevel - 1)
+                    + (machine.enemyData.characterSpeedMaxLevel - 3) / (machine.enemyData.characterSpeedMaxLevel - 1);
             }
 
             public override void OnUpdate()

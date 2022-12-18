@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace TowerDefencePractice.Character.Enemies
+namespace TowerDefencePractice.Character
 {
     [CreateAssetMenu(menuName = "My Scriptable/Create CharacterData")]
 
@@ -14,6 +14,13 @@ namespace TowerDefencePractice.Character.Enemies
 
         // キャラクターの名前
         public string characterName;
+        // キャラクターのタイプ
+        public enum CharacterType
+        {
+            Enemies,
+
+        }
+        public CharacterType characterType;
 
 
         // ------------------------------------------------------

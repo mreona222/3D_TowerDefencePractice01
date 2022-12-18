@@ -39,6 +39,7 @@ namespace TowerDefencePractice.Spawner
         public void SpawnCharacter(float level, EnemyBehaviourBase.Enemies character, GameObject goal)
         {
             GameObject _character = Instantiate(characterPrefab[(int)character], transform.position, transform.rotation);
+            _character.transform.localScale = Vector3.Scale(_character.transform.localScale, transform.parent.localScale);
             if (_character.TryGetComponent<EnemyBehaviourBase>(out EnemyBehaviourBase enemy))
             {
                 enemy.currentLevel = level;

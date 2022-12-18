@@ -32,9 +32,9 @@ namespace TowerDefencePractice.Managers
         }
 
         static SpawnTimeTable[] wave ={
-                new SpawnTimeTable { time = 1, level = 10, character = EnemyBehaviourBase.Enemies.Slime },
-                new SpawnTimeTable { time = 5, level = 11, character = EnemyBehaviourBase.Enemies.Slime },
-                new SpawnTimeTable { time = 10, level = 12, character = EnemyBehaviourBase.Enemies.Slime },
+                new SpawnTimeTable { time = 1, level = 1, character = EnemyBehaviourBase.Enemies.Slime },
+                new SpawnTimeTable { time = 5, level = 30, character = EnemyBehaviourBase.Enemies.Slime },
+                new SpawnTimeTable { time = 10, level = 100, character = EnemyBehaviourBase.Enemies.Slime },
             };
 
 

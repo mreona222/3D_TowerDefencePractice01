@@ -12,7 +12,7 @@ namespace TowerDefencePractice.Bullets
         /// </summary>
         public override void BaseMovement()
         {
-            GetComponent<Rigidbody>().velocity = -transform.up * 50.0f;
+            GetComponent<Rigidbody>().velocity = -transform.up * 500.0f;
         }
 
 
