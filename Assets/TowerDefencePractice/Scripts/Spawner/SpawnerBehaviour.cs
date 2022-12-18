@@ -9,35 +9,41 @@ namespace TowerDefencePractice.Spawner
 {
     public class SpawnerBehaviour : MonoBehaviour
     {
+
+        // ***********************************************************************************
         [SerializeField]
-        GameObject slime;
+        GameObject g;
+
+        private void Update()
+        {
+            if (UnityEngine.InputSystem.Keyboard.current.rKey.wasPressedThisFrame)
+            {
+                SpawnCharacter(1, EnemyBehaviourBase.Enemies.Slime, g);
+            }
+        }
+        // ***********************************************************************************
 
         [SerializeField]
-        GameObject goal;
+        GameObject[] characterPrefab;
 
         private void Start()
         {
-            StartCoroutine(a());
-        }
-
-
-        IEnumerator a()
-        {
-            while (true)
+            if (System.Enum.GetValues(typeof(EnemyBehaviourBase.Enemies)).Length != characterPrefab.Length)
             {
-                yield return new WaitForSeconds(3.0f);
-                SpawnCharacter(slime, 10.0f);
+                Debug.LogError("Spawnerに登録されている敵の数が間違っています。");
             }
         }
 
+
         // キャラクタースポーン
-        private void SpawnCharacter(GameObject character, float level)
+        public void SpawnCharacter(float level, EnemyBehaviourBase.Enemies character, GameObject goal)
         {
-            GameObject _character = Instantiate(character, transform.position, transform.rotation);
+            GameObject _character = Instantiate(characterPrefab[(int)character], transform.position, transform.rotation);
             if (_character.TryGetComponent<EnemyBehaviourBase>(out EnemyBehaviourBase enemy))
             {
                 enemy.currentLevel = level;
                 enemy.goalPoint = goal;
+                enemy.GetComponent<EnemyLevelUpBase>().Initialize();
             }
         }
     }

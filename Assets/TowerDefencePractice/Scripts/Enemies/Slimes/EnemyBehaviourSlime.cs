@@ -24,15 +24,6 @@ namespace TowerDefencePractice.Character.Enemies
             ChangeState(new EnemyBehaviourSlime.Idle(this));
         }
 
-
-        public override void StartWalkState()
-        {
-            if (currentSlimeState != SlimeState.Die || currentSlimeState != SlimeState.Damage || currentSlimeState != SlimeState.ReachGoal)
-            {
-                ChangeState(new EnemyBehaviourSlime.Walk(this));
-            }
-        }
-
         public override void StartDamageState()
         {
             if (currentSlimeState != SlimeState.Die || currentSlimeState != SlimeState.Damage)
@@ -73,11 +64,14 @@ namespace TowerDefencePractice.Character.Enemies
                 machine.GetComponent<EnemyBehaviourSlime>().currentSlimeState = SlimeState.Idle;
                 machine.animator.SetInteger("SlimeState", (int)SlimeState.Idle);
                 machine.animator.speed = 1.0f;
+
+                machine.StartCoroutine(Ready(1.0f));
             }
 
-            public override void OnUpdate()
+            IEnumerator Ready(float seconds)
             {
-                
+                yield return new WaitForSeconds(seconds);
+                machine.ChangeState(new EnemyBehaviourSlime.Walk(machine));
             }
         }
 
@@ -107,11 +101,11 @@ namespace TowerDefencePractice.Character.Enemies
             public override void OnUpdate()
             {
                 Vector3 toword = machine.navMeshAgent.steeringTarget - machine.transform.position;
-                toword = new Vector3(toword.x, 0, toword.z);
                 if (toword.magnitude > 0.1f)
                 {
                     machine.navMeshAgent.velocity = toword.normalized * machine.navMeshAgent.speed;
-                    machine.transform.rotation = Quaternion.Slerp(machine.transform.rotation, Quaternion.LookRotation(toword, machine.transform.up), 1.0f * Time.deltaTime);
+                    toword = new Vector3(toword.x, 0, toword.z);
+                    machine.transform.rotation = Quaternion.Slerp(machine.transform.rotation, Quaternion.LookRotation(toword, machine.transform.up), 10.0f * Time.deltaTime);
                 }
             }
         }

@@ -13,7 +13,8 @@ namespace TowerDefencePractice.Character.Enemies
     {
         public enum Enemies
         {
-            slime,
+            Slime,
+            ShellSilme
 
         }
 
@@ -38,13 +39,6 @@ namespace TowerDefencePractice.Character.Enemies
 
         }
 
-        public void EnemyInitialize()
-        {
-            navMeshAgent.speed = currentSpeed;
-        }
-
-        public abstract void StartWalkState();
-
         public abstract void StartDamageState();
 
         public abstract void StartDieState();
@@ -64,6 +58,14 @@ namespace TowerDefencePractice.Character.Enemies
             else
             {
                 StartDamageState();
+            }
+        }
+
+        private void OnTriggerEnter(Collider other)
+        {
+            if (other.tag == "Finish")
+            {
+                StartReachGoal();
             }
         }
     }
