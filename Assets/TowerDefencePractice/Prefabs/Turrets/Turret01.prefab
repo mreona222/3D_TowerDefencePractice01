@@ -59,7 +59,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.25098038, g: 0.518526, b: 1, a: 0.5019608}
+  m_Color: {r: 0.25098038, g: 0.518526, b: 1, a: 0.2784314}
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -206,7 +206,7 @@ Transform:
   m_GameObject: {fileID: 2084907478}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 10, y: 10, z: 10}
+  m_LocalScale: {x: 7, y: 7, z: 7}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 684320205}
@@ -616,7 +616,7 @@ MonoBehaviour:
   lockon: 0
   firePowerCurrentLevel: 0
   firePowerCurrent: 1
-  stanTime: 0.1
+  stanTime: 0
   turretFireAnimationClip: {fileID: 7400000, guid: 45934da02ac2fc744a6ebec1af320bec, type: 2}
   bullet: {fileID: 3204632571562781302, guid: 523ee0a8eb543c64496682eae6f0d221, type: 3}
   firePointTransform:

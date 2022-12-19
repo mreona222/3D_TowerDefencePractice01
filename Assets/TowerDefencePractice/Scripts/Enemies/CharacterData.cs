@@ -14,6 +14,8 @@ namespace TowerDefencePractice.Character
 
         // キャラクターの名前
         public string characterName;
+        // キャラクターのプレハブ
+        public GameObject characterPrefab;
         // キャラクターのタイプ
         public enum CharacterType
         {

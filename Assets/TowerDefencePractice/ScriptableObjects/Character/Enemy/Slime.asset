@@ -13,8 +13,10 @@ MonoBehaviour:
   m_Name: Slime
   m_EditorClassIdentifier: 
   characterName: Slime
+  characterPrefab: {fileID: 9140440290556877769, guid: 0bc4e2ed5466afc438f2424b2dab25d3, type: 3}
+  characterType: 0
   characterLevelMax: Infinity
-  characterHPBase: 100
+  characterHPBase: 120
   characterHPMax: Infinity
   characterHPMaxLevel: Infinity
   characterSpeedBase: 5

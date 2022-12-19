@@ -14,7 +14,7 @@ namespace TowerDefencePractice.Character.Enemies
         public enum Enemies
         {
             Slime,
-            ShellSilme
+            ShellSilme,
 
         }
 
@@ -27,6 +27,7 @@ namespace TowerDefencePractice.Character.Enemies
 
         public NavMeshAgent navMeshAgent;
 
+        [HideInInspector]
         public GameObject goalPoint;
 
         public Animator animator;

@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 13fc87aa9c80b5845bfa2e8dd2d4c2f6, type: 3}
+  m_Name: ShellSlime
+  m_EditorClassIdentifier: 
+  characterName: ShellSlime
+  characterPrefab: {fileID: 2734648776189031298, guid: 5e920171e192b3c469cacc807eb6ba58, type: 3}
+  characterType: 0
+  characterLevelMax: Infinity
+  characterHPBase: 360
+  characterHPMax: Infinity
+  characterHPMaxLevel: Infinity
+  characterSpeedBase: 3
+  characterSpeedMax: 15
+  characterSpeedMaxLevel: 100

@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 
+using TowerDefencePractice.Character;
 using TowerDefencePractice.Character.Enemies;
+using TowerDefencePractice.Managers;
 
 namespace TowerDefencePractice.Spawner
 {
@@ -18,10 +20,13 @@ namespace TowerDefencePractice.Spawner
         {
             if (UnityEngine.InputSystem.Keyboard.current.rKey.wasPressedThisFrame)
             {
-                SpawnCharacter(1, EnemyBehaviourBase.Enemies.Slime, g);
+                SpawnCharacter(1, EnemyBehaviourBase.Enemies.Slime, BattleSceneManager.Instance.goalPoint);
             }
         }
         // ***********************************************************************************
+
+        [SerializeField]
+        CharcterBoss characterBoss;
 
         [SerializeField]
         GameObject[] characterPrefab;
@@ -38,7 +43,7 @@ namespace TowerDefencePractice.Spawner
         // キャラクタースポーン
         public void SpawnCharacter(float level, EnemyBehaviourBase.Enemies character, GameObject goal)
         {
-            GameObject _character = Instantiate(characterPrefab[(int)character], transform.position, transform.rotation);
+            GameObject _character = Instantiate(characterBoss.characterScriptableObject[(int)character].characterPrefab, transform.position, transform.rotation);
             _character.transform.localScale = Vector3.Scale(_character.transform.localScale, transform.parent.localScale);
             if (_character.TryGetComponent<EnemyBehaviourBase>(out EnemyBehaviourBase enemy))
             {

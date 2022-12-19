@@ -7,6 +7,6 @@ namespace TowerDefencePractice.Character
     [CreateAssetMenu(menuName = "My Scriptable/Create CharacterBoss")]
     public class CharcterBoss : ScriptableObject
     {
-        public ScriptableObject[] characterScriptableObject;
+        public CharacterData[] characterScriptableObject;
     }
 }

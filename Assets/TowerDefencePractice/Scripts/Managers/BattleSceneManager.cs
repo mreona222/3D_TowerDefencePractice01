@@ -24,34 +24,54 @@ namespace TowerDefencePractice.Managers
 
         static BattleState currentState;
 
-        struct SpawnTimeTable
+        [System.Serializable]
+        class SpawnTimeTable
         {
             public float time;
             public float level;
             public EnemyBehaviourBase.Enemies character;
         }
 
-        static SpawnTimeTable[] wave ={
+        [SerializeField]
+        SpawnTimeTable[] wave ={
                 new SpawnTimeTable { time = 1, level = 1, character = EnemyBehaviourBase.Enemies.Slime },
                 new SpawnTimeTable { time = 5, level = 30, character = EnemyBehaviourBase.Enemies.Slime },
                 new SpawnTimeTable { time = 10, level = 100, character = EnemyBehaviourBase.Enemies.Slime },
             };
 
 
-        [SerializeField]
-        GameObject startPoint;
-        [SerializeField]
-        GameObject goalPoint;
+        public GameObject startPoint;
+
+        public GameObject goalPoint;
 
         protected override void Awake()
         {
             base.Awake();
+
+            for (int i = 0; i < wave.Length - 1; i++)
+            {
+                if (wave[i + 1].time < wave[i].time)
+                {
+                    Debug.LogError("“G‚ÌoŒ»ŽžŠÔ‚ªŠÔˆá‚Á‚Ä‚¢‚Ü‚·B");
+                }
+            }
+
+            // *****************************************
             UpdateBattleState(BattleState.Battle);
         }
 
         private void Start()
         {
 
+        }
+
+        private void Update()
+        {
+            // ***********************************************************************
+            if (UnityEngine.InputSystem.Keyboard.current.cKey.wasPressedThisFrame)
+            {
+                UpdateBattleState(BattleState.BattleEnd);
+            }
         }
 
         public void UpdateBattleState(BattleState newState)
@@ -78,19 +98,30 @@ namespace TowerDefencePractice.Managers
             }
         }
 
-        private void HandleResult()
+
+        // --------------------------------------------------
+        // Initialize
+        // --------------------------------------------------
+        private void HandleInitilize()
         {
-            throw new NotImplementedException();
+
         }
 
-        private void HandleBattleEnd()
+
+        // --------------------------------------------------
+        // Ready
+        // --------------------------------------------------
+        private void HandleReady()
         {
-            throw new NotImplementedException();
+
         }
 
+
+        // --------------------------------------------------
+        // Battle
+        // --------------------------------------------------
         private void HandleBattle()
         {
-
             StartCoroutine(TimeCount());
 
             IEnumerator TimeCount()
@@ -101,6 +132,8 @@ namespace TowerDefencePractice.Managers
 
                 while (true)
                 {
+                    if (currentState != BattleState.Battle) break;
+
                     if (next < wave.Length)
                     {
                         if (currentTime > nextTime)
@@ -119,14 +152,40 @@ namespace TowerDefencePractice.Managers
             }
         }
 
-        private void HandleReady()
+
+
+        // --------------------------------------------------
+        // BattleEnd
+        // --------------------------------------------------
+        private void HandleBattleEnd()
         {
-            throw new NotImplementedException();
+            //StartCoroutine(TimeSlowly());
+
+            //IEnumerator TimeSlowly()
+            //{
+            //    while (true)
+            //    {
+            //        Time.timeScale *= 0.75f;
+            //        yield return new WaitForSeconds(0.1f);
+            //        if (Time.timeScale < 0.3f)
+            //        {
+            //            Time.timeScale = 0;
+            //            break;
+            //        }
+            //    }
+
+            //    UpdateBattleState(BattleState.Result);
+            //}
         }
 
-        private void HandleInitilize()
+
+
+        // --------------------------------------------------
+        // Result
+        // --------------------------------------------------
+        private void HandleResult()
         {
-            throw new NotImplementedException();
+
         }
     }
 }

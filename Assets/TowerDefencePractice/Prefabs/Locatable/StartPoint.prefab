@@ -78,6 +78,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   g: {fileID: 0}
+  characterBoss: {fileID: 11400000, guid: f00f5e57cb3366a4194adc7bfc9e42dd, type: 2}
   characterPrefab:
   - {fileID: 9140440290556877769, guid: 0bc4e2ed5466afc438f2424b2dab25d3, type: 3}
   - {fileID: 9140440290556877769, guid: 0bc4e2ed5466afc438f2424b2dab25d3, type: 3}

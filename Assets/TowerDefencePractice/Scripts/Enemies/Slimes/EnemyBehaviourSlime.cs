@@ -65,13 +65,23 @@ namespace TowerDefencePractice.Character.Enemies
                 machine.animator.SetInteger("SlimeState", (int)SlimeState.Idle);
                 machine.animator.speed = 1.0f;
 
-                machine.StartCoroutine(Ready(1.0f));
+                machine.StartCoroutine(Ready(0.2f));
             }
 
             IEnumerator Ready(float seconds)
             {
-                yield return new WaitForSeconds(seconds);
-                machine.ChangeState(new EnemyBehaviourSlime.Walk(machine));
+                float time = 0;
+                while (true)
+                {
+                    if (((EnemyBehaviourSlime)machine).currentSlimeState != SlimeState.Idle) break;
+                    yield return null;
+                    time += Time.deltaTime;
+                    if (time > seconds)
+                    {
+                        machine.ChangeState(new EnemyBehaviourSlime.Walk(machine));
+                        break;
+                    }
+                }
             }
         }
 
@@ -136,11 +146,11 @@ namespace TowerDefencePractice.Character.Enemies
             IEnumerator Stan(SlimeState _prevState)
             {
                 yield return new WaitForSeconds(machine.stanTime);
-                // 元のステートに戻る
+                // 元のステートに戻る（Idleステートには戻らない）
                 switch (_prevState)
                 {
                     case SlimeState.Idle:
-                        machine.ChangeState(new EnemyBehaviourSlime.Idle(machine));
+                        machine.ChangeState(new EnemyBehaviourSlime.Walk(machine));
                         break;
                     case SlimeState.Walk:
                         machine.ChangeState(new EnemyBehaviourSlime.Walk(machine));
