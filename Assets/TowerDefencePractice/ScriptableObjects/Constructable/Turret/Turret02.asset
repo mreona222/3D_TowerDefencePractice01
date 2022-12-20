@@ -17,5 +17,5 @@ MonoBehaviour:
   constructablePrefab: {fileID: 3113747565330630701, guid: f1e458a8ce0af6742ad8f4a8a792d50b, type: 3}
   fireRateBase: 3
   fireRateMax: 3
-  fireRateMaxLevel: 3
+  fireRateMaxLevel: 30
   firePowerBase: 3

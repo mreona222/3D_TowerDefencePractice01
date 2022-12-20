@@ -23,6 +23,25 @@ namespace TowerDefencePractice.UIs
         Transform newConstructableList;
         [SerializeField]
         GameObject newConstructableIconButton;
+        [SerializeField]
+        GameObject newConstructableStatusPanel;
+        [SerializeField]
+        GameObject purchaseButton;
+
+        [SerializeField]
+        Text newConstructableNameInstance;
+        [SerializeField]
+        Image newConstructableIconInstance;
+        [SerializeField]
+        Text newConstructableStuffInstance;
+        [SerializeField]
+        Text newConstructableCostInstance;
+        [SerializeField]
+        Text newConstructablePowerInstance;
+        [SerializeField]
+        Text newConstructableSpeedInstance;
+        [SerializeField]
+        Text newConstructableRangeInstance;
 
         [HideInInspector]
         public int purchaseConstructableNumber = 0;
@@ -43,6 +62,7 @@ namespace TowerDefencePractice.UIs
         /// </summary>
         void PurchaseConstructablePanelInitialize()
         {
+            // 建造可能物一覧の初期化
             for (int i = 0; i < constructableBoss.constructableSctiptbaleObject.Length; i++)
             {
                 GameObject newConstructableIconButtonInstance = Instantiate(newConstructableIconButton, newConstructableList);
@@ -56,7 +76,41 @@ namespace TowerDefencePractice.UIs
         /// </summary>
         public void PurchaseConstructablePanelActivate()
         {
+            // パネルの有効化
             purchaseConstructablePanel.SetActive(true);
+
+            // 説明文の無効化
+            newConstructableStatusPanel.SetActive(false);
+            // 購入ボタンの無効化
+            purchaseButton.SetActive(false);
+        }
+
+        /// <summary>
+        /// 建造可能物ステータス画面
+        /// </summary>
+        public void NewConstructableStatus(int newConstructable)
+        {
+            // 説明文の有効化
+            newConstructableStatusPanel.SetActive(true);
+            // 購入ボタンの有効化
+            purchaseButton.SetActive(true);
+
+            //newConstructableNameInstance.text = currentGridCell.transform.GetComponentInChildren<TurretBaseBehaviour>().turretData.constructableName;
+            //newConstructableIconInstance.sprite = currentGridCell.transform.GetComponentInChildren<TurretBaseBehaviour>().turretData.constructableIcon;
+            //newConstructableStuffInstance.text = $"{ currentGridCell.transform.GetComponentInChildren<TurretBaseBehaviour>().turretData.fireRateMax }";
+            //newConstructableCostInstance.text=$"{ currentGridCell.transform.GetComponentInChildren<TurretBaseBehaviour>().turretData.fireRateMax }";
+            //newConstructablePowerInstance.text=$"{ currentGridCell.transform.GetComponentInChildren<TurretBaseBehaviour>().turretData.fireRateMax }";
+            //newConstructableSpeedInstance.text=$"{ currentGridCell.transform.GetComponentInChildren<TurretBaseBehaviour>().turretData.fireRateMax }";
+            //newConstructableRangeInstance.text=$"{ currentGridCell.transform.GetComponentInChildren<TurretBaseBehaviour>().turretData.fireRateMax }";
+
+
+            newConstructableNameInstance.text = constructableBoss.constructableSctiptbaleObject[purchaseConstructableNumber].constructableName;
+            newConstructableIconInstance.sprite = constructableBoss.constructableSctiptbaleObject[purchaseConstructableNumber].constructableIcon;
+            newConstructableStuffInstance.text = $"{ constructableBoss.constructableSctiptbaleObject[purchaseConstructableNumber].fireRateMax }";
+            newConstructableCostInstance.text = $"{ constructableBoss.constructableSctiptbaleObject[purchaseConstructableNumber].fireRateMax }";
+            newConstructablePowerInstance.text = $"{ constructableBoss.constructableSctiptbaleObject[purchaseConstructableNumber].firePowerBase }";
+            newConstructableSpeedInstance.text = $"{ constructableBoss.constructableSctiptbaleObject[purchaseConstructableNumber].fireRateBase }";
+            newConstructableRangeInstance.text = $"{ constructableBoss.constructableSctiptbaleObject[purchaseConstructableNumber].fireRateMax }";
 
         }
 
@@ -68,6 +122,8 @@ namespace TowerDefencePractice.UIs
             currentGridCell.collider.GetComponent<GridCellController>().InstantiateConstructable(purchaseConstructableNumber);
         }
 
+
+
         // -----------------------------------------------------------
         // 建造可能物アップグレード
         // -----------------------------------------------------------
@@ -78,6 +134,12 @@ namespace TowerDefencePractice.UIs
         public void UpgradeConstructablePanelActivate()
         {
             upgradeConstructablePanel.SetActive(true);
+            UpgradeConstructablePanleInitialize();
+        }
+
+        private void UpgradeConstructablePanleInitialize()
+        {
+
         }
     }
 }

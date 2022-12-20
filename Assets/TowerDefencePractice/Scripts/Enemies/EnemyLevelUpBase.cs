@@ -19,7 +19,7 @@ namespace TowerDefencePractice.Character.Enemies
 
         protected virtual float EnemyHPLevelUp()
         {
-            return 2;
+            return enemyBehaviour.enemyData.characterHPBase * (1 + (enemyBehaviour.currentLevel / 10));
         }
 
         protected virtual float EnemySpeedLevelUp()

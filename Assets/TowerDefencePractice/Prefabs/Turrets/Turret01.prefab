@@ -615,7 +615,7 @@ MonoBehaviour:
   canShoot: 0
   lockon: 0
   firePowerCurrentLevel: 0
-  firePowerCurrent: 1
+  firePowerCurrent: 100
   stanTime: 0
   turretFireAnimationClip: {fileID: 7400000, guid: 45934da02ac2fc744a6ebec1af320bec, type: 2}
   bullet: {fileID: 3204632571562781302, guid: 523ee0a8eb543c64496682eae6f0d221, type: 3}

@@ -86,6 +86,7 @@ namespace TowerDefencePractice.Inputs
             public override void OnEnter()
             {
                 machine.currentState = PlayerInputState.MouseOnUI;
+                
             }
 
             public override void OnUpdate()

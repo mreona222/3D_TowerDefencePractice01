@@ -16,9 +16,10 @@ MonoBehaviour:
   characterPrefab: {fileID: 9140440290556877769, guid: 0bc4e2ed5466afc438f2424b2dab25d3, type: 3}
   characterType: 0
   characterLevelMax: Infinity
-  characterHPBase: 120
+  characterHPBase: 180
   characterHPMax: Infinity
   characterHPMaxLevel: Infinity
   characterSpeedBase: 5
   characterSpeedMax: 30
   characterSpeedMaxLevel: 100
+  characterMoneyBase: 100

@@ -32,19 +32,22 @@ namespace TowerDefencePractice.Character
         // キャラクターのMaxLevel
         public float characterLevelMax;
 
-        // キャラクターのHP
+        // キャラクターの基本HP
         public float characterHPBase;
         // キャラクターのMaxHP
         public float characterHPMax;
         // キャラクターのHPMaxLevel
         public float characterHPMaxLevel;
 
-        // キャラクターの移動速度
+        // キャラクターの基本移動速度
         public float characterSpeedBase;
         // キャラクターの最高速度
         public float characterSpeedMax;
         // キャラクターのHPMaxLevel
         public float characterSpeedMaxLevel;
+
+        // キャラクターの落とす金額
+        public float characterMoneyBase;
 
     }
 }

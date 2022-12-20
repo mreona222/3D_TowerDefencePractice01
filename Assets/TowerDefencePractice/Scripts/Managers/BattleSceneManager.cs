@@ -3,6 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
+
 using Utilities;
 
 using TowerDefencePractice.Character.Enemies;
@@ -24,6 +28,10 @@ namespace TowerDefencePractice.Managers
 
         static BattleState currentState;
 
+        public GameObject startPoint;
+
+        public GameObject goalPoint;
+
         [System.Serializable]
         class SpawnTimeTable
         {
@@ -33,16 +41,34 @@ namespace TowerDefencePractice.Managers
         }
 
         [SerializeField]
-        SpawnTimeTable[] wave ={
-                new SpawnTimeTable { time = 1, level = 1, character = EnemyBehaviourBase.Enemies.Slime },
-                new SpawnTimeTable { time = 5, level = 30, character = EnemyBehaviourBase.Enemies.Slime },
-                new SpawnTimeTable { time = 10, level = 100, character = EnemyBehaviourBase.Enemies.Slime },
-            };
+        SpawnTimeTable[] wave;
 
+#if UNITY_EDITOR
+        [CustomEditor(typeof(BattleSceneManager))]
+        public class BattleSceneManagerInspector : Editor
+        {
+            public override void OnInspectorGUI()
+            {
+                base.OnInspectorGUI();
 
-        public GameObject startPoint;
+                BattleSceneManager bsManager = target as BattleSceneManager;
 
-        public GameObject goalPoint;
+                EditorGUIUtility.labelWidth = 50;
+                for (int i = 0; i < bsManager.wave.Length; i++)
+                {
+                    using (new EditorGUILayout.HorizontalScope())
+                    {
+                        bsManager.wave[i].time = EditorGUILayout.DelayedFloatField("Time", bsManager.wave[i].time, GUILayout.Width(120));
+                        GUILayout.FlexibleSpace();
+                        bsManager.wave[i].level = EditorGUILayout.DelayedFloatField("Level", bsManager.wave[i].level, GUILayout.Width(120));
+                        GUILayout.FlexibleSpace();
+                        bsManager.wave[i].character = (EnemyBehaviourBase.Enemies)EditorGUILayout.EnumPopup("Chara", (EnemyBehaviourBase.Enemies)bsManager.wave[i].character, GUILayout.Width(200));
+                        GUILayout.FlexibleSpace();
+                    }
+                }
+            }
+        }
+#endif
 
         protected override void Awake()
         {

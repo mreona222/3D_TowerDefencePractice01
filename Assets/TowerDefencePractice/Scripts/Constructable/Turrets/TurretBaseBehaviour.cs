@@ -110,7 +110,7 @@ namespace TowerDefencePractice.Constructable.Turrets
             bulletInstance.GetComponent<BulletBehaviourBase>().parentTurret = transform;
             bulletInstance.GetComponent<BulletBehaviourBase>().target = target;
 
-            //// ダメージを与える
+            // ダメージを与える
             target.GetComponent<IDamageApplicable>().DamageApplicate(firePowerCurrent, stanTime);
 
             // 連射禁止

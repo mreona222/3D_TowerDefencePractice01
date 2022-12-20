@@ -20,25 +20,68 @@ namespace TowerDefencePractice.Constructable.Turrets
 
         void Update()
         {
-            // 範囲内に敵がいるとき
-            if (targetList.Count != 0)
+            //// 範囲内に敵がいるとき
+            //if (targetList.Count != 0)
+            //{
+            //    // ゴールした敵は無視する
+            //    for(int i = 0; i < targetList.Count; i++)
+            //    {
+            //        if (targetList[i] == null)
+            //        {
+            //            targetList.Remove(targetList[i]);
+            //        }
+            //    }
+            //}
+            //if (targetList.Count != 0)
+            //{
+            //    // HPが0以下の敵は無視する
+            //    if (targetList[0].GetComponent<EnemyBehaviourBase>().currentHP <= 0)
+            //    {
+            //        targetList.Remove(targetList[0]);
+            //    }
+            //    // HPが0未満でない敵を倒す
+            //    else
+            //    {
+            //        if (turretBaseBehaviour.lockon)
+            //        {
+            //            if (turretBaseBehaviour.canShoot)
+            //            {
+            //                turretBaseBehaviour.Fire(targetList[0]);
+            //            }
+            //        }
+            //        turretBaseBehaviour.LookTarget(targetList[0].transform.position);
+            //    }
+            //}
+
+            // ターゲットリストの更新
+            for(int i = 0; i < targetList.Count; i++)
             {
-                // HPが0以下の敵は無視する
-                if (targetList[0].GetComponent<EnemyBehaviourBase>().currentHP <= 0)
+                // シーン上にいない敵はターゲットから外す
+                if (targetList[i] == null)
                 {
-                    targetList.Remove(targetList[0]);
+                    targetList.Remove(targetList[i]);
                 }
                 else
                 {
-                    if (turretBaseBehaviour.lockon)
+                    // HPが0の敵はターゲットから外す
+                    if (targetList[i].GetComponent<EnemyBehaviourBase>().currentHP <= 0)
                     {
-                        if (turretBaseBehaviour.canShoot)
-                        {
-                            turretBaseBehaviour.Fire(targetList[0]);
-                        }
+                        targetList.Remove(targetList[i]);
                     }
-                    turretBaseBehaviour.LookTarget(targetList[0].transform.position);
                 }
+            }
+
+            // ターゲットリストに残った敵たち
+            if (targetList.Count > 0)
+            {
+                if (turretBaseBehaviour.lockon)
+                {
+                    if (turretBaseBehaviour.canShoot)
+                    {
+                        turretBaseBehaviour.Fire(targetList[0]);
+                    }
+                }
+                turretBaseBehaviour.LookTarget(targetList[0].transform.position);
             }
         }
 

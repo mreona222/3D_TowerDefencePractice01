@@ -105,8 +105,16 @@ namespace TowerDefencePractice.Character.Enemies
 
                 machine.navMeshAgent.isStopped = false;
                 machine.navMeshAgent.SetDestination(machine.goalPoint.transform.position);
-                machine.animator.speed = 2 * machine.currentLevel / (machine.enemyData.characterSpeedMaxLevel - 1)
-                    + (machine.enemyData.characterSpeedMaxLevel - 3) / (machine.enemyData.characterSpeedMaxLevel - 1);
+                if (machine.currentLevel <= machine.enemyData.characterSpeedMaxLevel)
+                {
+                    machine.animator.speed = 2 * machine.currentLevel / (machine.enemyData.characterSpeedMaxLevel - 1)
+                        + (machine.enemyData.characterSpeedMaxLevel - 3) / (machine.enemyData.characterSpeedMaxLevel - 1);
+                }
+                else
+                {
+                    machine.animator.speed = 2 * machine.enemyData.characterSpeedMaxLevel / (machine.enemyData.characterSpeedMaxLevel - 1)
+                        + (machine.enemyData.characterSpeedMaxLevel - 3) / (machine.enemyData.characterSpeedMaxLevel - 1);
+                }
             }
 
             public override void OnUpdate()
@@ -156,7 +164,7 @@ namespace TowerDefencePractice.Character.Enemies
                         machine.ChangeState(new EnemyBehaviourSlime.Walk(machine));
                         break;
                     case SlimeState.Damage:
-                        machine.ChangeState(new EnemyBehaviourSlime.Damage(machine));
+                        machine.ChangeState(new EnemyBehaviourSlime.Walk(machine));
                         break;
                     case SlimeState.Die:
                         machine.ChangeState(new EnemyBehaviourSlime.Die(machine));

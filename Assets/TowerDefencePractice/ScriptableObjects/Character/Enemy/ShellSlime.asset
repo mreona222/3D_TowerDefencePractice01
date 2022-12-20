@@ -22,3 +22,4 @@ MonoBehaviour:
   characterSpeedBase: 3
   characterSpeedMax: 15
   characterSpeedMaxLevel: 100
+  characterMoneyBase: 150
