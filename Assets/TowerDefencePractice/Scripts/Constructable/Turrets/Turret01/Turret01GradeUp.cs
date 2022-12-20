@@ -11,13 +11,13 @@ namespace TowerDefencePractice.Constructable.Turrets
         [SerializeField]
         private float fireRatePow;
 
-        protected override float FireRateCalculate()
+        public override float FireRateCalculate(float level)
         {
             // üŒ` + ”ñüŒ`
             return turretBehaviour.turretData.fireRateBase - (
-                fireRateLinearRatio * (turretBehaviour.turretData.fireRateBase - turretBehaviour.turretData.fireRateMax) * (turretBehaviour.fireRateCurrentLevel / turretBehaviour.turretData.fireRateMaxLevel) +
+                fireRateLinearRatio * (turretBehaviour.turretData.fireRateBase - turretBehaviour.turretData.fireRateMax) * (level / turretBehaviour.turretData.fireRateMaxLevel) +
                 (1 - fireRateLinearRatio) * (turretBehaviour.turretData.fireRateBase - turretBehaviour.turretData.fireRateMax) *
-                    Mathf.Pow((turretBehaviour.fireRateCurrentLevel / turretBehaviour.turretData.fireRateMaxLevel), fireRatePow)
+                    Mathf.Pow((level / turretBehaviour.turretData.fireRateMaxLevel), fireRatePow)
                 );
         }
     }

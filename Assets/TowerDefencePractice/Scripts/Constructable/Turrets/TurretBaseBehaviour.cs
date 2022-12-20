@@ -28,6 +28,8 @@ namespace TowerDefencePractice.Constructable.Turrets
         public float fireRateCurrentLevel;
         // Œ»İ‚ÌËŒ‚ŠÔŠu[s/times]
         public float fireRateCurrent;
+        // Ÿ‚ÌËŒ‚ŠÔŠu
+        public float fireRateNext;
         // ËŒ‚‰Â”\
         [HideInInspector]
         public bool canShoot;
@@ -39,6 +41,8 @@ namespace TowerDefencePractice.Constructable.Turrets
         public float firePowerCurrentLevel;
         // Œ»İ‚ÌUŒ‚—Í
         public float firePowerCurrent;
+        // Ÿ‚ÌUŒ‚—Í
+        public float firePowerNext;
         // ƒXƒ^ƒ“ŠÔ
         public float stanTime;
 
@@ -66,8 +70,8 @@ namespace TowerDefencePractice.Constructable.Turrets
 
             turretAnimator = GetComponent<Animator>();
 
-            fireRateCurrentLevel = 1.0f;
-            fireRateCurrent = turretData.fireRateBase;
+            GetComponent<TurretBaseGradeUp>().Initialize();
+
             canShoot = true;
         }
 

@@ -10,16 +10,28 @@ namespace TowerDefencePractice.Constructable.Turrets
         // TurretBehaviour‚Ìæ“¾
         protected TurretBaseBehaviour turretBehaviour;
 
-
-
-        void Start()
+        private void Start()
         {
             turretBehaviour = GetComponent<TurretBaseBehaviour>();
+        }
+
+        public void Initialize()
+        {
+            turretBehaviour = GetComponent<TurretBaseBehaviour>();
+
+            // ”­ËŠÔŠu‚ÌƒŒƒxƒ‹
+            turretBehaviour.fireRateCurrentLevel = 0;
+            // ”­ËŠÔŠu‚ÌŒvZ
+            turretBehaviour.fireRateCurrent = FireRateCalculate(turretBehaviour.fireRateCurrentLevel);
+            // Ÿ‚Ì”­ËŠÔŠu‚ÌŒvZ
+            turretBehaviour.fireRateNext = FireRateCalculate(turretBehaviour.fireRateCurrentLevel + 1);
+
         }
 
 
         private void Update()
         {
+            // ***************************
             if (Keyboard.current.digit1Key.wasPressedThisFrame)
             {
                 FireRateGradeUp();
@@ -45,7 +57,9 @@ namespace TowerDefencePractice.Constructable.Turrets
             // ”­ËŠÔŠu‚ÌƒŒƒxƒ‹ƒAƒbƒv
             turretBehaviour.fireRateCurrentLevel++;
             // ”­ËŠÔŠu‚ÌŒvZ
-            turretBehaviour.fireRateCurrent = FireRateCalculate();
+            turretBehaviour.fireRateCurrent = FireRateCalculate(turretBehaviour.fireRateCurrentLevel);
+            // Ÿ‚Ì”­ËŠÔŠu‚ÌŒvZ
+            turretBehaviour.fireRateNext = FireRateCalculate(turretBehaviour.fireRateCurrentLevel + 1);
 
             // ********************ƒRƒƒ“ƒgƒAƒEƒg—\’è***************************
             // ---------------------------------------------------------------------------------------------
@@ -57,13 +71,13 @@ namespace TowerDefencePractice.Constructable.Turrets
         /// <summary>
         /// ”­ËŠÔŠu‚ÌŒvZ
         /// </summary>
-        protected virtual float FireRateCalculate()
+        public virtual float FireRateCalculate(float level)
         {
             Debug.Log("ƒfƒtƒHƒ‹ƒg‚ÌŒvZ•û–@‚Å‚·B");
 
             // üŒ`‚ÌŒvZ•û–@
             return turretBehaviour.turretData.fireRateBase -
-                (turretBehaviour.turretData.fireRateBase - turretBehaviour.turretData.fireRateMax) * (turretBehaviour.fireRateCurrentLevel / turretBehaviour.turretData.fireRateMaxLevel);
+                (turretBehaviour.turretData.fireRateBase - turretBehaviour.turretData.fireRateMax) * (level / turretBehaviour.turretData.fireRateMaxLevel);
         }
 
 

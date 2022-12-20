@@ -149,13 +149,13 @@ namespace TowerDefencePractice.Inputs
                             {
                                 if (!GCCon.constructableExist)
                                 {
-                                    machine.battleUICon.PurchaseConstructablePanelActivate();
                                     machine.battleUICon.currentGridCell = machine.gridHit;
+                                    machine.battleUICon.PurchaseConstructablePanelActivate();
                                 }
                                 else
                                 {
-                                    machine.battleUICon.UpgradeConstructablePanelActivate();
                                     machine.battleUICon.currentGridCell = machine.gridHit;
+                                    machine.battleUICon.UpgradeConstructablePanelActivate();
                                 }
                             }
                         }
