@@ -94,6 +94,14 @@ namespace TowerDefencePractice.Constructable.Turrets
 
         }
 
+        public virtual float FirePowerCalculate(float level)
+        {
+            Debug.Log("デフォルトの計算方法です。");
+
+            // 線形の計算方法
+            return turretBehaviour.firePowerCurrentLevel + level;
+        }
+
 
 
         // ------------------------------------------------------------------------

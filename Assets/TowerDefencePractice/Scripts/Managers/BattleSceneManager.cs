@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-#if UNITY_EDITOR
 using UnityEditor;
-#endif
+using UnityEngine.SceneManagement;
+using UnityEditor.SceneManagement;
 
 using Utilities;
 
@@ -15,7 +15,7 @@ using TowerDefencePractice.Spawner;
 
 namespace TowerDefencePractice.Managers
 {
-    public class BattleSceneManager : SingletonMonoBehaviour<BattleSceneManager>
+    public class BattleSceneManager : MonoBehaviour
     {
         public enum BattleState
         {
@@ -33,7 +33,7 @@ namespace TowerDefencePractice.Managers
         public GameObject goalPoint;
 
         [System.Serializable]
-        class SpawnTimeTable
+        public class SpawnTimeTable
         {
             public float time;
             public float level;
@@ -47,33 +47,70 @@ namespace TowerDefencePractice.Managers
         [CustomEditor(typeof(BattleSceneManager))]
         public class BattleSceneManagerInspector : Editor
         {
+            int size = 0;
+            bool disabled = true;
+
             public override void OnInspectorGUI()
             {
-                base.OnInspectorGUI();
+                serializedObject.Update();
+
+                var wave = serializedObject.FindProperty("wave");
 
                 BattleSceneManager bsManager = target as BattleSceneManager;
 
-                EditorGUIUtility.labelWidth = 50;
-                for (int i = 0; i < bsManager.wave.Length; i++)
+                EditorGUI.BeginDisabledGroup(disabled);
+                bsManager = (BattleSceneManager)EditorGUILayout.ObjectField("Script", bsManager, typeof(BattleSceneManager), true);
+                EditorGUI.EndDisabledGroup();
+
+                bsManager.startPoint = (GameObject)EditorGUILayout.ObjectField("StartPoint", bsManager.startPoint, typeof(GameObject), true);
+                bsManager.goalPoint = (GameObject)EditorGUILayout.ObjectField("GoalPoint", bsManager.goalPoint, typeof(GameObject), true);
+
+                EditorGUILayout.Space();
+
+                size = wave.arraySize;
+
+                size = EditorGUILayout.DelayedIntField("Size", size);
+
+                if (size != wave.arraySize)
                 {
-                    using (new EditorGUILayout.HorizontalScope())
-                    {
-                        bsManager.wave[i].time = EditorGUILayout.DelayedFloatField("Time", bsManager.wave[i].time, GUILayout.Width(120));
-                        GUILayout.FlexibleSpace();
-                        bsManager.wave[i].level = EditorGUILayout.DelayedFloatField("Level", bsManager.wave[i].level, GUILayout.Width(120));
-                        GUILayout.FlexibleSpace();
-                        bsManager.wave[i].character = (EnemyBehaviourBase.Enemies)EditorGUILayout.EnumPopup("Chara", (EnemyBehaviourBase.Enemies)bsManager.wave[i].character, GUILayout.Width(200));
-                        GUILayout.FlexibleSpace();
-                    }
+                    wave.arraySize = size;
+
+                    serializedObject.ApplyModifiedProperties();
+                    serializedObject.Update();
                 }
+                else
+                {
+                    EditorGUIUtility.labelWidth = 50;
+
+                    EditorGUI.BeginChangeCheck();
+                    for (int i = 0; i < wave.arraySize; i++)
+                    {
+                        using (new EditorGUILayout.HorizontalScope())
+                        {
+                            bsManager.wave[i].time = EditorGUILayout.DelayedFloatField("Time", bsManager.wave[i].time, GUILayout.Width(120));
+                            GUILayout.FlexibleSpace();
+                            bsManager.wave[i].level = EditorGUILayout.DelayedFloatField("Level", bsManager.wave[i].level, GUILayout.Width(120));
+                            GUILayout.FlexibleSpace();
+                            bsManager.wave[i].character = (EnemyBehaviourBase.Enemies)EditorGUILayout.EnumPopup("Chara", (EnemyBehaviourBase.Enemies)bsManager.wave[i].character, GUILayout.Width(200));
+                            GUILayout.FlexibleSpace();
+                        }
+                    }
+                    if (EditorGUI.EndChangeCheck())
+                    {
+                        var scene = SceneManager.GetActiveScene();
+                        EditorSceneManager.MarkSceneDirty(scene);
+                        EditorUtility.SetDirty(target);
+                    }
+
+                }
+
+                serializedObject.ApplyModifiedProperties();
             }
         }
 #endif
 
-        protected override void Awake()
+        private void Awake()
         {
-            base.Awake();
-
             for (int i = 0; i < wave.Length - 1; i++)
             {
                 if (wave[i + 1].time < wave[i].time)

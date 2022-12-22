@@ -24,6 +24,7 @@ namespace TowerDefencePractice.Character.Enemies
         public float currentSpeed;
         public float currentHP;
         public float currentLevel;
+        public float currentCoin;
 
         public NavMeshAgent navMeshAgent;
 

@@ -44,6 +44,10 @@ namespace TowerDefencePractice.UIs
         Text newConstructableDPSInstance;
         [SerializeField]
         Text newConstructableRangeInstance;
+        [SerializeField]
+        Text purchaseStuff;
+        [SerializeField]
+        Text purchaseCost;
 
         [HideInInspector]
         public int purchaseConstructableNumber = 0;
@@ -74,6 +78,12 @@ namespace TowerDefencePractice.UIs
         Text upgradeConstructableRangeInstance;
         [SerializeField]
         Text upgradeNextConstructableRangeInstance;
+        [SerializeField]
+        Text upgradeStuff;
+        [SerializeField]
+        Text upgradeCoin;
+        [SerializeField]
+        Text upgradeText;
 
         private enum UpgradeNumber
         {
@@ -102,8 +112,8 @@ namespace TowerDefencePractice.UIs
             for (int i = 0; i < constructableBoss.constructableSctiptbaleObject.Length; i++)
             {
                 GameObject newConstructableIconButtonInstance = Instantiate(newConstructableIconButton, newConstructableList);
-                newConstructableIconButtonInstance.GetComponentInChildren<Image>().sprite = constructableBoss.constructableSctiptbaleObject[i].constructableIcon;
-                newConstructableIconButtonInstance.GetComponentInChildren<Text>().text = constructableBoss.constructableSctiptbaleObject[i].constructableName;
+                newConstructableIconButtonInstance.transform.GetComponentInChildren<Image>().sprite = constructableBoss.constructableSctiptbaleObject[i].constructableIcon;
+                newConstructableIconButtonInstance.transform.GetComponentInChildren<Text>().text = constructableBoss.constructableSctiptbaleObject[i].constructableName;
             }
         }
 
@@ -137,9 +147,9 @@ namespace TowerDefencePractice.UIs
 
             newConstructableIconInstance.sprite = constructableBoss.constructableSctiptbaleObject[purchaseConstructableNumber].constructableIcon;
 
-            newConstructableStuffInstance.text = $"{constructableBoss.constructableSctiptbaleObject[purchaseConstructableNumber].fireRateMax:f2}";
+            newConstructableStuffInstance.text = $"{constructableBoss.constructableSctiptbaleObject[purchaseConstructableNumber].requireStuffBase:f2}";
 
-            newConstructableCostInstance.text = $"{constructableBoss.constructableSctiptbaleObject[purchaseConstructableNumber].fireRateMax:f2}";
+            newConstructableCostInstance.text = $"{constructableBoss.constructableSctiptbaleObject[purchaseConstructableNumber].requireCoinBase:f2}";
 
             newConstructablePowerInstance.text = $"{constructableBoss.constructableSctiptbaleObject[purchaseConstructableNumber].firePowerBase:f2}";
 
@@ -148,7 +158,10 @@ namespace TowerDefencePractice.UIs
             newConstructableDPSInstance.text =
                 $"{constructableBoss.constructableSctiptbaleObject[purchaseConstructableNumber].firePowerBase / constructableBoss.constructableSctiptbaleObject[purchaseConstructableNumber].fireRateBase:f2}";
 
-            newConstructableRangeInstance.text = $"{constructableBoss.constructableSctiptbaleObject[purchaseConstructableNumber].fireRateMax:f2}";
+            newConstructableRangeInstance.text = $"{constructableBoss.constructableSctiptbaleObject[purchaseConstructableNumber].fireRangeBase:f2}";
+
+            purchaseStuff.text = $"{constructableBoss.constructableSctiptbaleObject[purchaseConstructableNumber].requireStuffBase}";
+            purchaseCost.text = $"{constructableBoss.constructableSctiptbaleObject[purchaseConstructableNumber].requireCoinBase}";
         }
 
         /// <summary>
@@ -163,6 +176,7 @@ namespace TowerDefencePractice.UIs
             {
                 yield return null;
                 UpgradeConstructablePanelInitialize();
+                ConstructablePowerUpgradeButton();
             }
         }
 
@@ -178,52 +192,64 @@ namespace TowerDefencePractice.UIs
         public void UpgradeConstructablePanelActivate()
         {
             upgradeConstructablePanel.SetActive(true);
+            // アップグレード画面初期化
             UpgradeConstructablePanelInitialize();
+            ConstructablePowerUpgradeButton();
         }
 
         private void UpgradeConstructablePanelInitialize()
         {
             // 各ステータスの値の更新
             // *******************************
-            upgradeConstructableNameInstance.text = currentGridCell.transform.GetComponentInChildren<TurretBaseBehaviour>().turretData.constructableName;
+            TurretBaseBehaviour currentTurretBehaviour = currentGridCell.transform.GetComponentInChildren<TurretBaseBehaviour>();
+            TurretBaseGradeUp currentTurretGradeUp = currentGridCell.transform.GetComponentInChildren<TurretBaseGradeUp>();
 
-            upgradeConstructableIconInstance.sprite = currentGridCell.transform.GetComponentInChildren<TurretBaseBehaviour>().turretData.constructableIcon;
+            upgradeConstructableNameInstance.text = currentTurretBehaviour.turretData.constructableName;
 
-            upgradeConstructableStuffInstance.text = $"{currentGridCell.transform.GetComponentInChildren<TurretBaseBehaviour>().turretData.fireRateMax:f2}";
+            upgradeConstructableIconInstance.sprite = currentTurretBehaviour.turretData.constructableIcon;
 
-            upgradeConstructableCostInstance.text = $"{currentGridCell.transform.GetComponentInChildren<TurretBaseBehaviour>().turretData.fireRateMax:f2}";
+            upgradeConstructableStuffInstance.text = $"{currentTurretBehaviour.turretData.fireRateMax:f2}";
 
-            upgradeConstructablePowerInstance.text = $"{currentGridCell.transform.GetComponentInChildren<TurretBaseBehaviour>().firePowerCurrent:f2}";
-            upgradeNextConstructablePowerInstance.text = $"{currentGridCell.transform.GetComponentInChildren<TurretBaseBehaviour>().firePowerNext:f2}";
+            upgradeConstructableCostInstance.text = $"{currentTurretBehaviour.turretData.fireRateMax:f2}";
 
-            upgradeConstructableSpeedInstance.text = $"{currentGridCell.transform.GetComponentInChildren<TurretBaseBehaviour>().fireRateCurrent:f2}";
-            upgradeNextConstructableSpeedInstance.text = $"{currentGridCell.transform.GetComponentInChildren<TurretBaseBehaviour>().fireRateNext:f2}";
+            upgradeConstructablePowerInstance.text = $"{currentTurretBehaviour.firePowerCurrent:f2}";
+            upgradeNextConstructablePowerInstance.text = $"{currentTurretGradeUp.FirePowerCalculate(91):f2}";
 
-            upgradeConstructableDPSInstance.text =
-                $"{currentGridCell.transform.GetComponentInChildren<TurretBaseBehaviour>().firePowerCurrent / currentGridCell.transform.GetComponentInChildren<TurretBaseBehaviour>().fireRateCurrent:f2}";
-            upgradeNextConstructableDPSInstance.text =
-                $"{currentGridCell.transform.GetComponentInChildren<TurretBaseBehaviour>().firePowerNext / currentGridCell.transform.GetComponentInChildren<TurretBaseBehaviour>().fireRateNext:f2}";
+            upgradeConstructableSpeedInstance.text = $"{currentTurretBehaviour.fireRateCurrent:f2}";
+            upgradeNextConstructableSpeedInstance.text = $"{currentTurretGradeUp.FireRateCalculate(currentTurretBehaviour.fireRateCurrent + 1):f2}";
 
-            upgradeConstructableRangeInstance.text = $"{currentGridCell.transform.GetComponentInChildren<TurretBaseBehaviour>().turretData.fireRateMax:f2}";
-            upgradeNextConstructableRangeInstance.text = $"{currentGridCell.transform.GetComponentInChildren<TurretBaseBehaviour>().fireRateNext:f2}";
+            upgradeConstructableDPSInstance.text = $"{currentTurretBehaviour.firePowerCurrent / currentTurretBehaviour.fireRateCurrent:f2}";
+            upgradeNextConstructableDPSInstance.text = $"{currentTurretGradeUp.FirePowerCalculate(1) / currentTurretGradeUp.FireRateCalculate(1):f2}";
+
+            upgradeConstructableRangeInstance.text = $"{currentTurretBehaviour.turretData.fireRateMax:f2}";
+            upgradeNextConstructableRangeInstance.text = $"{currentTurretBehaviour.fireRateNext:f2}";
         }
 
         public void ConstructablePowerUpgradeButton()
         {
             // *******************************
             upgradeNumber = UpgradeNumber.Power;
+            upgradeStuff.text = $"{currentGridCell.transform.GetComponentInChildren<TurretBaseBehaviour>().name}";
+            upgradeCoin.text = $"{currentGridCell.transform.GetComponentInChildren<TurretBaseBehaviour>().name}";
+            upgradeText.text = "Power Upgrade";
         }
 
         public void ConstructableSpeedUpgradeButton()
         {
             // *******************************
             upgradeNumber = UpgradeNumber.Speed;
+            upgradeStuff.text = $"{currentGridCell.transform.GetComponentInChildren<TurretBaseBehaviour>().name}";
+            upgradeCoin.text = $"{currentGridCell.transform.GetComponentInChildren<TurretBaseBehaviour>().name}";
+            upgradeText.text = "Speed Upgrade";
         }
 
         public void ConstructableRangeUpgradeButton()
         {
             // *******************************
             upgradeNumber = UpgradeNumber.Range;
+            upgradeStuff.text = $"{currentGridCell.transform.GetComponentInChildren<TurretBaseBehaviour>().name}";
+            upgradeCoin.text = $"{currentGridCell.transform.GetComponentInChildren<TurretBaseBehaviour>().name}";
+            upgradeText.text = "Range Upgrade";
         }
 
         public void ButtonHilightoff()

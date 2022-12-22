@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using Utilities.States;
 
+using TowerDefencePractice.Managers;
+
 namespace TowerDefencePractice.Character.Enemies
 {
     public class EnemyBehaviourSlime : EnemyBehaviourBase
@@ -107,7 +109,7 @@ namespace TowerDefencePractice.Character.Enemies
                 machine.navMeshAgent.SetDestination(machine.goalPoint.transform.position);
                 if (machine.currentLevel <= machine.enemyData.characterSpeedMaxLevel)
                 {
-                    machine.animator.speed = 2 * machine.currentLevel / (machine.enemyData.characterSpeedMaxLevel - 1)
+                    machine.animator.speed = 2 * machine.currentSpeed / (machine.enemyData.characterSpeedMaxLevel - 1)
                         + (machine.enemyData.characterSpeedMaxLevel - 3) / (machine.enemyData.characterSpeedMaxLevel - 1);
                 }
                 else

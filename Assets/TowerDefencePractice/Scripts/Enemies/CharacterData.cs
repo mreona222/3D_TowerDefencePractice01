@@ -38,6 +38,10 @@ namespace TowerDefencePractice.Character
         public float characterHPMax;
         // キャラクターのHPMaxLevel
         public float characterHPMaxLevel;
+        // キャラクターのHPの上昇比率
+        public float characterHPRatio;
+        // キャラクターのHPの累乗
+        public float characterHPPow;
 
         // キャラクターの基本移動速度
         public float characterSpeedBase;
@@ -45,9 +49,14 @@ namespace TowerDefencePractice.Character
         public float characterSpeedMax;
         // キャラクターのHPMaxLevel
         public float characterSpeedMaxLevel;
+        // kキャラクターの速度の累乗
+        public float characterSpeedPow;
 
-        // キャラクターの落とす金額
-        public float characterMoneyBase;
-
+        // キャラクターの落とす基本金額
+        public float characterCoinBase;
+        // キャラクターの金額の上昇比率
+        public float characterCoinRatio;
+        // キャラクターの金額の累乗
+        public float characterCoinPow;
     }
 }

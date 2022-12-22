@@ -20,7 +20,7 @@ namespace TowerDefencePractice.Spawner
         {
             if (UnityEngine.InputSystem.Keyboard.current.rKey.wasPressedThisFrame)
             {
-                SpawnCharacter(1, EnemyBehaviourBase.Enemies.Slime, BattleSceneManager.Instance.goalPoint);
+                //SpawnCharacter(1, EnemyBehaviourBase.Enemies.Slime, BattleSceneManager.Instance.goalPoint);
             }
         }
         // ***********************************************************************************
