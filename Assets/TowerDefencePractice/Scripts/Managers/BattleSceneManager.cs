@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using UnityEngine.UI;
 
 using UnityEditor;
 using UnityEngine.SceneManagement;
@@ -26,11 +27,14 @@ namespace TowerDefencePractice.Managers
             Result,
         }
 
-        static BattleState currentState;
+        BattleState currentState;
 
         public GameObject startPoint;
 
         public GameObject goalPoint;
+
+        [SerializeField]
+        Text timeText;
 
         [System.Serializable]
         public class SpawnTimeTable
@@ -48,22 +52,16 @@ namespace TowerDefencePractice.Managers
         public class BattleSceneManagerInspector : Editor
         {
             int size = 0;
-            bool disabled = true;
 
             public override void OnInspectorGUI()
             {
+                base.OnInspectorGUI();
+
                 serializedObject.Update();
 
                 var wave = serializedObject.FindProperty("wave");
 
                 BattleSceneManager bsManager = target as BattleSceneManager;
-
-                EditorGUI.BeginDisabledGroup(disabled);
-                bsManager = (BattleSceneManager)EditorGUILayout.ObjectField("Script", bsManager, typeof(BattleSceneManager), true);
-                EditorGUI.EndDisabledGroup();
-
-                bsManager.startPoint = (GameObject)EditorGUILayout.ObjectField("StartPoint", bsManager.startPoint, typeof(GameObject), true);
-                bsManager.goalPoint = (GameObject)EditorGUILayout.ObjectField("GoalPoint", bsManager.goalPoint, typeof(GameObject), true);
 
                 EditorGUILayout.Space();
 
@@ -195,7 +193,11 @@ namespace TowerDefencePractice.Managers
 
                 while (true)
                 {
+                    // バトル中のみ
                     if (currentState != BattleState.Battle) break;
+
+                    // タイム更新
+                    timeText.text = $"{Mathf.FloorToInt(currentTime / 60.0f):D2}:{ Mathf.FloorToInt(currentTime % 60.0f):D2}";
 
                     if (next < wave.Length)
                     {
@@ -209,6 +211,7 @@ namespace TowerDefencePractice.Managers
                             }
                         }
                     }
+
                     yield return null;
                     currentTime += Time.deltaTime;
                 }

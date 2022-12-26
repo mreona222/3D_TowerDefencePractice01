@@ -18,6 +18,8 @@ MonoBehaviour:
   fireRateBase: 3
   fireRateMax: 0.5
   fireRateMaxLevel: 30
+  fireRateRatio: 0.4
+  fireRatePow: 4
   firePowerBase: 100
   firePowerMax: Infinity
   firePowerMaxLevel: Infinity

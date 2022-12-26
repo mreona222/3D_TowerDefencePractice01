@@ -15,9 +15,9 @@ namespace TowerDefencePractice.Constructable.Turrets
         {
             // üŒ` + ”ñüŒ`
             return turretBehaviour.turretData.fireRateBase - (
-                fireRateLinearRatio * (turretBehaviour.turretData.fireRateBase - turretBehaviour.turretData.fireRateMax) * (level / turretBehaviour.turretData.fireRateMaxLevel) +
-                (1 - fireRateLinearRatio) * (turretBehaviour.turretData.fireRateBase - turretBehaviour.turretData.fireRateMax) *
-                    Mathf.Pow((level / turretBehaviour.turretData.fireRateMaxLevel), fireRatePow)
+                turretBehaviour.turretData.fireRateRatio * (turretBehaviour.turretData.fireRateBase - turretBehaviour.turretData.fireRateMax) * (level / turretBehaviour.turretData.fireRateMaxLevel) +
+                (1 - turretBehaviour.turretData.fireRateRatio) * (turretBehaviour.turretData.fireRateBase - turretBehaviour.turretData.fireRateMax) *
+                    Mathf.Pow((level / turretBehaviour.turretData.fireRateMaxLevel), turretBehaviour.turretData.fireRatePow)
                 );
         }
     }

@@ -46,4 +46,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startPoint: {fileID: 0}
   goalPoint: {fileID: 0}
+  timeText: {fileID: 0}
   wave: []

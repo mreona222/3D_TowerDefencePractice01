@@ -6,6 +6,7 @@ using UnityEngine.EventSystems;
 
 using TowerDefencePractice.Grids;
 using TowerDefencePractice.UIs;
+using TowerDefencePractice.Constructable.Turrets;
 
 using Utilities.States;
 
@@ -96,6 +97,10 @@ namespace TowerDefencePractice.Inputs
                     if (machine.gridHitPre.collider != null)
                     {
                         machine.gridHitPre.collider.GetComponent<GridCellController>().GridLightOff();
+                        if (machine.gridHitPre.collider.GetComponent<GridCellController>().constructableExist)
+                        {
+                            machine.gridHit.collider.GetComponentInChildren<RangeCollider>().RangeDisenable();
+                        }
                     }
                     machine.ChangeState(new GridChoose.MouseOnVoid(machine));
                 }
@@ -155,6 +160,7 @@ namespace TowerDefencePractice.Inputs
                                 else
                                 {
                                     machine.battleUICon.currentGridCell = machine.gridHit;
+                                    machine.gridHit.collider.GetComponentInChildren<RangeCollider>().RangeEnable();
                                     machine.battleUICon.UpgradeConstructablePanelActivate();
                                 }
                             }

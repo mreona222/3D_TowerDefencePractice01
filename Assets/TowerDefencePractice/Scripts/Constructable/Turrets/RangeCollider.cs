@@ -13,6 +13,9 @@ namespace TowerDefencePractice.Constructable.Turrets
 
         public List<Collider> targetList = new List<Collider>();
 
+        [SerializeField]
+        private Canvas rangeCanvas;
+
         void Start()
         {
             turretBaseBehaviour = GetComponentInParent<TurretBaseBehaviour>();
@@ -20,39 +23,6 @@ namespace TowerDefencePractice.Constructable.Turrets
 
         void Update()
         {
-            //// ”ÍˆÍ“à‚É“G‚ª‚¢‚é‚Æ‚«
-            //if (targetList.Count != 0)
-            //{
-            //    // ƒS[ƒ‹‚µ‚½“G‚Í–³‹‚·‚é
-            //    for(int i = 0; i < targetList.Count; i++)
-            //    {
-            //        if (targetList[i] == null)
-            //        {
-            //            targetList.Remove(targetList[i]);
-            //        }
-            //    }
-            //}
-            //if (targetList.Count != 0)
-            //{
-            //    // HP‚ª0ˆÈ‰º‚Ì“G‚Í–³‹‚·‚é
-            //    if (targetList[0].GetComponent<EnemyBehaviourBase>().currentHP <= 0)
-            //    {
-            //        targetList.Remove(targetList[0]);
-            //    }
-            //    // HP‚ª0–¢–‚Å‚È‚¢“G‚ğ“|‚·
-            //    else
-            //    {
-            //        if (turretBaseBehaviour.lockon)
-            //        {
-            //            if (turretBaseBehaviour.canShoot)
-            //            {
-            //                turretBaseBehaviour.Fire(targetList[0]);
-            //            }
-            //        }
-            //        turretBaseBehaviour.LookTarget(targetList[0].transform.position);
-            //    }
-            //}
-
             // ƒ^[ƒQƒbƒgƒŠƒXƒg‚ÌXV
             for(int i = 0; i < targetList.Count; i++)
             {
@@ -99,6 +69,16 @@ namespace TowerDefencePractice.Constructable.Turrets
             {
                 targetList.Remove(other);
             }
+        }
+
+        public void RangeEnable()
+        {
+            rangeCanvas.enabled = true;
+        }
+
+        public void RangeDisenable()
+        {
+            rangeCanvas.enabled = false;
         }
     }
 }

@@ -123,7 +123,7 @@ Canvas:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 684320204}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_RenderMode: 2
   m_Camera: {fileID: 0}
@@ -205,8 +205,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2084907478}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 7, y: 7, z: 7}
+  m_LocalPosition: {x: 0, y: 0.1, z: 0}
+  m_LocalScale: {x: 6, y: 1, z: 6}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 684320205}
@@ -289,6 +289,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetList: []
+  rangeCanvas: {fileID: 684320208}
 --- !u!1 &3113620565534089614
 GameObject:
   m_ObjectHideFlags: 0
@@ -612,10 +613,12 @@ MonoBehaviour:
   turretData: {fileID: 11400000, guid: 71e224e9b00c2b5478dd9f4f7254ce10, type: 2}
   fireRateCurrentLevel: 0
   fireRateCurrent: 0
+  fireRateNext: 0
   canShoot: 0
   lockon: 0
   firePowerCurrentLevel: 0
   firePowerCurrent: 100
+  firePowerNext: 0
   stanTime: 0
   turretFireAnimationClip: {fileID: 7400000, guid: 45934da02ac2fc744a6ebec1af320bec, type: 2}
   bullet: {fileID: 3204632571562781302, guid: 523ee0a8eb543c64496682eae6f0d221, type: 3}

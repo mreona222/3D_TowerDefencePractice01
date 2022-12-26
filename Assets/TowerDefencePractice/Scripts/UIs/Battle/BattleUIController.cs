@@ -6,6 +6,7 @@ using UnityEngine.UI;
 using TowerDefencePractice.Constructable;
 using TowerDefencePractice.Constructable.Turrets;
 using TowerDefencePractice.Grids;
+using TowerDefencePractice.Managers;
 
 namespace TowerDefencePractice.UIs
 {
@@ -96,6 +97,7 @@ namespace TowerDefencePractice.UIs
 
         private void Start()
         {
+            // åöë¢â¬î\ï®çwì¸âÊñ èâä˙âª
             PurchaseConstructablePanelInitialize();
         }
 
@@ -170,6 +172,9 @@ namespace TowerDefencePractice.UIs
         public void PurchaseButton()
         {
             currentGridCell.collider.GetComponent<GridCellController>().InstantiateConstructable(purchaseConstructableNumber);
+            // ÉåÉìÉWÇÃï\é¶
+            currentGridCell.collider.GetComponentInChildren<RangeCollider>().RangeEnable();
+
             StartCoroutine(DelayInitialize());
 
             IEnumerator DelayInitialize()
@@ -252,11 +257,6 @@ namespace TowerDefencePractice.UIs
             upgradeText.text = "Range Upgrade";
         }
 
-        public void ButtonHilightoff()
-        {
-
-        }
-
         public void UpgradeButton()
         {
             // *******************************
@@ -272,6 +272,13 @@ namespace TowerDefencePractice.UIs
                     Debug.Log("Range");
                     break;
             }
+
+            UpgradeConstructablePanelInitialize();
+        }
+
+        public void CellButton()
+        {
+
         }
     }
 }

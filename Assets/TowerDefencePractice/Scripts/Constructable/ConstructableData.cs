@@ -30,6 +30,10 @@ namespace TowerDefencePractice.Constructable
         public float fireRateMax;
         // ËŒ‚ŠÔŠu‚ÌÅ‘å‚ÌƒŒƒxƒ‹
         public float fireRateMaxLevel;
+        // ËŒ‚ŠÔŠu‚Ìã¸”ä—¦
+        public float fireRateRatio;
+        // ËŒ‚ŠÔŠu‚Ì—İæ
+        public float fireRatePow;
 
         //---------------------------------------------------------
         // ËŒ‚‰Î—Í

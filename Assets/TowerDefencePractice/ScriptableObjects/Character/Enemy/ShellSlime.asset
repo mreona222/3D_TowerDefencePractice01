@@ -19,7 +19,12 @@ MonoBehaviour:
   characterHPBase: 360
   characterHPMax: Infinity
   characterHPMaxLevel: Infinity
+  characterHPRatio: 0
+  characterHPPow: 0
   characterSpeedBase: 3
   characterSpeedMax: 15
-  characterSpeedMaxLevel: 100
-  characterMoneyBase: 150
+  characterSpeedMaxLevel: 99
+  characterSpeedPow: 0
+  characterCoinBase: 0
+  characterCoinRatio: 0
+  characterCoinPow: 0
