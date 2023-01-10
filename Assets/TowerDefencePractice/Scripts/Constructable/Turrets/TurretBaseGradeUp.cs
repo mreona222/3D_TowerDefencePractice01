@@ -45,7 +45,7 @@ namespace TowerDefencePractice.Constructable.Turrets
         /// <summary>
         /// 発射間隔のレベルアップ
         /// </summary>
-        protected void FireRateGradeUp()
+        public void FireRateGradeUp()
         {
             // レベルマックスのとき
             if (turretBehaviour.turretData.fireRateMaxLevel - 1 < turretBehaviour.fireRateCurrentLevel)
@@ -58,8 +58,6 @@ namespace TowerDefencePractice.Constructable.Turrets
             turretBehaviour.fireRateCurrentLevel++;
             // 発射間隔の計算
             turretBehaviour.fireRateCurrent = FireRateCalculate(turretBehaviour.fireRateCurrentLevel);
-            // 次の発射間隔の計算
-            turretBehaviour.fireRateNext = FireRateCalculate(turretBehaviour.fireRateCurrentLevel + 1);
 
             // ********************コメントアウト予定***************************
             // ---------------------------------------------------------------------------------------------
@@ -89,9 +87,18 @@ namespace TowerDefencePractice.Constructable.Turrets
         /// <summary>
         /// 発射火力のレベルアップ
         /// </summary>
-        protected virtual void FirePowerGradeUp()
+        public void FirePowerGradeUp()
         {
+            // 発射火力のレベルアップ
+            turretBehaviour.firePowerCurrentLevel++;
+            // 発射火力の計算
+            turretBehaviour.firePowerCurrent = FirePowerCalculate(turretBehaviour.firePowerCurrentLevel);
 
+            // ********************コメントアウト予定***************************
+            // ---------------------------------------------------------------------------------------------
+            Debug.Log($"タレットID[{ turretBehaviour.turretID }]の射撃火力をレベルアップしました。\n" +
+                $"現在の発射火力レベルは{ turretBehaviour.firePowerCurrentLevel }、射撃火力は{ turretBehaviour.firePowerCurrent }[dmg]です。");
+            // ---------------------------------------------------------------------------------------------
         }
 
         public virtual float FirePowerCalculate(float level)
@@ -99,21 +106,36 @@ namespace TowerDefencePractice.Constructable.Turrets
             Debug.Log("デフォルトの計算方法です。");
 
             // 線形の計算方法
-            return turretBehaviour.firePowerCurrentLevel + level;
+            return turretBehaviour.turretData.firePowerBase * (1 + level * turretBehaviour.turretData.firePowerRatio);
         }
 
 
 
         // ------------------------------------------------------------------------
-        // 攻撃範囲
+        // 射撃範囲
         // ------------------------------------------------------------------------
 
         /// <summary>
-        /// 攻撃範囲のレベルアップ
+        /// 射撃範囲のレベルアップ
         /// </summary>
-        protected virtual void FireRangeGradeUp()
+        public void FireRangeGradeUp()
         {
+            // 射撃範囲のレベルアップ
+            turretBehaviour.fireRangeCurrentLevel++;
+            // 射撃範囲の計算
+            turretBehaviour.fireRangeCurrent = FireRangeCalculate(turretBehaviour.fireRangeCurrentLevel);
 
+            // ********************コメントアウト予定***************************
+            // ---------------------------------------------------------------------------------------------
+            Debug.Log($"タレットID[{ turretBehaviour.turretID }]の射撃火力をレベルアップしました。\n" +
+                $"現在の発射火力レベルは{ turretBehaviour.firePowerCurrentLevel }、射撃火力は{ turretBehaviour.firePowerCurrent }[dmg]です。");
+            // ---------------------------------------------------------------------------------------------
+
+        }
+
+        public float FireRangeCalculate(float level)
+        {
+            return level;
         }
     }
 }

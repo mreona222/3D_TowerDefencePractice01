@@ -27,11 +27,19 @@ namespace TowerDefencePractice.Managers
             Result,
         }
 
+        [SerializeField]
         BattleState currentState;
 
+        // スポーン地点
         public GameObject startPoint;
-
+        // ゴール地点
         public GameObject goalPoint;
+        [HideInInspector]
+        // 敵の数
+        public int enemyAmount;
+        // 敵がゴールに到達した回数の限界
+        public int enemyGoalLimit;
+
 
         [SerializeField]
         Text timeText;
@@ -123,7 +131,7 @@ namespace TowerDefencePractice.Managers
 
         private void Start()
         {
-
+            enemyAmount = wave.Length;
         }
 
         private void Update()
@@ -225,23 +233,23 @@ namespace TowerDefencePractice.Managers
         // --------------------------------------------------
         private void HandleBattleEnd()
         {
-            //StartCoroutine(TimeSlowly());
+            StartCoroutine(TimeSlowly());
 
-            //IEnumerator TimeSlowly()
-            //{
-            //    while (true)
-            //    {
-            //        Time.timeScale *= 0.75f;
-            //        yield return new WaitForSeconds(0.1f);
-            //        if (Time.timeScale < 0.3f)
-            //        {
-            //            Time.timeScale = 0;
-            //            break;
-            //        }
-            //    }
+            IEnumerator TimeSlowly()
+            {
+                while (true)
+                {
+                    Time.timeScale *= 0.90f;
+                    yield return new WaitForSeconds(0.1f);
+                    if (Time.timeScale < 0.3f)
+                    {
+                        Time.timeScale = 0;
+                        break;
+                    }
+                }
 
-            //    UpdateBattleState(BattleState.Result);
-            //}
+                UpdateBattleState(BattleState.Result);
+            }
         }
 
 

@@ -6,6 +6,7 @@ using UnityEngine.AI;
 
 using Utilities.States;
 using TowerDefencePractice.Damages;
+using TowerDefencePractice.Managers;
 
 namespace TowerDefencePractice.Character.Enemies
 {
@@ -36,6 +37,8 @@ namespace TowerDefencePractice.Character.Enemies
         [HideInInspector]
         public float stanTime;
 
+        public BattleSceneManager bsManager;
+
         protected virtual void Start()
         {
 
@@ -56,6 +59,11 @@ namespace TowerDefencePractice.Character.Enemies
             if (currentHP <= 0)
             {
                 StartDieState();
+                bsManager.enemyAmount--;
+                if (bsManager.enemyAmount <= 0)
+                {
+                    bsManager.UpdateBattleState(BattleSceneManager.BattleState.BattleEnd);
+                }
             }
             else
             {

@@ -230,6 +230,12 @@ namespace TowerDefencePractice.Character.Enemies
             IEnumerator IntoGoal()
             {
                 yield return new WaitForSeconds(1.0f);
+                machine.bsManager.enemyAmount--;
+                machine.bsManager.enemyGoalLimit--;
+                if (machine.bsManager.enemyAmount <= 0 || machine.bsManager.enemyGoalLimit <= 0)
+                {
+                    machine.bsManager.UpdateBattleState(BattleSceneManager.BattleState.BattleEnd);
+                }
                 Destroy(machine.gameObject);
             }
         }

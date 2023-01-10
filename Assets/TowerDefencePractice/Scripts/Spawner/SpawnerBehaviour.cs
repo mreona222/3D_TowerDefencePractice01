@@ -31,6 +31,9 @@ namespace TowerDefencePractice.Spawner
         [SerializeField]
         GameObject[] characterPrefab;
 
+        [SerializeField]
+        BattleSceneManager bsManager;
+
         private void Start()
         {
             if (System.Enum.GetValues(typeof(EnemyBehaviourBase.Enemies)).Length != characterPrefab.Length)
@@ -49,6 +52,7 @@ namespace TowerDefencePractice.Spawner
             {
                 enemy.currentLevel = level;
                 enemy.goalPoint = goal;
+                enemy.bsManager = bsManager;
                 enemy.GetComponent<EnemyLevelUpBase>().Initialize();
             }
         }

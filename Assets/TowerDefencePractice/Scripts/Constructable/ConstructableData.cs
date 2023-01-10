@@ -45,6 +45,10 @@ namespace TowerDefencePractice.Constructable
         public float firePowerMax;
         // 最大火力レベル
         public float firePowerMaxLevel;
+        // 射撃火力の上昇比率
+        public float firePowerRatio;
+        // 射撃火力の累乗
+        public float firePowerPow;
 
         //---------------------------------------------------------
         // 射程
@@ -54,8 +58,12 @@ namespace TowerDefencePractice.Constructable
         public float fireRangeBase;
         // 最大射程
         public float fireRangeMax;
-        // 最大射程レベル
+        // 射程レベル
         public float fireRangeMaxLevel;
+        // 射程の上昇比率
+        public float fireRangeRatio;
+        // 射程の累乗
+        public float fireRangePow;
 
         //---------------------------------------------------------
         // コスト

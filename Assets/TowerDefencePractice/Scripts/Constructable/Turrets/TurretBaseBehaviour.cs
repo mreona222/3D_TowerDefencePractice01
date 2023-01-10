@@ -41,11 +41,13 @@ namespace TowerDefencePractice.Constructable.Turrets
         public float firePowerCurrentLevel;
         // 現在の攻撃力
         public float firePowerCurrent;
-        // 次の攻撃力
-        public float firePowerNext;
         // スタン時間
         public float stanTime;
 
+        // 現在の射程レベル
+        public float fireRangeCurrentLevel;
+        // 現在の射程
+        public float fireRangeCurrent;
 
 
         // タレットのアニメーター

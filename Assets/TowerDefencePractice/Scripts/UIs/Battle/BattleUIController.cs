@@ -85,6 +85,8 @@ namespace TowerDefencePractice.UIs
         Text upgradeCoin;
         [SerializeField]
         Text upgradeText;
+        [SerializeField]
+        ScrollRect upgradeScroll;
 
         private enum UpgradeNumber
         {
@@ -218,16 +220,17 @@ namespace TowerDefencePractice.UIs
             upgradeConstructableCostInstance.text = $"{currentTurretBehaviour.turretData.fireRateMax:f2}";
 
             upgradeConstructablePowerInstance.text = $"{currentTurretBehaviour.firePowerCurrent:f2}";
-            upgradeNextConstructablePowerInstance.text = $"{currentTurretGradeUp.FirePowerCalculate(91):f2}";
+            upgradeNextConstructablePowerInstance.text = $"{currentTurretGradeUp.FirePowerCalculate(currentTurretBehaviour.firePowerCurrentLevel + 1):f2}";
 
             upgradeConstructableSpeedInstance.text = $"{currentTurretBehaviour.fireRateCurrent:f2}";
             upgradeNextConstructableSpeedInstance.text = $"{currentTurretGradeUp.FireRateCalculate(currentTurretBehaviour.fireRateCurrent + 1):f2}";
 
             upgradeConstructableDPSInstance.text = $"{currentTurretBehaviour.firePowerCurrent / currentTurretBehaviour.fireRateCurrent:f2}";
-            upgradeNextConstructableDPSInstance.text = $"{currentTurretGradeUp.FirePowerCalculate(1) / currentTurretGradeUp.FireRateCalculate(1):f2}";
+            upgradeNextConstructableDPSInstance.text =
+                $"{currentTurretGradeUp.FirePowerCalculate(currentTurretBehaviour.firePowerCurrentLevel + 1) / currentTurretGradeUp.FireRateCalculate(currentTurretBehaviour.fireRateCurrentLevel + 1):f2}";
 
-            upgradeConstructableRangeInstance.text = $"{currentTurretBehaviour.turretData.fireRateMax:f2}";
-            upgradeNextConstructableRangeInstance.text = $"{currentTurretBehaviour.fireRateNext:f2}";
+            upgradeConstructableRangeInstance.text = $"{currentTurretBehaviour.fireRangeCurrent:f2}";
+            upgradeNextConstructableRangeInstance.text = $"{currentTurretGradeUp.FireRangeCalculate(currentTurretBehaviour.fireRangeCurrentLevel + 1):f2}";
         }
 
         public void ConstructablePowerUpgradeButton()
@@ -259,21 +262,31 @@ namespace TowerDefencePractice.UIs
 
         public void UpgradeButton()
         {
+            Vector2 scrollPosition = upgradeScroll.normalizedPosition;
+
             // *******************************
             switch (upgradeNumber)
             {
                 case UpgradeNumber.Power:
-                    Debug.Log("Power");
+                    currentGridCell.transform.GetComponentInChildren<TurretBaseGradeUp>().FirePowerGradeUp();
                     break;
                 case UpgradeNumber.Speed:
-                    Debug.Log("Speed");
+                    currentGridCell.transform.GetComponentInChildren<TurretBaseGradeUp>().FireRateGradeUp();
                     break;
                 case UpgradeNumber.Range:
-                    Debug.Log("Range");
+                    currentGridCell.transform.GetComponentInChildren<TurretBaseGradeUp>().FireRangeGradeUp();
                     break;
             }
 
             UpgradeConstructablePanelInitialize();
+
+            StartCoroutine(ScrollPosition(scrollPosition));
+        }
+
+        private IEnumerator ScrollPosition(Vector2 position)
+        {
+            yield return null;
+            upgradeScroll.normalizedPosition = position;
         }
 
         public void CellButton()
