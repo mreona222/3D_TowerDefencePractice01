@@ -106,7 +106,7 @@ namespace TowerDefencePractice.Constructable.Turrets
             Debug.Log("デフォルトの計算方法です。");
 
             // 線形の計算方法
-            return turretBehaviour.turretData.firePowerBase * (1 + level * turretBehaviour.turretData.firePowerRatio);
+            return turretBehaviour.turretData.firePowerBase * Mathf.Pow(1 + level * turretBehaviour.turretData.firePowerRatio, turretBehaviour.turretData.firePowerPow);
         }
 
 

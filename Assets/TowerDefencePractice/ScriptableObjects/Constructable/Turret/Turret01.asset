@@ -15,11 +15,12 @@ MonoBehaviour:
   constructableName: NormalTurret
   constructableIcon: {fileID: 21300000, guid: 884a14b6a31928d4b96d280c81d66d13, type: 3}
   constructablePrefab: {fileID: 3113747565330630701, guid: f1e458a8ce0af6742ad8f4a8a792d50b, type: 3}
+  constructableType: 0
   fireRateBase: 3
   fireRateMax: 0.5
-  fireRateMaxLevel: 30
+  fireRateMaxLevel: 29
   fireRateRatio: 0.4
-  fireRatePow: 4
+  fireRatePow: 1.5
   firePowerBase: 100
   firePowerMax: Infinity
   firePowerMaxLevel: Infinity
@@ -27,6 +28,8 @@ MonoBehaviour:
   firePowerPow: 1.4
   fireRangeBase: 6
   fireRangeMax: 12
-  fireRangeMaxLevel: 30
+  fireRangeMaxLevel: 29
+  fireRangeRatio: 1
+  fireRangePow: 1
   requireStuffBase: 2
   requireCoinBase: 5000

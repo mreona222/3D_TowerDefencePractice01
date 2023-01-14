@@ -3084,6 +3084,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d71c563bde8ad85499e683120a318bd0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bsManager: {fileID: 0}
   purchaseConstructablePanel: {fileID: 2743430847909938636}
   upgradeConstructablePanel: {fileID: 2743430848130316599}
   constructableBoss: {fileID: 11400000, guid: a7dcab0d2a2f8114495f9653d714d680, type: 2}
@@ -3114,6 +3115,7 @@ MonoBehaviour:
   upgradeNextConstructableDPSInstance: {fileID: 4616204106787012466}
   upgradeConstructableRangeInstance: {fileID: 2022890543014267837}
   upgradeNextConstructableRangeInstance: {fileID: 1210567957418278743}
+  upgradeButton: {fileID: 6638451973887823328}
   upgradeStuff: {fileID: 206489690080432237}
   upgradeCoin: {fileID: 2910162989962375632}
   upgradeText: {fileID: 2165456294268527768}
@@ -4136,30 +4138,6 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2743430847909938636}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 2743430848130316599}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
       - m_Target: {fileID: 2743430847717666188}
         m_TargetAssemblyTypeName: TowerDefencePractice.UIs.BattleUIController, Assembly-CSharp
         m_MethodName: PurchaseButton

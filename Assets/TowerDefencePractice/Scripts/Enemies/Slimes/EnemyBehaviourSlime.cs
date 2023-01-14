@@ -28,7 +28,7 @@ namespace TowerDefencePractice.Character.Enemies
 
         public override void StartDamageState()
         {
-            if (currentSlimeState != SlimeState.Die || currentSlimeState != SlimeState.Damage)
+            if (currentSlimeState != SlimeState.Die || currentSlimeState != SlimeState.Damage || currentSlimeState != SlimeState.ReachGoal)
             {
                 ChangeState(new EnemyBehaviourSlime.Damage(this));
             }
@@ -230,12 +230,9 @@ namespace TowerDefencePractice.Character.Enemies
             IEnumerator IntoGoal()
             {
                 yield return new WaitForSeconds(1.0f);
-                machine.bsManager.enemyAmount--;
-                machine.bsManager.enemyGoalLimit--;
-                if (machine.bsManager.enemyAmount <= 0 || machine.bsManager.enemyGoalLimit <= 0)
-                {
-                    machine.bsManager.UpdateBattleState(BattleSceneManager.BattleState.BattleEnd);
-                }
+                if (((EnemyBehaviourSlime)machine).currentSlimeState != SlimeState.ReachGoal) yield break;
+                machine.bsManager.enemyAmount.Value--;
+                machine.bsManager.enemyGoalLimit.Value--;
                 Destroy(machine.gameObject);
             }
         }

@@ -13,6 +13,9 @@ namespace TowerDefencePractice.UIs
     public class BattleUIController : MonoBehaviour
     {
         [SerializeField]
+        BattleSceneManager bsManager;
+
+        [SerializeField]
         GameObject purchaseConstructablePanel;
         [SerializeField]
         GameObject upgradeConstructablePanel;
@@ -80,6 +83,8 @@ namespace TowerDefencePractice.UIs
         [SerializeField]
         Text upgradeNextConstructableRangeInstance;
         [SerializeField]
+        Button upgradeButton;
+        [SerializeField]
         Text upgradeStuff;
         [SerializeField]
         Text upgradeCoin;
@@ -87,6 +92,7 @@ namespace TowerDefencePractice.UIs
         Text upgradeText;
         [SerializeField]
         ScrollRect upgradeScroll;
+
 
         private enum UpgradeNumber
         {
@@ -144,16 +150,17 @@ namespace TowerDefencePractice.UIs
             newConstructableStatusPanel.SetActive(true);
             // 購入ボタンの有効化
             purchaseButton.SetActive(true);
+            // 購入ボタンのインタラクト
+            PurchaseButtonInteractable();
 
             // 各ステータスの値の更新
-            // *******************************
             newConstructableNameInstance.text = constructableBoss.constructableSctiptbaleObject[purchaseConstructableNumber].constructableName;
 
             newConstructableIconInstance.sprite = constructableBoss.constructableSctiptbaleObject[purchaseConstructableNumber].constructableIcon;
 
-            newConstructableStuffInstance.text = $"{constructableBoss.constructableSctiptbaleObject[purchaseConstructableNumber].requireStuffBase:f2}";
+            newConstructableStuffInstance.text = $"{Mathf.CeilToInt(constructableBoss.constructableSctiptbaleObject[purchaseConstructableNumber].requireStuffBase)}";
 
-            newConstructableCostInstance.text = $"{constructableBoss.constructableSctiptbaleObject[purchaseConstructableNumber].requireCoinBase:f2}";
+            newConstructableCostInstance.text = $"{Mathf.CeilToInt(constructableBoss.constructableSctiptbaleObject[purchaseConstructableNumber].requireCoinBase)}";
 
             newConstructablePowerInstance.text = $"{constructableBoss.constructableSctiptbaleObject[purchaseConstructableNumber].firePowerBase:f2}";
 
@@ -164,8 +171,8 @@ namespace TowerDefencePractice.UIs
 
             newConstructableRangeInstance.text = $"{constructableBoss.constructableSctiptbaleObject[purchaseConstructableNumber].fireRangeBase:f2}";
 
-            purchaseStuff.text = $"{constructableBoss.constructableSctiptbaleObject[purchaseConstructableNumber].requireStuffBase}";
-            purchaseCost.text = $"{constructableBoss.constructableSctiptbaleObject[purchaseConstructableNumber].requireCoinBase}";
+            purchaseStuff.text = $"{Mathf.CeilToInt(constructableBoss.constructableSctiptbaleObject[purchaseConstructableNumber].requireStuffBase)}";
+            purchaseCost.text = $"{Mathf.CeilToInt(constructableBoss.constructableSctiptbaleObject[purchaseConstructableNumber].requireCoinBase)}";
         }
 
         /// <summary>
@@ -173,17 +180,47 @@ namespace TowerDefencePractice.UIs
         /// </summary>
         public void PurchaseButton()
         {
-            currentGridCell.collider.GetComponent<GridCellController>().InstantiateConstructable(purchaseConstructableNumber);
-            // レンジの表示
-            currentGridCell.collider.GetComponentInChildren<RangeCollider>().RangeEnable();
+            int nextCoin = bsManager.money.Value - Mathf.CeilToInt(constructableBoss.constructableSctiptbaleObject[purchaseConstructableNumber].requireCoinBase);
+            int nextStuff = bsManager.stuff.Value - Mathf.CeilToInt(constructableBoss.constructableSctiptbaleObject[purchaseConstructableNumber].requireStuffBase);
 
-            StartCoroutine(DelayInitialize());
-
-            IEnumerator DelayInitialize()
+            // お金と人員が十分であるとき
+            if (nextCoin >= 0 && nextStuff >= 0)
             {
-                yield return null;
-                UpgradeConstructablePanelInitialize();
-                ConstructablePowerUpgradeButton();
+                // コスト
+                bsManager.money.Value = nextCoin;
+                bsManager.stuff.Value = nextStuff;
+
+                // 建造
+                currentGridCell.collider.GetComponent<GridCellController>().InstantiateConstructable(purchaseConstructableNumber);
+
+                // レンジの表示
+                currentGridCell.collider.GetComponentInChildren<RangeCollider>().RangeEnable();
+
+                StartCoroutine(DelayInitialize());
+
+                IEnumerator DelayInitialize()
+                {
+                    yield return null;
+                    UpgradeConstructablePanelActivate();
+                }
+            }
+        }
+
+        /// <summary>
+        /// 購入ボタンのインタラクトを制御
+        /// </summary>
+        public void PurchaseButtonInteractable()
+        {
+            int nextCoin = bsManager.money.Value - Mathf.CeilToInt(constructableBoss.constructableSctiptbaleObject[purchaseConstructableNumber].requireCoinBase);
+            int nextStuff = bsManager.stuff.Value - Mathf.CeilToInt(constructableBoss.constructableSctiptbaleObject[purchaseConstructableNumber].requireStuffBase);
+
+            if (nextCoin >= 0 && nextStuff >= 0)
+            {
+                purchaseButton.GetComponentInChildren<Button>().interactable = true;
+            }
+            else
+            {
+                purchaseButton.GetComponentInChildren<Button>().interactable = false;
             }
         }
 
@@ -198,12 +235,17 @@ namespace TowerDefencePractice.UIs
         /// </summary>
         public void UpgradeConstructablePanelActivate()
         {
+            purchaseConstructablePanel.SetActive(false);
             upgradeConstructablePanel.SetActive(true);
             // アップグレード画面初期化
             UpgradeConstructablePanelInitialize();
             ConstructablePowerUpgradeButton();
+            UpgradeButtonInteractable();
         }
 
+        /// <summary>
+        /// アップグレード画面の初期化
+        /// </summary>
         private void UpgradeConstructablePanelInitialize()
         {
             // 各ステータスの値の更新
@@ -233,6 +275,9 @@ namespace TowerDefencePractice.UIs
             upgradeNextConstructableRangeInstance.text = $"{currentTurretGradeUp.FireRangeCalculate(currentTurretBehaviour.fireRangeCurrentLevel + 1):f2}";
         }
 
+        /// <summary>
+        /// 建造可能物の火力アップグレードボタンの押下時の動き
+        /// </summary>
         public void ConstructablePowerUpgradeButton()
         {
             // *******************************
@@ -240,8 +285,12 @@ namespace TowerDefencePractice.UIs
             upgradeStuff.text = $"{currentGridCell.transform.GetComponentInChildren<TurretBaseBehaviour>().name}";
             upgradeCoin.text = $"{currentGridCell.transform.GetComponentInChildren<TurretBaseBehaviour>().name}";
             upgradeText.text = "Power Upgrade";
+            UpgradeButtonInteractable();
         }
 
+        /// <summary>
+        /// 建造可能物の射撃間隔アップグレードボタンの押下時の動き
+        /// </summary>
         public void ConstructableSpeedUpgradeButton()
         {
             // *******************************
@@ -249,8 +298,12 @@ namespace TowerDefencePractice.UIs
             upgradeStuff.text = $"{currentGridCell.transform.GetComponentInChildren<TurretBaseBehaviour>().name}";
             upgradeCoin.text = $"{currentGridCell.transform.GetComponentInChildren<TurretBaseBehaviour>().name}";
             upgradeText.text = "Speed Upgrade";
+            UpgradeButtonInteractable();
         }
 
+        /// <summary>
+        /// 建造可能物の射撃範囲アップグレードボタン押下時の動き
+        /// </summary>
         public void ConstructableRangeUpgradeButton()
         {
             // *******************************
@@ -258,8 +311,12 @@ namespace TowerDefencePractice.UIs
             upgradeStuff.text = $"{currentGridCell.transform.GetComponentInChildren<TurretBaseBehaviour>().name}";
             upgradeCoin.text = $"{currentGridCell.transform.GetComponentInChildren<TurretBaseBehaviour>().name}";
             upgradeText.text = "Range Upgrade";
+            UpgradeButtonInteractable();
         }
 
+        /// <summary>
+        /// アップグレードボタン
+        /// </summary>
         public void UpgradeButton()
         {
             Vector2 scrollPosition = upgradeScroll.normalizedPosition;
@@ -285,10 +342,48 @@ namespace TowerDefencePractice.UIs
 
         private IEnumerator ScrollPosition(Vector2 position)
         {
-            yield return null;
+            yield return new WaitUntil(() => upgradeScroll.verticalNormalizedPosition >= 1);
             upgradeScroll.normalizedPosition = position;
         }
 
+        /// <summary>
+        /// アップグレードボタンのインタラクトを制御
+        /// </summary>
+        public void UpgradeButtonInteractable()
+        {
+            if (currentGridCell.transform.GetComponentInChildren<TurretBaseBehaviour>() != null)
+            {
+                int nextCoin = 0;
+                int nextStuff = 0;
+                switch (upgradeNumber)
+                {
+                    case UpgradeNumber.Power:
+                        nextCoin = bsManager.money.Value - Mathf.CeilToInt(currentGridCell.transform.GetComponentInChildren<TurretBaseBehaviour>().firePowerCurrent);
+                        nextStuff = bsManager.stuff.Value - Mathf.CeilToInt(currentGridCell.transform.GetComponentInChildren<TurretBaseBehaviour>().turretData.requireStuffBase);
+                        break;
+                    case UpgradeNumber.Speed:
+                        nextCoin = bsManager.money.Value - Mathf.CeilToInt(currentGridCell.transform.GetComponentInChildren<TurretBaseBehaviour>().firePowerCurrent);
+                        nextStuff = bsManager.stuff.Value - Mathf.CeilToInt(currentGridCell.transform.GetComponentInChildren<TurretBaseBehaviour>().firePowerCurrent);
+                        break;
+                    case UpgradeNumber.Range:
+                        nextCoin = bsManager.money.Value - Mathf.CeilToInt(currentGridCell.transform.GetComponentInChildren<TurretBaseBehaviour>().firePowerCurrent);
+                        nextStuff = bsManager.stuff.Value - Mathf.CeilToInt(currentGridCell.transform.GetComponentInChildren<TurretBaseBehaviour>().firePowerCurrent);
+                        break;
+                }
+                if (nextCoin >= 0 && nextStuff >= 0)
+                {
+                    upgradeButton.interactable = true;
+                }
+                else
+                {
+                    upgradeButton.interactable = false;
+                }
+            }
+        }
+
+        /// <summary>
+        /// 売却ボタン
+        /// </summary>
         public void CellButton()
         {
 

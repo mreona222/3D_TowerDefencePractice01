@@ -44,7 +44,7 @@ namespace TowerDefencePractice.Character.Enemies
 
         protected virtual float EnemyCoinLevelUp()
         {
-            return enemyBehaviour.enemyData.characterCoinBase * Mathf.Pow(1 + enemyBehaviour.currentLevel / enemyBehaviour.enemyData.characterCoinRatio, enemyBehaviour.enemyData.characterCoinPow);
+            return enemyBehaviour.enemyData.characterCoinBase * Mathf.Pow(1 + enemyBehaviour.currentLevel * enemyBehaviour.enemyData.characterCoinRatio, enemyBehaviour.enemyData.characterCoinPow);
         }
     }
 }

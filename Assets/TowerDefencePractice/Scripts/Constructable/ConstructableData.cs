@@ -19,6 +19,13 @@ namespace TowerDefencePractice.Constructable
         public Sprite constructableIcon;
         // 建造可能物のプレハブ
         public GameObject constructablePrefab;
+        // 建造可能物のタイプ
+        public enum ConstructableType
+        {
+            Turret,
+
+        }
+        public ConstructableType constructableType;
 
         //---------------------------------------------------------
         // 射撃間隔

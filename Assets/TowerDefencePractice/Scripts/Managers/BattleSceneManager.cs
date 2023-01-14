@@ -3,15 +3,19 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using UnityEngine.UI;
-
-using UnityEditor;
 using UnityEngine.SceneManagement;
+using UniRx;
+
+#if UNITY_EDITOR
+using UnityEditor;
 using UnityEditor.SceneManagement;
+#endif
 
 using Utilities;
 
 using TowerDefencePractice.Character.Enemies;
 using TowerDefencePractice.Spawner;
+using TowerDefencePractice.UIs;
 
 
 namespace TowerDefencePractice.Managers
@@ -30,19 +34,33 @@ namespace TowerDefencePractice.Managers
         [SerializeField]
         BattleState currentState;
 
+        [SerializeField]
+        BattleUIController buCon;
+
         // スポーン地点
         public GameObject startPoint;
         // ゴール地点
         public GameObject goalPoint;
         [HideInInspector]
         // 敵の数
-        public int enemyAmount;
+        public IntReactiveProperty enemyAmount;
         // 敵がゴールに到達した回数の限界
-        public int enemyGoalLimit;
+        public IntReactiveProperty enemyGoalLimit;
 
 
         [SerializeField]
         Text timeText;
+
+        // 所持金
+        public IntReactiveProperty money;
+        [SerializeField]
+        private Text moneyText;
+
+        // 人員
+        public IntReactiveProperty stuff;
+        [SerializeField]
+        private Text stuffText;
+
 
         [System.Serializable]
         public class SpawnTimeTable
@@ -131,7 +149,51 @@ namespace TowerDefencePractice.Managers
 
         private void Start()
         {
-            enemyAmount = wave.Length;
+            enemyAmount.Value = wave.Length;
+
+            // 所持金に変更があった場合
+            money
+                .Subscribe((x) =>
+                {
+                    moneyText.text = $"{x}";
+                    buCon.PurchaseButtonInteractable();
+                    if (buCon.currentGridCell.collider != null)
+                    {
+                        buCon.UpgradeButtonInteractable();
+                    }
+                })
+                .AddTo(this);
+
+            // 人員に変更があった場合
+            stuff
+                .Subscribe((x) =>
+                {
+                    stuffText.text = $"{x}";
+                    buCon.PurchaseButtonInteractable();
+                    if (buCon.currentGridCell.collider != null)
+                    {
+                        buCon.UpgradeButtonInteractable();
+                    }
+                })
+                .AddTo(this);
+
+            // ウェーブが終わったら
+            enemyAmount
+                .Where((x) => x <= 0 && currentState == BattleState.Battle)
+                .Subscribe((x) =>
+                {
+                    UpdateBattleState(BattleState.BattleEnd);
+                })
+                .AddTo(this);
+
+            // 敵のゴール到達回数が上限を超えたら
+            enemyGoalLimit
+                .Where((x) => x <= 0 && currentState == BattleState.Battle)
+                .Subscribe((x) =>
+                {
+                    UpdateBattleState(BattleState.BattleEnd);
+                })
+                .AddTo(this);
         }
 
         private void Update()
@@ -139,7 +201,7 @@ namespace TowerDefencePractice.Managers
             // ***********************************************************************
             if (UnityEngine.InputSystem.Keyboard.current.cKey.wasPressedThisFrame)
             {
-                UpdateBattleState(BattleState.BattleEnd);
+                money.Value--;
             }
         }
 

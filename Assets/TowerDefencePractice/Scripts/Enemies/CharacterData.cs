@@ -20,6 +20,7 @@ namespace TowerDefencePractice.Character
         public enum CharacterType
         {
             Enemies,
+            Fairies,
 
         }
         public CharacterType characterType;
@@ -47,9 +48,11 @@ namespace TowerDefencePractice.Character
         public float characterSpeedBase;
         // キャラクターの最高速度
         public float characterSpeedMax;
-        // キャラクターのHPMaxLevel
+        // キャラクターの速度のMaxLevel
         public float characterSpeedMaxLevel;
-        // kキャラクターの速度の累乗
+        // キャラクターの速度の上昇比率
+        public float characterSpeedRatio;
+        // キャラクターの速度の累乗
         public float characterSpeedPow;
 
         // キャラクターの落とす基本金額

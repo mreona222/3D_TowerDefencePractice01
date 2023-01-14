@@ -59,11 +59,8 @@ namespace TowerDefencePractice.Character.Enemies
             if (currentHP <= 0)
             {
                 StartDieState();
-                bsManager.enemyAmount--;
-                if (bsManager.enemyAmount <= 0)
-                {
-                    bsManager.UpdateBattleState(BattleSceneManager.BattleState.BattleEnd);
-                }
+                bsManager.enemyAmount.Value--;
+                bsManager.money.Value += Mathf.FloorToInt(currentCoin);
             }
             else
             {
