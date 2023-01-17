@@ -12,10 +12,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 499f183c00523074398609797103b298, type: 3}
   m_Name: Turret02
   m_EditorClassIdentifier: 
-  constructableName: Turret02
+  constructableName: TurretGatling
   constructableIcon: {fileID: 21300000, guid: 884a14b6a31928d4b96d280c81d66d13, type: 3}
   constructablePrefab: {fileID: 3113747565330630701, guid: f1e458a8ce0af6742ad8f4a8a792d50b, type: 3}
+  constructableType: 0
   fireRateBase: 3
   fireRateMax: 3
   fireRateMaxLevel: 30
+  fireRateRatio: 0
+  fireRatePow: 0
+  fireRateUpgradeCoinBase: 0
+  fireRateUpgradeCoinRatio: 0
+  fireRateUpgradeCoinPow: 0
   firePowerBase: 3
+  firePowerMax: 0
+  firePowerMaxLevel: 0
+  firePowerRatio: 0
+  firePowerPow: 0
+  firePowerUpgradeCoinBase: 0
+  firePowerUpgradeCoinRatio: 0
+  firePowerUpgradeCoinPow: 0
+  fireRangeBase: 0
+  fireRangeMax: 0
+  fireRangeMaxLevel: 0
+  fireRangeRatio: 0
+  fireRangePow: 0
+  fireRangeUpgradeCoinBase: 0
+  fireRangeUpgradeCoinRatio: 0
+  fireRangeUpgradeCoinPow: 0
+  requireStuffBase: 0
+  requireCoinBase: 0

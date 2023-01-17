@@ -15,7 +15,7 @@ namespace TowerDefencePractice.Character.Enemies
         public enum Enemies
         {
             Slime,
-            ShellSilme,
+            ShellSlime,
 
         }
 
@@ -36,6 +36,9 @@ namespace TowerDefencePractice.Character.Enemies
 
         [HideInInspector]
         public float stanTime;
+
+        private float damageInterval = 0.5f;
+        private bool damageMotion = true;
 
         public BattleSceneManager bsManager;
 
@@ -64,7 +67,11 @@ namespace TowerDefencePractice.Character.Enemies
             }
             else
             {
-                StartDamageState();
+                if (damageMotion)
+                {
+                    StartCoroutine(DamageInterval());
+                    StartDamageState();
+                }
             }
         }
 
@@ -74,6 +81,13 @@ namespace TowerDefencePractice.Character.Enemies
             {
                 StartReachGoal();
             }
+        }
+
+        IEnumerator DamageInterval()
+        {
+            damageMotion = false;
+            yield return new WaitForSeconds(damageInterval);
+            damageMotion = true;
         }
     }
 }

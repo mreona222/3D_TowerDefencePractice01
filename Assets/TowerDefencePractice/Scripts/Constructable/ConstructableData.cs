@@ -41,6 +41,12 @@ namespace TowerDefencePractice.Constructable
         public float fireRateRatio;
         // 射撃間隔の累乗
         public float fireRatePow;
+        // 射撃間隔アップグレードの初期費用
+        public float fireRateUpgradeCoinBase;
+        // 射撃間隔アップグレードコストの上昇比率
+        public float fireRateUpgradeCoinRatio;
+        // 射撃間隔アップグレードコストの急峻さ
+        public float fireRateUpgradeCoinPow;
 
         //---------------------------------------------------------
         // 射撃火力
@@ -56,6 +62,12 @@ namespace TowerDefencePractice.Constructable
         public float firePowerRatio;
         // 射撃火力の累乗
         public float firePowerPow;
+        // 射撃火力アップグレードの初期費用
+        public float firePowerUpgradeCoinBase;
+        // 射撃火力アップグレードコストの上昇比率
+        public float firePowerUpgradeCoinRatio;
+        // 射撃火力アップグレードコストの急峻さ
+        public float firePowerUpgradeCoinPow;
 
         //---------------------------------------------------------
         // 射程
@@ -71,14 +83,20 @@ namespace TowerDefencePractice.Constructable
         public float fireRangeRatio;
         // 射程の累乗
         public float fireRangePow;
+        // 射程アップグレードの初期費用
+        public float fireRangeUpgradeCoinBase;
+        // 射程アップグレードコストの上昇比率
+        public float fireRangeUpgradeCoinRatio;
+        // 射撃間隔アップグレードコストの急峻さ
+        public float fireRangeUpgradeCoinPow;
 
         //---------------------------------------------------------
         // コスト
         //---------------------------------------------------------
 
         // 基本必要人員
-        public float requireStuffBase;
+        public int requireStuffBase;
         // 基本必要経費
-        public float requireCoinBase;
+        public int requireCoinBase;
     }
 }

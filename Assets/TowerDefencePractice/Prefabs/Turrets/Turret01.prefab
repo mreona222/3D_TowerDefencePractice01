@@ -206,7 +206,7 @@ Transform:
   m_GameObject: {fileID: 2084907478}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0.1, z: 0}
-  m_LocalScale: {x: 6, y: 1, z: 6}
+  m_LocalScale: {x: 6, y: 6, z: 6}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 684320205}
@@ -614,12 +614,16 @@ MonoBehaviour:
   fireRateCurrentLevel: 0
   fireRateCurrent: 0
   fireRateNext: 0
+  fireRateUpgradeCoin: 0
   canShoot: 0
   lockon: 0
   firePowerCurrentLevel: 0
-  firePowerCurrent: 100
-  firePowerNext: 0
+  firePowerCurrent: 0
+  firePowerUpgradeCoin: 0
   stanTime: 0
+  fireRangeCurrentLevel: 0
+  fireRangeCurrent: 0
+  fireRangeUpgradeCoin: 0
   turretFireAnimationClip: {fileID: 7400000, guid: 45934da02ac2fc744a6ebec1af320bec, type: 2}
   bullet: {fileID: 3204632571562781302, guid: 523ee0a8eb543c64496682eae6f0d221, type: 3}
   firePointTransform:

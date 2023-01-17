@@ -44,7 +44,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba223f54bd6070d4a9c70b555cb6c5a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentState: 0
+  buCon: {fileID: 0}
   startPoint: {fileID: 0}
   goalPoint: {fileID: 0}
+  enemyAmount:
+    value: 0
+  enemyGoalLimit:
+    value: 0
   timeText: {fileID: 0}
+  money:
+    value: 0
+  moneyText: {fileID: 0}
+  stuff:
+    value: 0
+  stuffText: {fileID: 0}
   wave: []

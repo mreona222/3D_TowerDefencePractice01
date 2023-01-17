@@ -194,7 +194,7 @@ namespace TowerDefencePractice.UIs
                 currentGridCell.collider.GetComponent<GridCellController>().InstantiateConstructable(purchaseConstructableNumber);
 
                 // レンジの表示
-                currentGridCell.collider.GetComponentInChildren<RangeCollider>().RangeEnable();
+                currentGridCell.collider.GetComponentInChildren<TurretRangeCollider>().RangeEnable();
 
                 StartCoroutine(DelayInitialize());
 
@@ -249,17 +249,16 @@ namespace TowerDefencePractice.UIs
         private void UpgradeConstructablePanelInitialize()
         {
             // 各ステータスの値の更新
-            // *******************************
-            TurretBaseBehaviour currentTurretBehaviour = currentGridCell.transform.GetComponentInChildren<TurretBaseBehaviour>();
-            TurretBaseGradeUp currentTurretGradeUp = currentGridCell.transform.GetComponentInChildren<TurretBaseGradeUp>();
+            TurretBehaviourBase currentTurretBehaviour = currentGridCell.transform.GetComponentInChildren<TurretBehaviourBase>();
+            TurretGradeUpBase currentTurretGradeUp = currentGridCell.transform.GetComponentInChildren<TurretGradeUpBase>();
 
             upgradeConstructableNameInstance.text = currentTurretBehaviour.turretData.constructableName;
 
             upgradeConstructableIconInstance.sprite = currentTurretBehaviour.turretData.constructableIcon;
 
-            upgradeConstructableStuffInstance.text = $"{currentTurretBehaviour.turretData.fireRateMax:f2}";
+            //upgradeConstructableStuffInstance.text = $"{currentTurretBehaviour.turretData.fireRateMax:f2}";
 
-            upgradeConstructableCostInstance.text = $"{currentTurretBehaviour.turretData.fireRateMax:f2}";
+            //upgradeConstructableCostInstance.text = $"{currentTurretBehaviour.turretData.fireRateMax:f2}";
 
             upgradeConstructablePowerInstance.text = $"{currentTurretBehaviour.firePowerCurrent:f2}";
             upgradeNextConstructablePowerInstance.text = $"{currentTurretGradeUp.FirePowerCalculate(currentTurretBehaviour.firePowerCurrentLevel + 1):f2}";
@@ -280,10 +279,9 @@ namespace TowerDefencePractice.UIs
         /// </summary>
         public void ConstructablePowerUpgradeButton()
         {
-            // *******************************
             upgradeNumber = UpgradeNumber.Power;
-            upgradeStuff.text = $"{currentGridCell.transform.GetComponentInChildren<TurretBaseBehaviour>().name}";
-            upgradeCoin.text = $"{currentGridCell.transform.GetComponentInChildren<TurretBaseBehaviour>().name}";
+            upgradeStuff.text = $"{0}";
+            upgradeCoin.text = $"{Mathf.CeilToInt(currentGridCell.transform.GetComponentInChildren<TurretBehaviourBase>().firePowerUpgradeCoin)}";
             upgradeText.text = "Power Upgrade";
             UpgradeButtonInteractable();
         }
@@ -293,10 +291,9 @@ namespace TowerDefencePractice.UIs
         /// </summary>
         public void ConstructableSpeedUpgradeButton()
         {
-            // *******************************
             upgradeNumber = UpgradeNumber.Speed;
-            upgradeStuff.text = $"{currentGridCell.transform.GetComponentInChildren<TurretBaseBehaviour>().name}";
-            upgradeCoin.text = $"{currentGridCell.transform.GetComponentInChildren<TurretBaseBehaviour>().name}";
+            upgradeStuff.text = $"{0}";
+            upgradeCoin.text = $"{Mathf.CeilToInt(currentGridCell.transform.GetComponentInChildren<TurretBehaviourBase>().fireRateUpgradeCoin)}";
             upgradeText.text = "Speed Upgrade";
             UpgradeButtonInteractable();
         }
@@ -306,10 +303,9 @@ namespace TowerDefencePractice.UIs
         /// </summary>
         public void ConstructableRangeUpgradeButton()
         {
-            // *******************************
             upgradeNumber = UpgradeNumber.Range;
-            upgradeStuff.text = $"{currentGridCell.transform.GetComponentInChildren<TurretBaseBehaviour>().name}";
-            upgradeCoin.text = $"{currentGridCell.transform.GetComponentInChildren<TurretBaseBehaviour>().name}";
+            upgradeStuff.text = $"{0}";
+            upgradeCoin.text = $"{Mathf.CeilToInt(currentGridCell.transform.GetComponentInChildren<TurretBehaviourBase>().fireRangeUpgradeCoin)}";
             upgradeText.text = "Range Upgrade";
             UpgradeButtonInteractable();
         }
@@ -321,21 +317,33 @@ namespace TowerDefencePractice.UIs
         {
             Vector2 scrollPosition = upgradeScroll.normalizedPosition;
 
-            // *******************************
             switch (upgradeNumber)
             {
                 case UpgradeNumber.Power:
-                    currentGridCell.transform.GetComponentInChildren<TurretBaseGradeUp>().FirePowerGradeUp();
+                    bsManager.money.Value -= Mathf.CeilToInt(currentGridCell.transform.GetComponentInChildren<TurretBehaviourBase>().firePowerUpgradeCoin);
+                    bsManager.stuff.Value -= 0;
+                    currentGridCell.transform.GetComponentInChildren<TurretGradeUpBase>().FirePowerGradeUp();
+                    upgradeStuff.text = $"{0}";
+                    upgradeCoin.text = $"{Mathf.CeilToInt(currentGridCell.transform.GetComponentInChildren<TurretBehaviourBase>().firePowerUpgradeCoin)}";
                     break;
                 case UpgradeNumber.Speed:
-                    currentGridCell.transform.GetComponentInChildren<TurretBaseGradeUp>().FireRateGradeUp();
+                    bsManager.money.Value -= Mathf.CeilToInt(currentGridCell.transform.GetComponentInChildren<TurretBehaviourBase>().fireRateUpgradeCoin);
+                    bsManager.stuff.Value -= 0;
+                    currentGridCell.transform.GetComponentInChildren<TurretGradeUpBase>().FireRateGradeUp();
+                    upgradeStuff.text = $"{0}";
+                    upgradeCoin.text = $"{Mathf.CeilToInt(currentGridCell.transform.GetComponentInChildren<TurretBehaviourBase>().fireRateUpgradeCoin)}";
                     break;
                 case UpgradeNumber.Range:
-                    currentGridCell.transform.GetComponentInChildren<TurretBaseGradeUp>().FireRangeGradeUp();
+                    bsManager.money.Value -= Mathf.CeilToInt(currentGridCell.transform.GetComponentInChildren<TurretBehaviourBase>().fireRangeUpgradeCoin);
+                    bsManager.stuff.Value -= 0;
+                    currentGridCell.transform.GetComponentInChildren<TurretGradeUpBase>().FireRangeGradeUp();
+                    upgradeStuff.text = $"{0}";
+                    upgradeCoin.text = $"{Mathf.CeilToInt(currentGridCell.transform.GetComponentInChildren<TurretBehaviourBase>().fireRangeUpgradeCoin)}";
                     break;
             }
 
             UpgradeConstructablePanelInitialize();
+            UpgradeButtonInteractable();
 
             StartCoroutine(ScrollPosition(scrollPosition));
         }
@@ -351,23 +359,23 @@ namespace TowerDefencePractice.UIs
         /// </summary>
         public void UpgradeButtonInteractable()
         {
-            if (currentGridCell.transform.GetComponentInChildren<TurretBaseBehaviour>() != null)
+            if (currentGridCell.transform.GetComponentInChildren<TurretBehaviourBase>() != null)
             {
                 int nextCoin = 0;
                 int nextStuff = 0;
                 switch (upgradeNumber)
                 {
                     case UpgradeNumber.Power:
-                        nextCoin = bsManager.money.Value - Mathf.CeilToInt(currentGridCell.transform.GetComponentInChildren<TurretBaseBehaviour>().firePowerCurrent);
-                        nextStuff = bsManager.stuff.Value - Mathf.CeilToInt(currentGridCell.transform.GetComponentInChildren<TurretBaseBehaviour>().turretData.requireStuffBase);
+                        nextCoin = bsManager.money.Value - Mathf.CeilToInt(currentGridCell.transform.GetComponentInChildren<TurretBehaviourBase>().firePowerUpgradeCoin);
+                        nextStuff = bsManager.stuff.Value - 0;
                         break;
                     case UpgradeNumber.Speed:
-                        nextCoin = bsManager.money.Value - Mathf.CeilToInt(currentGridCell.transform.GetComponentInChildren<TurretBaseBehaviour>().firePowerCurrent);
-                        nextStuff = bsManager.stuff.Value - Mathf.CeilToInt(currentGridCell.transform.GetComponentInChildren<TurretBaseBehaviour>().firePowerCurrent);
+                        nextCoin = bsManager.money.Value - Mathf.CeilToInt(currentGridCell.transform.GetComponentInChildren<TurretBehaviourBase>().fireRateUpgradeCoin);
+                        nextStuff = bsManager.stuff.Value - 0;
                         break;
                     case UpgradeNumber.Range:
-                        nextCoin = bsManager.money.Value - Mathf.CeilToInt(currentGridCell.transform.GetComponentInChildren<TurretBaseBehaviour>().firePowerCurrent);
-                        nextStuff = bsManager.stuff.Value - Mathf.CeilToInt(currentGridCell.transform.GetComponentInChildren<TurretBaseBehaviour>().firePowerCurrent);
+                        nextCoin = bsManager.money.Value - Mathf.CeilToInt(currentGridCell.transform.GetComponentInChildren<TurretBehaviourBase>().fireRangeUpgradeCoin);
+                        nextStuff = bsManager.stuff.Value - 0;
                         break;
                 }
                 if (nextCoin >= 0 && nextStuff >= 0)
@@ -386,7 +394,10 @@ namespace TowerDefencePractice.UIs
         /// </summary>
         public void CellButton()
         {
-
+            bsManager.money.Value += currentGridCell.transform.GetComponentInChildren<TurretBehaviourBase>().turretData.requireCoinBase;
+            bsManager.stuff.Value += currentGridCell.transform.GetComponentInChildren<TurretBehaviourBase>().turretData.requireStuffBase;
+            currentGridCell.collider.GetComponent<GridCellController>().constructableExist = false;
+            currentGridCell.transform.GetComponentInChildren<TurretBehaviourBase>().CellTurret();
         }
     }
 }
