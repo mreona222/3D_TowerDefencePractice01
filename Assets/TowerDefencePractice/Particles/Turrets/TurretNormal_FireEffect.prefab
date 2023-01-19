@@ -33897,7 +33897,7 @@ GameObject:
   - component: {fileID: 1891353278910841148}
   - component: {fileID: 1891353278936126488}
   m_Layer: 0
-  m_Name: Turret01_FireEffect
+  m_Name: TurretNormal_FireEffect
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

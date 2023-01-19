@@ -99,9 +99,9 @@ namespace TowerDefencePractice.Inputs
                         machine.gridHitPre.collider.GetComponent<GridCellController>().GridLightOff();
                         if (machine.gridHitPre.collider.GetComponent<GridCellController>().constructableExist)
                         {
-                            if (machine.gridHit.collider.GetComponentInChildren<TurretRangeCollider>() != null)
+                            if (machine.gridHit.collider.GetComponentInChildren<TurretRangeColliderBase>() != null)
                             {
-                                machine.gridHit.collider.GetComponentInChildren<TurretRangeCollider>().RangeDisenable();
+                                machine.gridHit.collider.GetComponentInChildren<TurretRangeColliderBase>().RangeDisenable();
                             }
                         }
                     }
@@ -163,7 +163,7 @@ namespace TowerDefencePractice.Inputs
                                 else
                                 {
                                     machine.battleUICon.currentGridCell = machine.gridHit;
-                                    machine.gridHit.collider.GetComponentInChildren<TurretRangeCollider>().RangeEnable();
+                                    machine.gridHit.collider.GetComponentInChildren<TurretRangeColliderBase>().RangeEnable();
                                     machine.battleUICon.UpgradeConstructablePanelActivate();
                                 }
                             }

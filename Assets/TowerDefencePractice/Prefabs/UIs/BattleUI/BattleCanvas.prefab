@@ -4469,6 +4469,8 @@ MonoBehaviour:
   upgradeCoin: {fileID: 2910162989962375632}
   upgradeText: {fileID: 2165456294268527768}
   upgradeScroll: {fileID: 4478212778635204744}
+  moneyClip: {fileID: 8300000, guid: 73973620762454a498096bb8d3610af3, type: 3}
+  constructClip: {fileID: 8300000, guid: d45670eb689ff124b80767cf376d1d43, type: 3}
 --- !u!1 &2743430847744138794
 GameObject:
   m_ObjectHideFlags: 0

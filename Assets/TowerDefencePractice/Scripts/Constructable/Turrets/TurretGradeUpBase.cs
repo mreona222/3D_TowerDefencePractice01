@@ -82,9 +82,12 @@ namespace TowerDefencePractice.Constructable.Turrets
         {
             //Debug.Log("デフォルトの計算方法です。");
 
-            // 線形の計算方法
-            return turretBehaviour.turretData.fireRateBase -
-                (turretBehaviour.turretData.fireRateBase - turretBehaviour.turretData.fireRateMax) * (level / turretBehaviour.turretData.fireRateMaxLevel);
+            // 線形 + 非線形
+            return turretBehaviour.turretData.fireRateBase - (
+                turretBehaviour.turretData.fireRateRatio * (turretBehaviour.turretData.fireRateBase - turretBehaviour.turretData.fireRateMax) * (level / turretBehaviour.turretData.fireRateMaxLevel) +
+                (1 - turretBehaviour.turretData.fireRateRatio) * (turretBehaviour.turretData.fireRateBase - turretBehaviour.turretData.fireRateMax) *
+                    Mathf.Pow((level / turretBehaviour.turretData.fireRateMaxLevel), turretBehaviour.turretData.fireRatePow)
+                );
         }
 
         /// <summary>
@@ -163,7 +166,7 @@ namespace TowerDefencePractice.Constructable.Turrets
             // 射撃範囲の計算
             turretBehaviour.fireRangeCurrent = FireRangeCalculate(turretBehaviour.fireRangeCurrentLevel);
             // 射撃範囲の変更
-            turretBehaviour.transform.GetComponentInChildren<TurretRangeCollider>().RangeChange(turretBehaviour.fireRangeCurrent);
+            turretBehaviour.transform.GetComponentInChildren<TurretRangeColliderBase>().RangeChange(turretBehaviour.fireRangeCurrent);
             // 射撃範囲アップグレードコスト
             turretBehaviour.fireRangeUpgradeCoin = FireRangeUpgradeCoinCalcurate(turretBehaviour.fireRangeCurrentLevel);
 

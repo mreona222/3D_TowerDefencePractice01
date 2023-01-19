@@ -148,6 +148,7 @@ namespace TowerDefencePractice.Character.Enemies
                 SlimeState prevState = ((EnemyBehaviourSlime)machine).currentSlimeState;
                 machine.GetComponent<EnemyBehaviourSlime>().currentSlimeState = SlimeState.Damage;
                 machine.animator.SetInteger("SlimeState", (int)SlimeState.Damage);
+                machine.navMeshAgent.isStopped = true;
                 machine.animator.speed = 1.0f;
 
                 machine.StartCoroutine(Stan(prevState));
@@ -157,24 +158,25 @@ namespace TowerDefencePractice.Character.Enemies
             {
                 yield return new WaitForSeconds(machine.stanTime);
                 // 元のステートに戻る（Idleステートには戻らない）
-                switch (_prevState)
-                {
-                    case SlimeState.Idle:
-                        machine.ChangeState(new EnemyBehaviourSlime.Walk(machine));
-                        break;
-                    case SlimeState.Walk:
-                        machine.ChangeState(new EnemyBehaviourSlime.Walk(machine));
-                        break;
-                    case SlimeState.Damage:
-                        machine.ChangeState(new EnemyBehaviourSlime.Walk(machine));
-                        break;
-                    case SlimeState.Die:
-                        machine.ChangeState(new EnemyBehaviourSlime.Die(machine));
-                        break;
-                    case SlimeState.ReachGoal:
-                        machine.ChangeState(new EnemyBehaviourSlime.ReachGoal(machine));
-                        break;
-                }
+                //switch (_prevState)
+                //{
+                //    case SlimeState.Idle:
+                //        machine.ChangeState(new EnemyBehaviourSlime.Walk(machine));
+                //        break;
+                //    case SlimeState.Walk:
+                //        machine.ChangeState(new EnemyBehaviourSlime.Walk(machine));
+                //        break;
+                //    case SlimeState.Damage:
+                //        machine.ChangeState(new EnemyBehaviourSlime.Walk(machine));
+                //        break;
+                //    case SlimeState.Die:
+                //        machine.ChangeState(new EnemyBehaviourSlime.Die(machine));
+                //        break;
+                //    case SlimeState.ReachGoal:
+                //        machine.ChangeState(new EnemyBehaviourSlime.ReachGoal(machine));
+                //        break;
+                //}
+                machine.ChangeState(new EnemyBehaviourSlime.Walk(machine));
             }
         }
 

@@ -4,15 +4,9 @@ using UnityEngine;
 
 namespace TowerDefencePractice.Constructable.Turrets
 {
-    public class TurretFireAnimation : MonoBehaviour
+    public class TurretFireAnimationNormal : TurretFireAnimationBase
     {
-        [SerializeField]
-        ParticleSystem fireEffect = null;
-
-        [HideInInspector]
-        public Transform firePointTransform;
-        
-        void FireAnimation()
+        public override void FireAnimation()
         {
             ParticleSystem fireEffectInstance = Instantiate(fireEffect, firePointTransform.position, firePointTransform.rotation);
             if (transform.parent != null)

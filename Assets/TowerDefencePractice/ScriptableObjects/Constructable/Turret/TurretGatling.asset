@@ -1,0 +1,44 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 499f183c00523074398609797103b298, type: 3}
+  m_Name: TurretGatling
+  m_EditorClassIdentifier: 
+  constructableName: Gatling
+  constructableIcon: {fileID: 21300000, guid: 884a14b6a31928d4b96d280c81d66d13, type: 3}
+  constructablePrefab: {fileID: 3254628470066436066, guid: 3a274d2ad8ebcca40b64d530c05cab00, type: 3}
+  constructableType: 0
+  fireRateBase: 0.1
+  fireRateMax: 0.1
+  fireRateMaxLevel: 1
+  fireRateRatio: 1
+  fireRatePow: 1
+  fireRateUpgradeCoinBase: 0
+  fireRateUpgradeCoinRatio: 1
+  fireRateUpgradeCoinPow: 1
+  firePowerBase: 5
+  firePowerMax: Infinity
+  firePowerMaxLevel: Infinity
+  firePowerRatio: 0.18
+  firePowerPow: 1.8
+  firePowerUpgradeCoinBase: 4000
+  firePowerUpgradeCoinRatio: 0.2
+  firePowerUpgradeCoinPow: 1.6
+  fireRangeBase: 6
+  fireRangeMax: 10
+  fireRangeMaxLevel: 29
+  fireRangeRatio: 1
+  fireRangePow: 1
+  fireRangeUpgradeCoinBase: 3000
+  fireRangeUpgradeCoinRatio: 0.5
+  fireRangeUpgradeCoinPow: 2.8
+  requireStuffBase: 3
+  requireCoinBase: 10000

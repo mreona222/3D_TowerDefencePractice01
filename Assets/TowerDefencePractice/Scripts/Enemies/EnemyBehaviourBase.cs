@@ -3,6 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UniRx;
+using UnityEngine.UI;
 
 using Utilities.States;
 using TowerDefencePractice.Damages;
@@ -23,7 +25,7 @@ namespace TowerDefencePractice.Character.Enemies
         public CharacterData enemyData;
 
         public float currentSpeed;
-        public float currentHP;
+        public FloatReactiveProperty currentHP;
         public float currentLevel;
         public float currentCoin;
 
@@ -37,14 +39,39 @@ namespace TowerDefencePractice.Character.Enemies
         [HideInInspector]
         public float stanTime;
 
-        private float damageInterval = 0.5f;
+        private float damageInterval = 1.5f;
         private bool damageMotion = true;
 
+        [HideInInspector]
         public BattleSceneManager bsManager;
+
+        [SerializeField]
+        Slider hpBar;
+
+        [SerializeField]
+        AudioSource enemySource;
+        [SerializeField]
+        AudioClip damageClip;
+        [SerializeField]
+        AudioClip dieClip;
+        
 
         protected virtual void Start()
         {
+            hpBar.maxValue = currentHP.Value;
 
+            currentHP
+                .Subscribe((x) =>
+                {
+                    hpBar.value = currentHP.Value;
+                })
+                .AddTo(this);
+        }
+
+        protected override void Update()
+        {
+            base.Update();
+            hpBar.transform.rotation = Camera.main.transform.rotation;
         }
 
         public abstract void StartDamageState();
@@ -55,13 +82,13 @@ namespace TowerDefencePractice.Character.Enemies
 
         public virtual void DamageApplicate(float _damage, float _stanTime)
         {
-            navMeshAgent.isStopped = true;
-            currentHP -= _damage;
+            currentHP.Value -= _damage;
             stanTime = _stanTime;
 
-            if (currentHP <= 0)
+            if (currentHP.Value <= 0)
             {
                 StartDieState();
+                enemySource.PlayOneShot(dieClip);
                 bsManager.enemyAmount.Value--;
                 bsManager.money.Value += Mathf.FloorToInt(currentCoin);
             }
@@ -71,6 +98,7 @@ namespace TowerDefencePractice.Character.Enemies
                 {
                     StartCoroutine(DamageInterval());
                     StartDamageState();
+                    enemySource.PlayOneShot(damageClip);
                 }
             }
         }

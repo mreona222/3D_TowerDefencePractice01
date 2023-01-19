@@ -6,8 +6,8 @@ Avatar:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Turret01Avatar
-  m_AvatarSize: 716
+  m_Name: TurretGatlingAvatar
+  m_AvatarSize: 832
   m_Avatar:
     serializedVersion: 3
     m_AvatarSkeleton:
@@ -19,7 +19,9 @@ Avatar:
           m_AxesId: -1
         - m_ParentId: 1
           m_AxesId: -1
-        m_ID: 00000000c95d0918c0f31c3c
+        - m_ParentId: 1
+          m_AxesId: -1
+        m_ID: 00000000f4b5fb49927896f0f145990a
         m_AxesArray: []
     m_AvatarSkeletonPose:
       data:
@@ -27,11 +29,14 @@ Avatar:
         - t: {x: -0, y: 0, z: 0}
           q: {x: 0.00000006657903, y: -0, z: -0, w: 1}
           s: {x: 1, y: 1, z: 1}
-        - t: {x: 0.000000003230648, y: 0.40662718, z: 0.07390854}
+        - t: {x: 0.0000000030095448, y: 0.47191527, z: 0.06885032}
           q: {x: 0, y: -0, z: -0, w: 1}
           s: {x: 1, y: 1, z: 1}
-        - t: {x: 0.0022929276, y: 0.3048401, z: -0.023183594}
-          q: {x: 0.00000011920929, y: -0, z: -0, w: 1}
+        - t: {x: 0.3512294, y: 0.46281028, z: -0.15528671}
+          q: {x: -3.1686124e-14, y: 0.00000013315805, z: 1, w: -0.00000023841858}
+          s: {x: 1, y: 1, z: 1}
+        - t: {x: -0.3512294, y: 0.46281028, z: -0.15528671}
+          q: {x: -3.1686124e-14, y: 0.00000013315805, z: 1, w: -0.00000023841858}
           s: {x: 1, y: 1, z: 1}
     m_DefaultPose:
       data:
@@ -39,13 +44,16 @@ Avatar:
         - t: {x: -0, y: 0, z: 0}
           q: {x: 0.00000006657903, y: -0, z: -0, w: 1}
           s: {x: 1, y: 1, z: 1}
-        - t: {x: 0.000000003230648, y: 0.40662718, z: 0.07390854}
+        - t: {x: 0.0000000030095448, y: 0.47191527, z: 0.06885032}
           q: {x: 0, y: -0, z: -0, w: 1}
           s: {x: 1, y: 1, z: 1}
-        - t: {x: 0.0022929276, y: 0.3048401, z: -0.023183594}
-          q: {x: 0.00000011920929, y: -0, z: -0, w: 1}
+        - t: {x: 0.3512294, y: 0.46281028, z: -0.15528671}
+          q: {x: -3.1686124e-14, y: 0.00000013315805, z: 1, w: -0.00000023841858}
           s: {x: 1, y: 1, z: 1}
-    m_SkeletonNameIDArray: 00000000c95d091854e32542
+        - t: {x: -0.3512294, y: 0.46281028, z: -0.15528671}
+          q: {x: -3.1686124e-14, y: 0.00000013315805, z: 1, w: -0.00000023841858}
+          s: {x: 1, y: 1, z: 1}
+    m_SkeletonNameIDArray: 00000000f4b5fb490b0a4b1e683744e4
     m_Human:
       data:
         serializedVersion: 2
@@ -122,9 +130,10 @@ Avatar:
         m_X: []
     m_RootMotionSkeletonIndexArray: 
   m_TOS:
-    403267017: canon_lvl_1
+    177817073: canon_lvl_4_var_1/gunpoint_L
+    4036393106: canon_lvl_4_var_1/gunpoint_R
+    1241232884: canon_lvl_4_var_1
     0: 
-    1008530368: canon_lvl_1/gunpoint
   m_HumanDescription:
     serializedVersion: 3
     m_Human: []

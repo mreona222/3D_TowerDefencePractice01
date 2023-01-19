@@ -14,7 +14,7 @@ namespace TowerDefencePractice.Character.Enemies
         public void Initialize()
         {
             enemyBehaviour = GetComponent<EnemyBehaviourBase>();
-            enemyBehaviour.currentHP = EnemyHPLevelUp();
+            enemyBehaviour.currentHP.Value = EnemyHPLevelUp();
             enemyBehaviour.currentSpeed = EnemySpeedLevelUp();
             enemyBehaviour.currentCoin = EnemyCoinLevelUp();
             enemyBehaviour.navMeshAgent.speed = enemyBehaviour.currentSpeed;

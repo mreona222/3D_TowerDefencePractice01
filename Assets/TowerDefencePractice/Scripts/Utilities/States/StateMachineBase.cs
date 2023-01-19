@@ -16,7 +16,7 @@ namespace Utilities.States
 			return bRet;
 		}
 
-		private void Update()
+		protected virtual void Update()
 		{
 			if (m_nextState != null)
 			{

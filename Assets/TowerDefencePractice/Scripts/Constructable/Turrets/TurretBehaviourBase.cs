@@ -28,7 +28,7 @@ namespace TowerDefencePractice.Constructable.Turrets
         public float fireRateCurrentLevel;
         // 現在の射撃間隔[s/times]
         public float fireRateCurrent;
-        // 次の射撃間隔
+        // 次の射撃間隔**********************
         public float fireRateNext;
         // 射撃間隔アップグレードに必要なコスト
         public float fireRateUpgradeCoin;
@@ -69,7 +69,10 @@ namespace TowerDefencePractice.Constructable.Turrets
         // 弾の発射位置
         public Transform[] firePointTransform = null;
         // 次の発射位置
-        protected int nextPoint = 0;
+        public int nextPoint = 0;
+
+        [SerializeField]
+        protected AudioSource source;
 
 
         protected virtual void Start()
@@ -80,12 +83,10 @@ namespace TowerDefencePractice.Constructable.Turrets
 
             GetComponent<TurretGradeUpBase>().Initialize();
 
+            // 射程範囲の初期化
+            GetComponentInChildren<TurretRangeColliderBase>().RangeChange(fireRangeCurrent);
+
             canShoot = true;
-        }
-
-        protected virtual void Update()
-        {
-
         }
 
 
@@ -104,41 +105,9 @@ namespace TowerDefencePractice.Constructable.Turrets
         // 発射関係
         // ---------------------------------------------------------------------------------
 
-        /// <summary>
-        /// 発射
-        /// </summary>
-        //public void Fire(Collider target)
-        //{
-        //    // 射撃アニメーション
-        //    turretAnimator.SetTrigger("Shoot");
-
-        //    // 弾の生成
-        //    Transform fPTransform = firePointTransform[nextPoint % firePointTransform.Length];
-        //    nextPoint++;
-        //    GetComponent<TurretFireAnimation>().firePointTransform = fPTransform;
-
-        //    GameObject bulletInstance = Instantiate(bullet, fPTransform.position, fPTransform.rotation * bullet.transform.rotation);
-        //    bulletInstance.transform.localScale = Vector3.Scale(bulletInstance.transform.localScale, transform.parent.localScale);
-        //    bulletInstance.GetComponent<BulletBehaviourBase>().parentTurret = transform;
-        //    bulletInstance.GetComponent<BulletBehaviourBase>().target = target;
-
-        //    // ダメージを与える
-        //    target.GetComponent<IDamageApplicable>().DamageApplicate(firePowerCurrent, stanTime);
-
-        //    // 連射禁止
-        //    StartCoroutine(FireStroke());
-        //}
-
-        //IEnumerator FireStroke()
-        //{
-        //    // 連射禁止
-        //    canShoot = false;
-
-        //    yield return new WaitForSeconds(fireRateCurrent);
-        //    canShoot = true;
-        //}
-
         public abstract void Fire(Collider target);
+
+
 
         // ---------------------------------------------------------------------------------
         // 回転

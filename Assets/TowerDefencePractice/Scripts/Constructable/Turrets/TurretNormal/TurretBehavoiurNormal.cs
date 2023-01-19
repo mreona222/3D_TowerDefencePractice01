@@ -9,17 +9,6 @@ namespace TowerDefencePractice.Constructable.Turrets
 {
     public class TurretBehavoiurNormal : TurretBehaviourBase
     {
-        protected override void Start()
-        {
-            base.Start();
-        }
-
-        protected override void Update()
-        {
-            base.Update();
-        }
-
-
         // ---------------------------------------------------------------------------------
         // 発射関係
         // ---------------------------------------------------------------------------------
@@ -31,11 +20,13 @@ namespace TowerDefencePractice.Constructable.Turrets
         {
             // 射撃アニメーション
             turretAnimator.SetTrigger("Shoot");
+            // 射撃音
+            source.PlayOneShot(source.clip);
 
             // 弾の生成
             Transform fPTransform = firePointTransform[nextPoint % firePointTransform.Length];
             nextPoint++;
-            GetComponent<TurretFireAnimation>().firePointTransform = fPTransform;
+            GetComponent<TurretFireAnimationBase>().firePointTransform = fPTransform;
 
             GameObject bulletInstance = Instantiate(bullet, fPTransform.position, fPTransform.rotation * bullet.transform.rotation);
             bulletInstance.transform.localScale = Vector3.Scale(bulletInstance.transform.localScale, transform.parent.localScale);
