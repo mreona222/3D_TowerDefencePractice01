@@ -100,6 +100,7 @@ namespace TowerDefencePractice.UIs
         [SerializeField]
         AudioClip constructClip;
 
+
         private enum UpgradeNumber
         {
             Power,
@@ -456,6 +457,26 @@ namespace TowerDefencePractice.UIs
             bsManager.stuff.Value += currentGridCell.transform.GetComponentInChildren<TurretBehaviourBase>().turretData.requireStuffBase;
             currentGridCell.collider.GetComponent<GridCellController>().constructableExist = false;
             currentGridCell.transform.GetComponentInChildren<TurretBehaviourBase>().CellTurret();
+        }
+
+
+        // -----------------------------------------------------------
+        // ÉQÅ[ÉÄèIóπå„
+        // -----------------------------------------------------------
+
+        public void OnClickBack2Menu()
+        {
+            SceneTransitionManager.Instance.SceneTrnasitionNormal("Menu");
+        }
+
+        public void OnClickRetry()
+        {
+            SceneTransitionManager.Instance.ReLolad();
+        }
+
+        public void OnClickNextStage()
+        {
+            SceneTransitionManager.Instance.SceneTrnasitionNormal(bsManager.nextScene);
         }
     }
 }

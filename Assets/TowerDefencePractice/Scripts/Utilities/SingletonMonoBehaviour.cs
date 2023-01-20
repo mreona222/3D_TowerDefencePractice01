@@ -40,6 +40,12 @@ namespace Utilities
                     " アタッチされているGameObjectは " + Instance.gameObject.name + " です.");
                 return;
             }
+            Init();
+        }
+
+        protected virtual void Init()
+        {
+
         }
 
     }

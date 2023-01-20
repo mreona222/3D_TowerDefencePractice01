@@ -11,20 +11,6 @@ namespace TowerDefencePractice.Spawner
 {
     public class SpawnerBehaviour : MonoBehaviour
     {
-
-        // ***********************************************************************************
-        [SerializeField]
-        GameObject g;
-
-        private void Update()
-        {
-            if (UnityEngine.InputSystem.Keyboard.current.rKey.wasPressedThisFrame)
-            {
-                //SpawnCharacter(1, EnemyBehaviourBase.Enemies.Slime, BattleSceneManager.Instance.goalPoint);
-            }
-        }
-        // ***********************************************************************************
-
         [SerializeField]
         CharcterBoss characterBoss;
 
@@ -33,6 +19,12 @@ namespace TowerDefencePractice.Spawner
 
         [SerializeField]
         BattleSceneManager bsManager;
+
+        [SerializeField]
+        AudioSource spawnSource;
+
+        [SerializeField]
+        AudioClip spawnClip;
 
         private void Start()
         {
@@ -55,6 +47,7 @@ namespace TowerDefencePractice.Spawner
                 enemy.bsManager = bsManager;
                 enemy.GetComponent<EnemyLevelUpBase>().Initialize();
             }
+            spawnSource.PlayOneShot(spawnClip);
         }
     }
 }

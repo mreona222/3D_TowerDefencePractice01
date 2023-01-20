@@ -47,6 +47,10 @@ namespace TowerDefencePractice.Character.Enemies
 
         [SerializeField]
         Slider hpBar;
+        [SerializeField]
+        Text levelText;
+        [SerializeField]
+        GameObject enemyCanvas;
 
         [SerializeField]
         AudioSource enemySource;
@@ -59,6 +63,7 @@ namespace TowerDefencePractice.Character.Enemies
         protected virtual void Start()
         {
             hpBar.maxValue = currentHP.Value;
+            levelText.text = $"Lv.{currentLevel}";
 
             currentHP
                 .Subscribe((x) =>
@@ -71,7 +76,8 @@ namespace TowerDefencePractice.Character.Enemies
         protected override void Update()
         {
             base.Update();
-            hpBar.transform.rotation = Camera.main.transform.rotation;
+            Quaternion cameraRotation = Camera.main.transform.rotation;
+            enemyCanvas.transform.rotation = cameraRotation;
         }
 
         public abstract void StartDamageState();

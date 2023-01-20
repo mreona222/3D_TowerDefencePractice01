@@ -27,8 +27,6 @@ namespace TowerDefencePractice.Constructable.Turrets
 
             // ˜AŽË‹ÖŽ~
             StartCoroutine(FireStroke());
-
-
         }
 
         IEnumerator FireStroke()

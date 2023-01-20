@@ -28,8 +28,6 @@ namespace TowerDefencePractice.Constructable.Turrets
         public float fireRateCurrentLevel;
         // 現在の射撃間隔[s/times]
         public float fireRateCurrent;
-        // 次の射撃間隔**********************
-        public float fireRateNext;
         // 射撃間隔アップグレードに必要なコスト
         public float fireRateUpgradeCoin;
         // 射撃可能
@@ -58,9 +56,6 @@ namespace TowerDefencePractice.Constructable.Turrets
 
         // タレットのアニメーター
         protected Animator turretAnimator;
-        // 射撃アニメーションのクリップ**********
-        [SerializeField]
-        AnimationClip turretFireAnimationClip;
 
 
         // 弾のプレハブ
@@ -71,6 +66,7 @@ namespace TowerDefencePractice.Constructable.Turrets
         // 次の発射位置
         public int nextPoint = 0;
 
+        // タレットの射撃音
         [SerializeField]
         protected AudioSource source;
 

@@ -4,5 +4,14 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/TowerDefencePractice/Scenes/TitleScene/Title.unity
+    guid: 469797e95d2a1204f8795de26f1aa08c
+  - enabled: 1
+    path: Assets/TowerDefencePractice/Scenes/MenuScene/Menu.unity
+    guid: 46a06afc59aba6049af4571d92ab81d4
+  - enabled: 1
+    path: Assets/TowerDefencePractice/Scenes/BattleScene/Battle01.unity
+    guid: 3f5425ba11293784aa2b24cd77d60d04
   m_configObjects: {}

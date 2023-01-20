@@ -23,8 +23,6 @@ namespace TowerDefencePractice.Constructable.Turrets
             turretBehaviour.fireRateCurrentLevel = 0;
             // 発射間隔の計算
             turretBehaviour.fireRateCurrent = FireRateCalculate(turretBehaviour.fireRateCurrentLevel);
-            // 次の発射間隔の計算
-            turretBehaviour.fireRateNext = FireRateCalculate(turretBehaviour.fireRateCurrentLevel + 1);
             // 発射間隔アップグレードのコスト
             turretBehaviour.fireRateUpgradeCoin = FireRateUpgradeCoinCalcurate(turretBehaviour.fireRateCurrentLevel);
 

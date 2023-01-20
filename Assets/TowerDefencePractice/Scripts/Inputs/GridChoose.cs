@@ -28,8 +28,8 @@ namespace TowerDefencePractice.Inputs
         RaycastHit gridHitPre = new RaycastHit();
         LayerMask mask = new LayerMask();
 
-        [SerializeField]
-        BattleUIController battleUICon;
+        [HideInInspector]
+        public BattleUIController battleUICon;
 
         private void Start()
         {
