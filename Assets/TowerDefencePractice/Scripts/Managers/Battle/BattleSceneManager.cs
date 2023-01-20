@@ -281,16 +281,6 @@ namespace TowerDefencePractice.Managers
         }
 
 
-        private void Update()
-        {
-            // *************
-            if (UnityEngine.InputSystem.Keyboard.current.cKey.wasPressedThisFrame)
-            {
-                UpdateBattleState(BattleState.BattleEnd);
-            }
-        }
-
-
         // --------------------------------------------------
         // Initialize
         // --------------------------------------------------
@@ -457,6 +447,10 @@ namespace TowerDefencePractice.Managers
 
                 gameRank.GetComponentInChildren<Text>().text = rank;
                 nextStage.SetActive(true);
+                if (nextScene == "")
+                {
+                    nextStage.GetComponent<Button>().interactable = false;
+                }
             }
             // ”s–k
             else

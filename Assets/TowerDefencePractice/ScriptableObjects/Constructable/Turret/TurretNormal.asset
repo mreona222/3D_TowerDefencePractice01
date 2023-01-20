@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: TurretNormal
   m_EditorClassIdentifier: 
   constructableName: NormalTurret
-  constructableIcon: {fileID: 21300000, guid: 884a14b6a31928d4b96d280c81d66d13, type: 3}
+  constructableIcon: {fileID: 21300000, guid: aa96a3037750e8845a708e5aa989f406, type: 3}
   constructablePrefab: {fileID: 3113747565330630701, guid: f1e458a8ce0af6742ad8f4a8a792d50b, type: 3}
   constructableType: 0
   fireRateBase: 3

@@ -49,31 +49,33 @@ namespace TowerDefencePractice.Managers
 
         private void ChangeBGM(GameManager.GameState state)
         {
-            if (state == GameManager.GameState.Title)
+            switch (state)
             {
-                if (source.clip != bgmBattle[(int)TitleBGM.ビッグモンキー])
-                {
-                    source.clip = bgmTitle[(int)TitleBGM.ビッグモンキー];
-                    source.Play();
-                }
-            }
-            else if (state == GameManager.GameState.Menu)
-            {
-                if (source.clip != bgmBattle[(int)TitleBGM.ビッグモンキー])
-                {
-                    source.clip = bgmTitle[(int)TitleBGM.ビッグモンキー];
-                    source.Play();
-                }
-            }
-            else if (state == GameManager.GameState.Battle)
-            {
-                if (source.clip != bgmBattle[(int)BattleBGM.el_matador])
-                {
-                    source.clip = bgmBattle[(int)BattleBGM.el_matador];
-                    source.Play();
-                }
-            }
+                case GameManager.GameState.Title:
+                    if (source.clip != bgmTitle[(int)TitleBGM.ビッグモンキー])
+                    {
+                        source.clip = bgmTitle[(int)TitleBGM.ビッグモンキー];
+                        source.Play();
+                    }
+                    break;
 
+                case GameManager.GameState.Menu:
+                    if (source.clip != bgmTitle[(int)TitleBGM.ビッグモンキー])
+                    {
+                        source.clip = bgmTitle[(int)TitleBGM.ビッグモンキー];
+                        source.Play();
+                    }
+                    break;
+
+                case GameManager.GameState.Battle:
+                    if (source.clip != bgmBattle[(int)BattleBGM.el_matador])
+                    {
+                        source.clip = bgmBattle[(int)BattleBGM.el_matador];
+                        source.Play();
+                    }
+                    break;
+
+            }
         }
 
         public void GameClear()
