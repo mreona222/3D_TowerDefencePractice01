@@ -16,6 +16,7 @@ namespace TowerDefencePractice.Managers
         public enum BattleScene
         {
             Battle01,
+            Battle02,
         }
 
         private void Start()

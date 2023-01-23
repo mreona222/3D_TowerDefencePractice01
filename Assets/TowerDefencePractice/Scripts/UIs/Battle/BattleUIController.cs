@@ -453,10 +453,25 @@ namespace TowerDefencePractice.UIs
         /// </summary>
         public void CellButton()
         {
-            bsManager.money.Value += currentGridCell.transform.GetComponentInChildren<TurretBehaviourBase>().turretData.requireCoinBase;
-            bsManager.stuff.Value += currentGridCell.transform.GetComponentInChildren<TurretBehaviourBase>().turretData.requireStuffBase;
+            TurretBehaviourBase tbb = currentGridCell.transform.GetComponentInChildren<TurretBehaviourBase>();
+            TurretGradeUpBase tgb = currentGridCell.transform.GetComponentInChildren<TurretGradeUpBase>();
+            float cellMoney = 0;
+            for (int i = 0; i < tbb.firePowerCurrentLevel; i++)
+            {
+                cellMoney += tgb.FirePowerUpgradeCoinCalcurate(i);
+            }
+            for(int i = 0; i < tbb.fireRateCurrentLevel; i++)
+            {
+                cellMoney += tgb.FireRateUpgradeCoinCalcurate(i);
+            }
+            for(int i = 0; i < tbb.fireRangeCurrentLevel; i++)
+            {
+                cellMoney += tgb.FireRangeUpgradeCoinCalcurate(i);
+            }
+            bsManager.money.Value += Mathf.FloorToInt((tbb.turretData.requireCoinBase + cellMoney) * 0.6f);
+            bsManager.stuff.Value += tbb.turretData.requireStuffBase;
             currentGridCell.collider.GetComponent<GridCellController>().constructableExist = false;
-            currentGridCell.transform.GetComponentInChildren<TurretBehaviourBase>().CellTurret();
+            tbb.CellTurret();
         }
 
 

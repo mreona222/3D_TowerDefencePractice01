@@ -45,6 +45,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 38ec33ee4b8c8044eaf9bfe1d1630c9b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _mixer: {fileID: 24100000, guid: 20f410376f941064f95969540db4044a, type: 2}
   bgmTitle:
   - {fileID: 8300000, guid: d4dce23b2c86efb4493f4575874955a7, type: 3}
   bgmBattle:
@@ -66,7 +67,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 7499220148520267823, guid: 20f410376f941064f95969540db4044a, type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: 0.2
+  m_Volume: 1
   m_Pitch: 1
   Loop: 1
   Mute: 0

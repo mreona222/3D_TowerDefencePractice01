@@ -27,5 +27,5 @@ MonoBehaviour:
   characterSpeedRatio: 0
   characterSpeedPow: 2.4
   characterCoinBase: 500
-  characterCoinRatio: 0.02
-  characterCoinPow: 1.4
+  characterCoinRatio: 0.03
+  characterCoinPow: 2.1

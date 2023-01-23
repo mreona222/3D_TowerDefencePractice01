@@ -26,6 +26,6 @@ MonoBehaviour:
   characterSpeedMaxLevel: 99
   characterSpeedRatio: 0
   characterSpeedPow: 2.4
-  characterCoinBase: 0
-  characterCoinRatio: 0
-  characterCoinPow: 0
+  characterCoinBase: 2000
+  characterCoinRatio: 0.04
+  characterCoinPow: 2.1

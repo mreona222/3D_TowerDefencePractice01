@@ -615,7 +615,6 @@ MonoBehaviour:
   turretData: {fileID: 11400000, guid: 71e224e9b00c2b5478dd9f4f7254ce10, type: 2}
   fireRateCurrentLevel: 0
   fireRateCurrent: 0
-  fireRateNext: 0
   fireRateUpgradeCoin: 0
   canShoot: 0
   lockon: 0
@@ -626,7 +625,6 @@ MonoBehaviour:
   fireRangeCurrentLevel: 0
   fireRangeCurrent: 0
   fireRangeUpgradeCoin: 0
-  turretFireAnimationClip: {fileID: 7400000, guid: 45934da02ac2fc744a6ebec1af320bec, type: 2}
   bullet: {fileID: 3204632571562781302, guid: 523ee0a8eb543c64496682eae6f0d221, type: 3}
   firePointTransform:
   - {fileID: 3113620565534089615}
@@ -671,7 +669,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 8192105196016900620, guid: 20f410376f941064f95969540db4044a, type: 2}
   m_audioClip: {fileID: 8300000, guid: 1a87dda0697453e4b94c5ea979606335, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 0.2
+  m_Volume: 0.6
   m_Pitch: 1
   Loop: 1
   Mute: 0

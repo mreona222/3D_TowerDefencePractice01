@@ -16,6 +16,11 @@ namespace TowerDefencePractice.Managers
             SceneTransitionManager.Instance.SceneTrnasitionNormal("Menu");
         }
 
+        public void OnClickOption()
+        {
+            SceneTransitionManager.Instance.SceneTrnasitionNormal("Option");
+        }
+
         public void OnClickQuitGame()
         {
             SceneTransitionManager.Instance.QuitGame();

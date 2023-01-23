@@ -11,6 +11,7 @@ namespace TowerDefencePractice.Managers
         {
             Title = 1,
             Menu,
+            Option,
             Battle
         }
 
@@ -28,6 +29,8 @@ namespace TowerDefencePractice.Managers
                     break;
                 case GameState.Battle:
                     break;
+                case GameState.Option:
+                    break;
             }
         }
 
@@ -40,6 +43,8 @@ namespace TowerDefencePractice.Managers
                 case GameState.Menu:
                     break;
                 case GameState.Battle:
+                    break;
+                case GameState.Option:
                     break;
             }
         }

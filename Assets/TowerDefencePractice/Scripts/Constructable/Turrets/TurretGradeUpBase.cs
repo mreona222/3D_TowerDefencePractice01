@@ -80,6 +80,12 @@ namespace TowerDefencePractice.Constructable.Turrets
         {
             //Debug.Log("デフォルトの計算方法です。");
 
+            // マックスレベルが0のとき
+            if (turretBehaviour.turretData.fireRateMaxLevel == 0)
+            {
+                return turretBehaviour.turretData.fireRateBase;
+            }
+
             // 線形 + 非線形
             return turretBehaviour.turretData.fireRateBase - (
                 turretBehaviour.turretData.fireRateRatio * (turretBehaviour.turretData.fireRateBase - turretBehaviour.turretData.fireRateMax) * (level / turretBehaviour.turretData.fireRateMaxLevel) +
@@ -134,6 +140,12 @@ namespace TowerDefencePractice.Constructable.Turrets
         {
             //Debug.Log("デフォルトの計算方法です。");
 
+            // マックスレベルが0のとき
+            if (turretBehaviour.turretData.firePowerMaxLevel == 0)
+            {
+                return turretBehaviour.turretData.firePowerBase;
+            }
+
             // 非線形の計算方法
             return turretBehaviour.turretData.firePowerBase * Mathf.Pow(1 + level * turretBehaviour.turretData.firePowerRatio, turretBehaviour.turretData.firePowerPow);
         }
@@ -178,6 +190,12 @@ namespace TowerDefencePractice.Constructable.Turrets
 
         public float FireRangeCalculate(float level)
         {
+            // マックスレベルが0のとき
+            if (turretBehaviour.turretData.fireRangeMaxLevel == 0)
+            {
+                return turretBehaviour.turretData.fireRangeBase;
+            }
+
             return turretBehaviour.turretData.fireRangeBase +
                 turretBehaviour.turretData.fireRangeRatio * (turretBehaviour.turretData.fireRangeMax - turretBehaviour.turretData.fireRangeBase) * level / turretBehaviour.turretData.fireRangeMaxLevel +
                 (1 - turretBehaviour.turretData.fireRangeRatio) *

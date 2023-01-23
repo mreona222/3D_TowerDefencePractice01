@@ -42,7 +42,7 @@ namespace TowerDefencePractice.Managers
         GameObject playerInputInstance;
 
         // スポーン地点
-        public GameObject startPoint;
+        public GameObject[] startPoint;
         // ゴール地点
         public GameObject goalPoint;
         [HideInInspector]
@@ -86,21 +86,29 @@ namespace TowerDefencePractice.Managers
 
 
         [System.Serializable]
-        public class SpawnTimeTable
+        public class SpawnCharacterInfo
         {
             public float time;
             public float level;
             public EnemyBehaviourBase.Enemies character;
         }
 
+        [System.Serializable]
+        public class Spawner
+        {
+            [SerializeField]
+            public List<SpawnCharacterInfo> info = new List<SpawnCharacterInfo> { };
+        }
+
         [SerializeField]
-        SpawnTimeTable[] wave;
+        public List<Spawner> spawner = new List<Spawner> { };
 
 #if UNITY_EDITOR
         [CustomEditor(typeof(BattleSceneManager))]
         public class BattleSceneManagerInspector : Editor
         {
-            int size = 0;
+            int spawnerSize = 0;
+            int[] infoSize = { };
 
             public override void OnInspectorGUI()
             {
@@ -108,72 +116,120 @@ namespace TowerDefencePractice.Managers
 
                 serializedObject.Update();
 
-                var wave = serializedObject.FindProperty("wave");
+                EditorGUI.BeginChangeCheck();
 
                 BattleSceneManager bsManager = target as BattleSceneManager;
 
                 EditorGUILayout.Space();
 
-                size = wave.arraySize;
+                // スポーンの数を取得
+                spawnerSize = bsManager.spawner.Count;
+                spawnerSize = EditorGUILayout.DelayedIntField("SpawnerSize", spawnerSize);
 
-                size = EditorGUILayout.DelayedIntField("Size", size);
-
-                if (size != wave.arraySize)
+                if (spawnerSize != bsManager.spawner.Count)
                 {
-                    wave.arraySize = size;
-
-                    serializedObject.ApplyModifiedProperties();
-                    serializedObject.Update();
+                    
+                    // スポーンの数だけspawner配列を用意
+                    while (spawnerSize != bsManager.spawner.Count)
+                    {
+                        if (spawnerSize > bsManager.spawner.Count)
+                        {
+                            bsManager.spawner.Add(new Spawner { });
+                        }
+                        else if (spawnerSize < bsManager.spawner.Count)
+                        {
+                            bsManager.spawner.RemoveAt(bsManager.spawner.Count - 1);
+                        }
+                    }
                 }
                 else
                 {
-                    EditorGUIUtility.labelWidth = 50;
+                    Array.Resize<int>(ref infoSize, spawnerSize);
 
-                    EditorGUI.BeginChangeCheck();
-                    for (int i = 0; i < wave.arraySize; i++)
+                    for (int i = 0; i < spawnerSize; i++)
                     {
-                        using (new EditorGUILayout.HorizontalScope())
+                        EditorGUIUtility.labelWidth = 0;
+
+                        EditorGUILayout.Space();
+
+                        infoSize[i] = bsManager.spawner[i].info.Count;
+                        infoSize[i] = EditorGUILayout.DelayedIntField("InfoSize", infoSize[i]);
+
+                        if (infoSize[i] != bsManager.spawner[i].info.Count)
                         {
-                            bsManager.wave[i].time = EditorGUILayout.DelayedFloatField("Time", bsManager.wave[i].time, GUILayout.Width(120));
-                            GUILayout.FlexibleSpace();
-                            bsManager.wave[i].level = EditorGUILayout.DelayedFloatField("Level", bsManager.wave[i].level, GUILayout.Width(120));
-                            GUILayout.FlexibleSpace();
-                            bsManager.wave[i].character = (EnemyBehaviourBase.Enemies)EditorGUILayout.EnumPopup("Chara", (EnemyBehaviourBase.Enemies)bsManager.wave[i].character, GUILayout.Width(200));
-                            GUILayout.FlexibleSpace();
+                            while (infoSize[i] != bsManager.spawner[i].info.Count)
+                            {
+                                if (infoSize[i] > bsManager.spawner[i].info.Count)
+                                {
+                                    bsManager.spawner[i].info.Add(new SpawnCharacterInfo { });
+                                }
+                                else
+                                {
+                                    bsManager.spawner[i].info.RemoveAt(bsManager.spawner[i].info.Count - 1);
+                                }
+                            }
+                        }
+                        else
+                        {
+                            EditorGUIUtility.labelWidth = 50;
+
+                            for (int j = 0; j < infoSize[i]; j++)
+                            {
+                                using (new EditorGUILayout.HorizontalScope())
+                                {
+                                    bsManager.spawner[i].info[j].time = EditorGUILayout.DelayedFloatField("Time", bsManager.spawner[i].info[j].time, GUILayout.Width(120));
+                                    GUILayout.FlexibleSpace();
+                                    bsManager.spawner[i].info[j].level = EditorGUILayout.DelayedFloatField("Level", bsManager.spawner[i].info[j].level, GUILayout.Width(120));
+                                    GUILayout.FlexibleSpace();
+                                    bsManager.spawner[i].info[j].character
+                                        = (EnemyBehaviourBase.Enemies)EditorGUILayout.EnumPopup("Chara", (EnemyBehaviourBase.Enemies)bsManager.spawner[i].info[j].character, GUILayout.Width(200));
+                                    GUILayout.FlexibleSpace();
+                                }
+                            }
                         }
                     }
-                    if (EditorGUI.EndChangeCheck())
-                    {
-                        var scene = SceneManager.GetActiveScene();
-                        EditorSceneManager.MarkSceneDirty(scene);
-                        EditorUtility.SetDirty(target);
-                    }
-
                 }
 
+                if (EditorGUI.EndChangeCheck())
+                {
+                    var scene = SceneManager.GetActiveScene();
+                    EditorSceneManager.MarkSceneDirty(scene);
+                    EditorUtility.SetDirty(target);
+                }
                 serializedObject.ApplyModifiedProperties();
             }
         }
 #endif
 
+
         private void Awake()
         {
+
         }
 
         private void Start()
         {
-            for (int i = 0; i < wave.Length - 1; i++)
+            for(int i = 0; i < spawner.Count; i++)
             {
-                if (wave[i + 1].time < wave[i].time)
+                for (int j = 0; j < spawner[i].info.Count - 1; j++)
                 {
-                    Debug.LogError("敵の出現時間が間違っています。");
+                    if (spawner[i].info[j + 1].time < spawner[i].info[j].time)
+                    {
+                        Debug.LogError("敵の出現時間が間違っています。");
+                    }
                 }
             }
 
             GameManager.Instance.UpdateGameState(GameManager.GameState.Battle);
             UpdateBattleState(BattleState.Initialize);
 
-            enemyAmount.Value = wave.Length;
+            for(int i = 0; i < spawner.Count; i++)
+            {
+                for(int j = 0; j < spawner[i].info.Count; j++)
+                {
+                    enemyAmount.Value++;
+                }
+            }
 
             // 所持金に変更があった場合
             money
@@ -342,8 +398,16 @@ namespace TowerDefencePractice.Managers
             IEnumerator TimeCount()
             {
                 float currentTime = 0;
-                float nextTime = wave[0].time;
-                int next = 0;
+                float[] nextTime = new float[spawner.Count];
+                int[] next = new int[spawner.Count];
+
+                for (int i = 0; i < spawner.Count; i++)
+                {
+                    if (spawner[i].info != null)
+                    {
+                        nextTime[i] = spawner[i].info[0].time;
+                    }
+                }
 
                 while (true)
                 {
@@ -353,17 +417,21 @@ namespace TowerDefencePractice.Managers
                     // タイム更新
                     timeText.text = $"{Mathf.FloorToInt(currentTime / 60.0f):D2}:{ Mathf.FloorToInt(currentTime % 60.0f):D2}";
 
-                    if (next < wave.Length)
+                    for(int i = 0; i < spawner.Count; i++)
                     {
-                        if (currentTime > nextTime)
+                        if (next[i] < spawner[i].info.Count)
                         {
-                            startPoint.GetComponent<SpawnerBehaviour>().SpawnCharacter(wave[next].level, wave[next].character, goalPoint);
-                            next++;
-                            if (next < wave.Length)
+                            if (currentTime > nextTime[i])
                             {
-                                nextTime = wave[next].time;
+                                startPoint[i].GetComponent<SpawnerBehaviour>().SpawnCharacter(spawner[i].info[next[i]].level, spawner[i].info[next[i]].character, goalPoint);
+                                next[i]++;
+                                if (next[i] < spawner[i].info.Count)
+                                {
+                                    nextTime[i] = spawner[i].info[next[i]].time;
+                                }
                             }
                         }
+
                     }
 
                     yield return null;
@@ -444,6 +512,14 @@ namespace TowerDefencePractice.Managers
                     float n when (n <= 1.0f) => "Rank : S",
                     _ => "",
                 };
+
+                if (PlayerPrefs.GetFloat(((MenuInstanceManager.BattleScene)Enum.Parse(typeof(MenuInstanceManager.BattleScene), SceneManager.GetActiveScene().name, true)).ToString(), 0f)
+                    < enemyGoalLimit.Value / goalHP.maxValue)
+                {
+                    PlayerPrefs.SetFloat(((MenuInstanceManager.BattleScene)Enum.Parse(typeof(MenuInstanceManager.BattleScene), SceneManager.GetActiveScene().name, true)).ToString(),
+                        enemyGoalLimit.Value / goalHP.maxValue);
+                }
+
 
                 gameRank.GetComponentInChildren<Text>().text = rank;
                 nextStage.SetActive(true);
