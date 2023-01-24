@@ -17,6 +17,7 @@ namespace TowerDefencePractice.Managers
         {
             Battle01,
             Battle02,
+            Battle03,
         }
 
         private void Start()

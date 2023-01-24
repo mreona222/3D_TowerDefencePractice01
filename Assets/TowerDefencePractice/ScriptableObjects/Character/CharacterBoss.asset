@@ -15,3 +15,4 @@ MonoBehaviour:
   characterScriptableObject:
   - {fileID: 11400000, guid: bad685341be4ff845ac9ed1d89467813, type: 2}
   - {fileID: 11400000, guid: 2d65419e9aac6a54ea96fc844a573d31, type: 2}
+  - {fileID: 11400000, guid: dbe894d9f5c2bd54987c605f9fe6d9b5, type: 2}

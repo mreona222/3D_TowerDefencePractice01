@@ -18,11 +18,11 @@ MonoBehaviour:
   constructableType: 0
   fireRateBase: 3
   fireRateMax: 0.5
-  fireRateMaxLevel: 19
+  fireRateMaxLevel: 14
   fireRateRatio: 0.4
   fireRatePow: 1.5
   fireRateUpgradeCoinBase: 1000
-  fireRateUpgradeCoinRatio: 0.1
+  fireRateUpgradeCoinRatio: 0.16
   fireRateUpgradeCoinPow: 2.4
   firePowerBase: 100
   firePowerMax: Infinity
@@ -41,4 +41,4 @@ MonoBehaviour:
   fireRangeUpgradeCoinRatio: 0.3
   fireRangeUpgradeCoinPow: 1.8
   requireStuffBase: 2
-  requireCoinBase: 5000
+  requireCoinBase: 4000

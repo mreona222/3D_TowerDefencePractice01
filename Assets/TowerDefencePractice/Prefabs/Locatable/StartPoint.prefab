@@ -82,6 +82,7 @@ MonoBehaviour:
   characterPrefab:
   - {fileID: 9140440290556877769, guid: 0bc4e2ed5466afc438f2424b2dab25d3, type: 3}
   - {fileID: 9140440290556877769, guid: 0bc4e2ed5466afc438f2424b2dab25d3, type: 3}
+  - {fileID: 9140440290556877769, guid: 0bc4e2ed5466afc438f2424b2dab25d3, type: 3}
   bsManager: {fileID: 0}
   spawnSource: {fileID: 2047545328}
   spawnClip: {fileID: 8300000, guid: 474dadfc5da89c94caf3116cde45d328, type: 3}

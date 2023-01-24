@@ -8,9 +8,6 @@ namespace TowerDefencePractice.Character.Enemies
     {
         protected EnemyBehaviourBase enemyBehaviour;
 
-        [SerializeField]
-        float speedRatio;
-
         public void Initialize()
         {
             enemyBehaviour = GetComponent<EnemyBehaviourBase>();

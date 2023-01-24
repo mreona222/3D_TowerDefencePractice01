@@ -18,7 +18,7 @@ namespace TowerDefencePractice.Character.Enemies
         {
             Slime,
             ShellSlime,
-
+            Bull,
         }
 
 

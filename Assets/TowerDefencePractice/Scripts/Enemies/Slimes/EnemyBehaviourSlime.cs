@@ -28,7 +28,7 @@ namespace TowerDefencePractice.Character.Enemies
 
         public override void StartDamageState()
         {
-            if (currentSlimeState != SlimeState.Die || currentSlimeState != SlimeState.Damage || currentSlimeState != SlimeState.ReachGoal)
+            if (currentSlimeState != SlimeState.Die && currentSlimeState != SlimeState.Damage && currentSlimeState != SlimeState.ReachGoal)
             {
                 ChangeState(new EnemyBehaviourSlime.Damage(this));
             }
@@ -44,7 +44,7 @@ namespace TowerDefencePractice.Character.Enemies
 
         public override void StartReachGoal()
         {
-            if (currentSlimeState != SlimeState.Die || currentSlimeState != SlimeState.ReachGoal)
+            if (currentSlimeState != SlimeState.Die && currentSlimeState != SlimeState.ReachGoal)
             {
                 ChangeState(new EnemyBehaviourSlime.ReachGoal(this));
             }
@@ -63,7 +63,7 @@ namespace TowerDefencePractice.Character.Enemies
 
             public override void OnEnter()
             {
-                machine.GetComponent<EnemyBehaviourSlime>().currentSlimeState = SlimeState.Idle;
+                ((EnemyBehaviourSlime)machine).currentSlimeState = SlimeState.Idle;
                 machine.animator.SetInteger("SlimeState", (int)SlimeState.Idle);
                 machine.animator.speed = 1.0f;
 
@@ -102,7 +102,7 @@ namespace TowerDefencePractice.Character.Enemies
 
             public override void OnEnter()
             {
-                machine.GetComponent<EnemyBehaviourSlime>().currentSlimeState = SlimeState.Walk;
+                ((EnemyBehaviourSlime)machine).currentSlimeState = SlimeState.Walk;
                 machine.animator.SetInteger("SlimeState", (int)SlimeState.Walk);
 
                 machine.navMeshAgent.isStopped = false;
@@ -146,7 +146,7 @@ namespace TowerDefencePractice.Character.Enemies
             public override void OnEnter()
             {
                 SlimeState prevState = ((EnemyBehaviourSlime)machine).currentSlimeState;
-                machine.GetComponent<EnemyBehaviourSlime>().currentSlimeState = SlimeState.Damage;
+                ((EnemyBehaviourSlime)machine).currentSlimeState = SlimeState.Damage;
                 machine.animator.SetInteger("SlimeState", (int)SlimeState.Damage);
                 machine.navMeshAgent.isStopped = true;
                 machine.animator.speed = 1.0f;
@@ -193,7 +193,7 @@ namespace TowerDefencePractice.Character.Enemies
 
             public override void OnEnter()
             {
-                machine.GetComponent<EnemyBehaviourSlime>().currentSlimeState = SlimeState.Die;
+                ((EnemyBehaviourSlime)machine).currentSlimeState = SlimeState.Die;
                 machine.animator.SetInteger("SlimeState", (int)SlimeState.Die);
                 machine.animator.speed = 1.0f;
 
@@ -221,7 +221,7 @@ namespace TowerDefencePractice.Character.Enemies
 
             public override void OnEnter()
             {
-                machine.GetComponent<EnemyBehaviourSlime>().currentSlimeState = SlimeState.ReachGoal;
+                ((EnemyBehaviourSlime)machine).currentSlimeState = SlimeState.ReachGoal;
                 machine.animator.SetInteger("SlimeState", (int)SlimeState.ReachGoal);
                 machine.animator.speed = 1.0f;
 

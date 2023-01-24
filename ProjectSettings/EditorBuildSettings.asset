@@ -20,4 +20,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/TowerDefencePractice/Scenes/BattleScene/Battle02.unity
     guid: 9444ce21c85c52c42ab3c518560d0f06
+  - enabled: 1
+    path: Assets/TowerDefencePractice/Scenes/BattleScene/Battle03.unity
+    guid: 347b89e126ced5b4ca50d8ccaf0c535f
   m_configObjects: {}
