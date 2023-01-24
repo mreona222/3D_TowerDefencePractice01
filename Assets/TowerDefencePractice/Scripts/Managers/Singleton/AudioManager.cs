@@ -109,7 +109,12 @@ namespace TowerDefencePractice.Managers
                 source.clip = bgmResult[(int)ResultBGM.ファンファーレ4];
                 source.loop = false;
                 source.Play();
-                yield return new WaitUntil(() => !source.isPlaying);
+                yield return new WaitUntil(() => !source.isPlaying || source.clip != bgmResult[(int)ResultBGM.ファンファーレ4]);
+                if(source.clip != bgmResult[(int)ResultBGM.ファンファーレ4])
+                {
+                    source.loop = true;
+                    yield break;
+                }
                 source.clip = bgmResult[(int)ResultBGM.ごきげんバブリン];
                 source.loop = true;
                 source.Play();
